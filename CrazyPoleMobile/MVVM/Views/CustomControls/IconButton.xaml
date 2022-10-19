@@ -6,17 +6,15 @@
              x:Class="CrazyPoleMobile.MVVM.Views.CustomControls.IconButton">
 
     <Border BindingContext="{x:Reference this}"
-            StrokeThickness="5"
+            StrokeThickness="2"
             Stroke="{StaticResource Gray600}"
             BackgroundColor="{AppThemeBinding Light={ StaticResource White },
                                               Dark={ StaticResource ClarifiedBlack}}">
         <Border.StrokeShape>
-            <RoundRectangle CornerRadius="25" />
+            <RoundRectangle CornerRadius="15" />
         </Border.StrokeShape>
         
-        <ImageButton Scale="4"
-                     Source="{Binding Source}"
-                     VerticalOptions="Center"
-                     HorizontalOptions="Center"/>
+        <ImageButton Source="{Binding Source}"
+                     Padding="10"/>
     </Border>
 </ContentView>

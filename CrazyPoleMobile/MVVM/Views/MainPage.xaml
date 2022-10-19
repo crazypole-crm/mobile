@@ -8,42 +8,62 @@
     <ContentPage.Behaviors>
         <mct:StatusBarBehavior StatusBarColor="{
             AppThemeBinding Light={StaticResource White}, 
-            Dark={StaticResource Black}}" 
+            Dark={StaticResource Gray101010}}" 
                                StatusBarStyle="LightContent" />
     </ContentPage.Behaviors>
 
     <Grid>
+
         <Grid.RowDefinitions>
+            <RowDefinition Height="0.1*" />
+            <RowDefinition Height="65" />
+            <RowDefinition Height="0.1*" />
+            <RowDefinition Height="370" />
             <RowDefinition Height="0.5*" />
-            <RowDefinition Height="2*" />
-            <RowDefinition Height="2*" />
-            <RowDefinition Height="2*" />
-            <RowDefinition Height="2*" />
-            <RowDefinition Height="2*" />
-            <RowDefinition Height="2*" />
-            <RowDefinition Height="2*" />
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="3*" />
-        </Grid.ColumnDefinitions>
+
 
         <controls:IconButton Source="{AppThemeBinding 
-            Light={controls:ImageResource Source='black_back_arrow.svg'}, 
-            Dark={controls:ImageResource Source='white_back_arrow.svg'}}" Grid.Row="1" Grid.Column="0"  />
-        <Label HorizontalOptions="Center"
-               VerticalOptions="Center"
-               FontSize="64"
+                Light={controls:ImageResource Source='black_back_arrow.svg'}, 
+                Dark={controls:ImageResource Source='white_back_arrow.svg'}}" 
+                             HeightRequest="65"
+                             WidthRequest="65"
+                             Margin="10"
+                             HorizontalOptions="StartAndExpand"
+                             Grid.Row="1"/>
+
+        <Label Margin="0,0,0,0"
+               HorizontalOptions="CenterAndExpand"
+               VerticalOptions="CenterAndExpand"
+               FontSize="45"
                FontAttributes="Bold"
-               Grid.Column="1"
                Grid.Row="1">Вход</Label>
-        <Label VerticalOptions="Center"  Grid.Row="2">Введите номер телефона:</Label>
-        <controls:GradientField Placeholder="Введите номер" Grid.Row="3" Grid.ColumnSpan="2"/>
-        <Label VerticalOptions="Center" Grid.Row="4">Введите номер телефона:</Label>
-        <controls:GradientField Placeholder="Введите пароль"  Grid.Row="5" Grid.ColumnSpan="2"/>
-        <BoxView Color="Purple" Grid.Row="6" Grid.ColumnSpan="2"/>
-        <BoxView Color="Indigo" Grid.Row="7" Grid.ColumnSpan="2"/>
+
+
+        <VerticalStackLayout Grid.Row="3" >
+            <Label VerticalOptions="End"
+                   FontSize="20"
+                   Margin="10">Введите номер телефона:</Label>
+            <controls:GradientField Placeholder="Введите номер"
+                                    Margin="10"
+                                    HeightRequest="65"
+                                    VerticalOptions="StartAndExpand"/>
+            <Label VerticalOptions="EndAndExpand"
+                   Margin="10"
+                   FontSize="20">Введите пароль:</Label>
+            <controls:GradientField Placeholder="Введите пароль"
+                                    Margin="10"
+                                    VerticalOptions="StartAndExpand"/>
+            <controls:GradientButton Text="Войти в аккаунт"
+                                     Margin="10,40,10,10"
+                                     HeightRequest="65"
+                                     VerticalOptions="FillAndExpand"
+                                     Grid.Row="4"/>
+            <HorizontalStackLayout Margin="10" HorizontalOptions="Center">
+                <Label VerticalOptions="Center">Нет аккаунта?</Label>
+                <Button BackgroundColor="Transparent" Text="Регистрация"/>
+            </HorizontalStackLayout>
+            
+        </VerticalStackLayout>
     </Grid>
-
-
 </ContentPage>

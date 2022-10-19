@@ -1,3 +1,5 @@
+using Microsoft.Maui.Controls.Compatibility.Platform.Android;
+
 namespace CrazyPoleMobile.MVVM.Views.CustomControls;
 
 public partial class GradientField : ContentView
@@ -15,4 +17,21 @@ public partial class GradientField : ContentView
 		get => (String)GetValue(PlaceholderTextProperty);
 		set => SetValue(PlaceholderTextProperty, value);
 	}
+
+	public void OnFocus(object sender, FocusEventArgs args)
+	{
+		if (Application.Current.Resources.TryGetValue("DefaultGradient", out object data))
+		{
+			Framing.Stroke = (LinearGradientBrush)data;	
+		}
+
+	}
+
+	public void OnUnfocus(object sender, FocusEventArgs args)
+	{
+        if (Application.Current.Resources.TryGetValue("DefaultGray", out object data))
+        {
+            Framing.Stroke = (LinearGradientBrush)data;
+        }
+    }
 }

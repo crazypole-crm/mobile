@@ -62,6 +62,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="MVVM\Views\CustomControls\GradientButton.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="MVVM\Views\CustomControls\GradientField.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

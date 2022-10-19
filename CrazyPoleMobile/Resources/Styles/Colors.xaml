@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <?xaml-comp compile="true" ?>
-<ResourceDictionary 
+<ResourceDictionary
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
@@ -10,6 +10,7 @@
     <Color x:Key="White">White</Color>
     <Color x:Key="Black">Black</Color>
     <Color x:Key="ClarifiedBlack">#171717</Color>
+    <Color x:Key="Gray101010">#101010</Color>
     <Color x:Key="Gray100">#E1E1E1</Color>
     <Color x:Key="Gray200">#C8C8C8</Color>
     <Color x:Key="Gray300">#ACACAC</Color>
@@ -35,6 +36,11 @@
     <LinearGradientBrush x:Key="DefaultGradient" StartPoint="0,0.5" EndPoint="1,0.5">
         <GradientStop Color="{StaticResource Primary}" Offset="0.0"  />
         <GradientStop Color="{StaticResource Secondary}" Offset="1.0"  />
+    </LinearGradientBrush>
+    
+    <LinearGradientBrush x:Key="DefaultGray" StartPoint="0,0.5" EndPoint="1,0.5">
+        <GradientStop Color="{StaticResource Gray600}" Offset="0.0"  />
+        <GradientStop Color="{StaticResource Gray600}" Offset="1.0"  />
     </LinearGradientBrush>
 
     <Color x:Key="Yellow100Accent">#F7B548</Color>

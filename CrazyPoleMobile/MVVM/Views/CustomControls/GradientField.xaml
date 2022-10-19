@@ -4,14 +4,21 @@
              x:Name="this"
              x:Class="CrazyPoleMobile.MVVM.Views.CustomControls.GradientField">
 
-    <Border BindingContext="{x:Reference this}" Padding="10" 
+    
+
+    <Border BindingContext="{x:Reference this}" 
+            Padding="10"
+            x:Name="Framing"
             Background="{AppThemeBinding Dark={StaticResource ClarifiedBlack}, Light={StaticResource White}}" 
             StrokeThickness="2"
-            Stroke="{StaticResource DefaultGradient}">
+            Stroke="{StaticResource Gray600}">
         <Border.StrokeShape>
             <RoundRectangle CornerRadius="15"/>
         </Border.StrokeShape>
-        <Entry Placeholder="{Binding Placeholder}" VerticalOptions="Center" />
+        <Entry Placeholder="{Binding Placeholder}" 
+               VerticalOptions="Center" 
+               Focused="OnFocus"
+               Unfocused="OnUnfocus"/>
     </Border>
 
     
