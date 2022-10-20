@@ -1,5 +1,3 @@
-using Microsoft.Maui.Controls.Compatibility.Platform.Android;
-
 namespace CrazyPoleMobile.MVVM.Views.CustomControls;
 
 public partial class GradientField : ContentView

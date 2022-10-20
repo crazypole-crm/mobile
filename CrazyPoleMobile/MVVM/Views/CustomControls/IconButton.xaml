@@ -2,6 +2,7 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:CrazyPoleMobile.MVVM.Views.CustomControls"
+             xmlns:b="clr-namespace:CrazyPoleMobile.Behaviors"
              x:Name="this"
              x:Class="CrazyPoleMobile.MVVM.Views.CustomControls.IconButton">
 
@@ -13,8 +14,13 @@
         <Border.StrokeShape>
             <RoundRectangle CornerRadius="15" />
         </Border.StrokeShape>
-        
+
         <ImageButton Source="{Binding Source}"
-                     Padding="10"/>
+                     Padding="10">
+            <ImageButton.Behaviors>
+                <b:ImageButtonAnimationBehavior />
+            </ImageButton.Behaviors>
+            
+        </ImageButton>
     </Border>
 </ContentView>

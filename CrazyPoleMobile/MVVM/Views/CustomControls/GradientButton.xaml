@@ -2,12 +2,16 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Name="this"
-             x:Class="CrazyPoleMobile.MVVM.Views.CustomControls.GradientButton">
+             x:Class="CrazyPoleMobile.MVVM.Views.CustomControls.GradientButton"
+             xmlns:b="clr-namespace:CrazyPoleMobile.Behaviors">
 
-    
     <Button BindingContext="{x:Reference this}" 
             Text="{Binding Text}"
             CornerRadius="15"
-            Background="{StaticResource DefaultGradient}" />
+            Background="{StaticResource DefaultGradient}" >
+        <Button.Behaviors>
+            <b:ButtonAnimationBehavior />
+        </Button.Behaviors>
+    </Button>
 
 </ContentView>
