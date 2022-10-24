@@ -3,9 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:mct="clr-namespace:CommunityToolkit.Maui.Behaviors;assembly=CommunityToolkit.Maui"
              xmlns:controls="clr-namespace:CrazyPoleMobile.MVVM.Views.CustomControls"
+             xmlns:vm="clr-namespace:CrazyPoleMobile.MVVM.ViewModels"
              x:Name="this"
              x:Class="CrazyPoleMobile.MVVM.Views.SignUpPage">
 
+    <ContentPage.BindingContext>
+        <vm:SignUpPageViewModel />
+    </ContentPage.BindingContext>
+    
     <ContentPage.Behaviors>
         <mct:StatusBarBehavior StatusBarColor="{
             AppThemeBinding Light={StaticResource White}, 
@@ -40,8 +45,7 @@
                Grid.Row="1">Регистрация</Label>
 
 
-        <VerticalStackLayout Grid.Row="3"
-                             BindingContext="{x:Reference this}">
+        <VerticalStackLayout Grid.Row="3">
             <Label VerticalOptions="End"
                    FontSize="20"
                    Margin="10">Номер телефона:</Label>
@@ -64,7 +68,7 @@
             <controls:GradientButton Text="Войти в аккаунт"
                                      Margin="10,40,10,10"
                                      HeightRequest="65"
-                                     OnClick="{Binding loadHome}"
+                                     OnClickCommand="{Binding LoadHome}"
                                      VerticalOptions="FillAndExpand"
                                      Grid.Row="4"/>
             <HorizontalStackLayout Margin="10" HorizontalOptions="Center">
@@ -72,7 +76,7 @@
                 <Button BackgroundColor="Transparent"
                         TextColor="{AppThemeBinding Dark={StaticResource White}, Light={StaticResource Black}}"
                         Text="Войти"
-                        Clicked="LoadLogInPage"/>
+                        Command="{Binding LoadLogInPage}"/>
             </HorizontalStackLayout>
 
         </VerticalStackLayout>

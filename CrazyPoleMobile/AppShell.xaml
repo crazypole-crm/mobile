@@ -26,5 +26,4 @@
                       Icon="settings_icon.svg"
                       Route="Settings" />
     </TabBar>
-
 </Shell>

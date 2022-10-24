@@ -9,7 +9,7 @@
             Text="{Binding Text}"
             CornerRadius="15"
             Background="{StaticResource DefaultGradient}"
-            Clicked="HandleClick">
+            Command="{Binding OnClickCommand}">
         <Button.Behaviors>
             <b:ButtonAnimationBehavior />
         </Button.Behaviors>

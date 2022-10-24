@@ -1,4 +1,5 @@
 using Microsoft.Maui.Controls;
+using System.Windows.Input;
 
 namespace CrazyPoleMobile.MVVM.Views.CustomControls;
 
@@ -10,7 +11,7 @@ public partial class GradientButton : ContentView
 	}
 
     public static readonly BindableProperty TextProperty =
-        BindableProperty.Create("Text", typeof(String), typeof(GradientButton));
+        BindableProperty.Create(nameof(Text), typeof(String), typeof(GradientButton));
 
     public String Text
     {
@@ -19,7 +20,7 @@ public partial class GradientButton : ContentView
     }
 
     public static readonly BindableProperty CornerRadiusProperty =
-        BindableProperty.Create("CornerRadius", typeof(int), typeof(GradientButton));
+        BindableProperty.Create(nameof(CornerRadius), typeof(int), typeof(GradientButton));
 
     public int CornerRadius
     {
@@ -27,21 +28,15 @@ public partial class GradientButton : ContentView
         set => SetValue(CornerRadiusProperty, value);
     }
 
-    public static readonly BindableProperty OnClickProperty =
-        BindableProperty.Create("OnClick", typeof(EventHandler), typeof(GradientButton));
+    public static readonly BindableProperty OnClickCommandProperty =
+        BindableProperty.Create(nameof(OnClickCommand), typeof(ICommand), typeof(GradientButton));
 
-    public EventHandler OnClick
+    public ICommand OnClickCommand
     {
-        get => (EventHandler)GetValue(OnClickProperty);
+        get => (ICommand)GetValue(OnClickCommandProperty);
         set 
         {
-            SetValue(OnClickProperty, value);
+            SetValue(OnClickCommandProperty, value);
         }
-    }
-
-    private void HandleClick(object sender, EventArgs e)
-    {
-        if (OnClick != null)
-            OnClick(sender, e);       
     }
 }
