@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:CrazyPoleMobile.MVVM.Views.CustomControls"
              xmlns:mct="clr-namespace:CommunityToolkit.Maui.Behaviors;assembly=CommunityToolkit.Maui"
-             x:Class="CrazyPoleMobile.MVVM.Views.MainPage">
+             x:Name="this"
+             x:Class="CrazyPoleMobile.MVVM.Views.LogInPage">
 
     <ContentPage.Behaviors>
         <mct:StatusBarBehavior StatusBarColor="{
@@ -18,7 +19,7 @@
             <RowDefinition Height="0.1*" />
             <RowDefinition Height="65" />
             <RowDefinition Height="0.1*" />
-            <RowDefinition Height="370" />
+            <RowDefinition Height="430" />
             <RowDefinition Height="0.5*" />
         </Grid.RowDefinitions>
 
@@ -40,7 +41,8 @@
                Grid.Row="1">Вход</Label>
 
 
-        <VerticalStackLayout Grid.Row="3" >
+        <VerticalStackLayout Grid.Row="3"
+                             BindingContext="{x:Reference this}">
             <Label VerticalOptions="End"
                    FontSize="20"
                    Margin="10">Введите номер телефона:</Label>
@@ -58,10 +60,14 @@
                                      Margin="10,40,10,10"
                                      HeightRequest="65"
                                      VerticalOptions="FillAndExpand"
-                                     Grid.Row="4"/>
+                                     Grid.Row="4"
+                                     OnClick="{Binding loadHome}" />
             <HorizontalStackLayout Margin="10" HorizontalOptions="Center">
                 <Label VerticalOptions="Center">Нет аккаунта?</Label>
-                <Button BackgroundColor="Transparent" Text="Регистрация"/>
+                <Button BackgroundColor="Transparent" 
+                        Text="Регистрация"
+                        TextColor="{AppThemeBinding Dark={StaticResource White}, Light={StaticResource Black}}"
+                        Clicked="LoadSignUpPage"/>
             </HorizontalStackLayout>
             
         </VerticalStackLayout>

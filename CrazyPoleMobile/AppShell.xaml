@@ -6,8 +6,25 @@
     xmlns:local="clr-namespace:CrazyPoleMobile"
     Shell.FlyoutBehavior="Disabled">
 
-    <ShellContent
-        ContentTemplate="{DataTemplate local:MVVM.Views.MainPage}"
-        Route="MainPage" />
+
+    <ShellContent ContentTemplate="{DataTemplate local:MVVM.Views.SignUpPage}"
+                  Route="SignUpPage" />
+
+    <ShellContent ContentTemplate="{DataTemplate local:MVVM.Views.LogInPage}"
+                  Route="LogInPage" />
+    <TabBar>
+        <ShellContent ContentTemplate="{DataTemplate local:MVVM.Views.HomePage}"
+                      Icon="home_icon.svg"
+                      Route="Home" />
+        <ShellContent ContentTemplate="{DataTemplate local:MVVM.Views.NotificationPage}"
+                      Icon="bell_icon.svg"
+                      Route="Notification" />
+        <ShellContent ContentTemplate="{DataTemplate local:MVVM.Views.CalendarPage}"
+                      Icon="calendar_icon.svg"
+                      Route="Caledar" />
+        <ShellContent ContentTemplate="{DataTemplate local:MVVM.Views.SettingsPage}"
+                      Icon="settings_icon.svg"
+                      Route="Settings" />
+    </TabBar>
 
 </Shell>

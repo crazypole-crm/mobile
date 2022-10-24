@@ -8,7 +8,8 @@
     <Button BindingContext="{x:Reference this}" 
             Text="{Binding Text}"
             CornerRadius="15"
-            Background="{StaticResource DefaultGradient}" >
+            Background="{StaticResource DefaultGradient}"
+            Clicked="HandleClick">
         <Button.Behaviors>
             <b:ButtonAnimationBehavior />
         </Button.Behaviors>

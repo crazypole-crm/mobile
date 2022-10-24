@@ -1,3 +1,5 @@
+using Microsoft.Maui.Controls;
+
 namespace CrazyPoleMobile.MVVM.Views.CustomControls;
 
 public partial class GradientButton : ContentView
@@ -25,4 +27,21 @@ public partial class GradientButton : ContentView
         set => SetValue(CornerRadiusProperty, value);
     }
 
+    public static readonly BindableProperty OnClickProperty =
+        BindableProperty.Create("OnClick", typeof(EventHandler), typeof(GradientButton));
+
+    public EventHandler OnClick
+    {
+        get => (EventHandler)GetValue(OnClickProperty);
+        set 
+        {
+            SetValue(OnClickProperty, value);
+        }
+    }
+
+    private void HandleClick(object sender, EventArgs e)
+    {
+        if (OnClick != null)
+            OnClick(sender, e);       
+    }
 }

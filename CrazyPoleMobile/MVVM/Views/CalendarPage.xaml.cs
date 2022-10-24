@@ -1,11 +1,9 @@
-﻿
 namespace CrazyPoleMobile.MVVM.Views;
 
-public partial class MainPage : ContentPage
+public partial class CalendarPage : ContentPage
 {
-	public MainPage()
+	public CalendarPage()
 	{
 		InitializeComponent();
 	}
 }
-

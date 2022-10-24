@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mct="clr-namespace:CommunityToolkit.Maui.Behaviors;assembly=CommunityToolkit.Maui"
+             xmlns:controls="clr-namespace:CrazyPoleMobile.MVVM.Views.CustomControls"
+             x:Name="this"
+             x:Class="CrazyPoleMobile.MVVM.Views.SignUpPage">
+
+    <ContentPage.Behaviors>
+        <mct:StatusBarBehavior StatusBarColor="{
+            AppThemeBinding Light={StaticResource White}, 
+            Dark={StaticResource Gray101010}}" 
+                               StatusBarStyle="LightContent" />
+    </ContentPage.Behaviors>
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.1*" />
+            <RowDefinition Height="65" />
+            <RowDefinition Height="0.1*" />
+            <RowDefinition Height="550" />
+            <RowDefinition Height="0.5*" />
+        </Grid.RowDefinitions>
+
+        <controls:IconButton Source="{AppThemeBinding 
+                Light={controls:ImageResource Source='black_back_arrow.svg'}, 
+                Dark={controls:ImageResource Source='white_back_arrow.svg'}}" 
+                             HeightRequest="65"
+                             WidthRequest="65"
+                             Margin="10"
+                             HorizontalOptions="StartAndExpand"
+                             Grid.Row="1"/>
+
+        <Label Margin="0,0,0,0"
+               HorizontalOptions="CenterAndExpand"
+               VerticalOptions="CenterAndExpand"
+               FontSize="45"
+               FontAttributes="Bold"
+               Grid.Row="1">Регистрация</Label>
+
+
+        <VerticalStackLayout Grid.Row="3"
+                             BindingContext="{x:Reference this}">
+            <Label VerticalOptions="End"
+                   FontSize="20"
+                   Margin="10">Номер телефона:</Label>
+            <controls:GradientField Placeholder="Введите номер"
+                                    Margin="10"
+                                    HeightRequest="65"
+                                    VerticalOptions="StartAndExpand"/>
+            <Label VerticalOptions="EndAndExpand"
+                   Margin="10"
+                   FontSize="20">Пароль:</Label>
+            <controls:GradientField Placeholder="Введите пароль"
+                                    Margin="10"
+                                    VerticalOptions="StartAndExpand"/>
+            <Label VerticalOptions="EndAndExpand"
+                   Margin="10"
+                   FontSize="20">Повторите пароль:</Label>
+            <controls:GradientField Placeholder="Повторите пароль"
+                                    Margin="10"
+                                    VerticalOptions="StartAndExpand"/>
+            <controls:GradientButton Text="Войти в аккаунт"
+                                     Margin="10,40,10,10"
+                                     HeightRequest="65"
+                                     OnClick="{Binding loadHome}"
+                                     VerticalOptions="FillAndExpand"
+                                     Grid.Row="4"/>
+            <HorizontalStackLayout Margin="10" HorizontalOptions="Center">
+                <Label VerticalOptions="Center">Уже есть аккаунт?</Label>
+                <Button BackgroundColor="Transparent"
+                        TextColor="{AppThemeBinding Dark={StaticResource White}, Light={StaticResource Black}}"
+                        Text="Войти"
+                        Clicked="LoadLogInPage"/>
+            </HorizontalStackLayout>
+
+        </VerticalStackLayout>
+    </Grid>
+
+</ContentPage>
