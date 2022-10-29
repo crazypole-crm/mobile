@@ -29,14 +29,14 @@
         </Grid.RowDefinitions>
 
 
-        <controls:IconButton Source="{AppThemeBinding 
+        <!-- <controls:IconButton Source="{AppThemeBinding 
                 Light={controls:ImageResource Source='black_back_arrow.svg'}, 
                 Dark={controls:ImageResource Source='white_back_arrow.svg'}}" 
                              HeightRequest="65"
                              WidthRequest="65"
                              Margin="10"
                              HorizontalOptions="StartAndExpand"
-                             Grid.Row="1"/>
+                             Grid.Row="1"/> -->
 
         <Label Margin="0,0,0,0"
                HorizontalOptions="CenterAndExpand"
@@ -53,13 +53,15 @@
             <controls:GradientField Placeholder="Введите номер"
                                     Margin="10"
                                     HeightRequest="65"
-                                    VerticalOptions="StartAndExpand"/>
+                                    VerticalOptions="StartAndExpand"
+                                    InputType="Telephone"/>
             <Label VerticalOptions="EndAndExpand"
                    Margin="10"
                    FontSize="20">Введите пароль:</Label>
             <controls:GradientField Placeholder="Введите пароль"
                                     Margin="10"
-                                    VerticalOptions="StartAndExpand"/>
+                                    VerticalOptions="StartAndExpand"
+                                    IsPassword="True"/>
             <controls:GradientButton Text="Войти в аккаунт"
                                      Margin="10,40,10,10"
                                      HeightRequest="65"

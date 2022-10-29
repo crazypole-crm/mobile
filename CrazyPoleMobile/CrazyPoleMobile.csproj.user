@@ -20,6 +20,9 @@
     <MauiXaml Update="MVVM\Views\CustomControls\IconButton.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
+    <MauiXaml Update="MVVM\Views\CustomControls\TabView.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
     <MauiXaml Update="MVVM\Views\HomePage.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>

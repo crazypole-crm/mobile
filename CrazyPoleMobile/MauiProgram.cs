@@ -1,4 +1,6 @@
 ﻿using CommunityToolkit.Maui;
+using Syncfusion.Maui.Core.Hosting;
+using CommunityToolkit.Mvvm;
 
 namespace CrazyPoleMobile;
 
@@ -10,6 +12,7 @@ public static class MauiProgram
 		builder
 			.UseMauiApp<App>()
 			.UseMauiCommunityToolkit()
+			.ConfigureSyncfusionCore()
 			.ConfigureFonts(fonts =>
 			{
                 fonts.AddFont("Montserrat-Regular.ttf", "MontserratRegular");

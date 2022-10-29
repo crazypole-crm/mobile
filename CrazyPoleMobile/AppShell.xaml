@@ -3,16 +3,18 @@
     x:Class="CrazyPoleMobile.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:cc="clr-namespace:CrazyPoleMobile.MVVM.Views.CustomControls"
     xmlns:local="clr-namespace:CrazyPoleMobile"
+    xmlns:mct="clr-namespace:CommunityToolkit.Maui.Behaviors;assembly=CommunityToolkit.Maui"
     Shell.FlyoutBehavior="Disabled">
-
 
     <ShellContent ContentTemplate="{DataTemplate local:MVVM.Views.SignUpPage}"
                   Route="SignUpPage" />
 
     <ShellContent ContentTemplate="{DataTemplate local:MVVM.Views.LogInPage}"
                   Route="LogInPage" />
-    <TabBar>
+    
+    <!--<TabBar>-->
         <ShellContent ContentTemplate="{DataTemplate local:MVVM.Views.HomePage}"
                       Icon="home_icon.svg"
                       Route="Home" />
@@ -25,5 +27,6 @@
         <ShellContent ContentTemplate="{DataTemplate local:MVVM.Views.SettingsPage}"
                       Icon="settings_icon.svg"
                       Route="Settings" />
-    </TabBar>
+        
+    <!--</TabBar>-->
 </Shell>

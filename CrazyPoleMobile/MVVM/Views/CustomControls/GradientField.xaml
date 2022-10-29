@@ -4,8 +4,6 @@
              x:Name="this"
              x:Class="CrazyPoleMobile.MVVM.Views.CustomControls.GradientField">
 
-    
-
     <Border BindingContext="{x:Reference this}" 
             Padding="10"
             x:Name="Framing"
@@ -18,7 +16,9 @@
         <Entry Placeholder="{Binding Placeholder}" 
                VerticalOptions="Center" 
                Focused="OnFocus"
-               Unfocused="OnUnfocus"/>
+               Unfocused="OnUnfocus"
+               Keyboard="{Binding InputType}"
+               IsPassword="{Binding IsPassword}"/>
     </Border>
 
     
