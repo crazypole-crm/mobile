@@ -25,7 +25,6 @@
         </tv:SfTabView.Items>
     </tv:SfTabView>-->
 
-    <cc:TabView />
-
-
+    <!--<cc:TabView />-->
+    <cc:CustomEntry Text="Hello" TextColor="Red"/>
 </ContentPage>

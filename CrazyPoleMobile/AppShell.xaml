@@ -14,7 +14,7 @@
     <ShellContent ContentTemplate="{DataTemplate local:MVVM.Views.LogInPage}"
                   Route="LogInPage" />
     
-    <!--<TabBar>-->
+    <TabBar>
         <ShellContent ContentTemplate="{DataTemplate local:MVVM.Views.HomePage}"
                       Icon="home_icon.svg"
                       Route="Home" />
@@ -28,5 +28,5 @@
                       Icon="settings_icon.svg"
                       Route="Settings" />
         
-    <!--</TabBar>-->
+    </TabBar>
 </Shell>
