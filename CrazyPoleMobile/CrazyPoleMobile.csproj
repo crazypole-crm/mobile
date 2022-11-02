@@ -53,6 +53,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Platforms\Android\Resources\Drawable\customshell.axml" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <Folder Include="MVVM\Models\" />
 	</ItemGroup>
 

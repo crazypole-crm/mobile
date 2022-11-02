@@ -3,6 +3,7 @@ using Syncfusion.Maui.Core.Hosting;
 using CommunityToolkit.Mvvm;
 using CrazyPoleMobile.Handlers;
 using CrazyPoleMobile.MVVM.Views.CustomControls;
+using CrazyPoleMobile.MVVM.Views.CustomControls.CustomShell;
 
 namespace CrazyPoleMobile;
 
@@ -18,6 +19,9 @@ public static class MauiProgram
 			.ConfigureMauiHandlers(collection => 
 			{
 				collection.AddHandler(typeof(CustomEntry), typeof(CustomEntryHandler));
+#if ANDROID
+                collection.AddHandler(typeof(Shell), typeof(CustomShellRenderer));
+#endif
 			})
 			.ConfigureFonts(fonts =>
 			{
