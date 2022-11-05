@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:cc="clr-namespace:CrazyPoleMobile.MVVM.Views.CustomControls"
+             xmlns:tools="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:vm="clr-namespace:CrazyPoleMobile.MVVM.ViewModels"
+             xmlns:b="clr-namespace:CrazyPoleMobile.Behaviors"
+             xmlns:mct="clr-namespace:CommunityToolkit.Maui.Behaviors;assembly=CommunityToolkit.Maui"
+             x:Name="this"
+             x:Class="CrazyPoleMobile.MVVM.Views.RoutePage">
+
+    <ContentPage.Behaviors>
+        <mct:StatusBarBehavior StatusBarColor="{
+            AppThemeBinding Light={StaticResource White}, 
+            Dark={StaticResource Gray101010}}" 
+                               StatusBarStyle="Default" />
+    </ContentPage.Behaviors>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="CrazyTabButtonStyleDefault" TargetType="cc:TabBarButton" >
+                <Setter Property="PaddingImage" Value="15" />
+                <Setter Property="PaddingBorder" Value="-20" />
+                <Setter Property="StrokeThickness" Value="3" />
+                <Setter Property="ImageBgBrush" Value="{AppThemeBinding Light={StaticResource Transparent}, Dark={StaticResource Transparent}}"/>
+                <Setter Property="StrokeBrush" Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
+                <Setter Property="Shape">
+                    <Setter.Value>
+                        <RoundRectangle CornerRadius="15" />
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger TargetType="cc:TabBarButton" Property="IsSelected" Value="True">
+                        <Setter Property="StrokeBrush" Value="{StaticResource DefaultGradient}" />
+                    </Trigger>
+                    <Trigger TargetType="cc:TabBarButton" Property="IsSelected" Value="False">
+                        <Setter Property="StrokeBrush" Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    
+    <AbsoluteLayout x:Name="BarLayout">
+
+        <VerticalStackLayout x:Name="ContentBlock" 
+                     AbsoluteLayout.LayoutFlags="WidthProportional">
+            
+        </VerticalStackLayout>
+
+
+        <Border x:Name="TabBarBlock"
+                AbsoluteLayout.LayoutFlags="WidthProportional"
+                Grid.Row="1"
+                StrokeThickness="0"                
+                Margin="-0.5"
+                Background="{AppThemeBinding 
+            Light={StaticResource TabBarLight}, 
+            Dark={StaticResource TabBarDark}}">
+
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="15,15, 0, 0" />
+            </Border.StrokeShape>
+            <Grid ColumnDefinitions="*, *, *, *"
+                  BackgroundColor="{AppThemeBinding Light={StaticResource LightTabBarBg}, Dark={StaticResource DarkTabBarBg}}"
+                  Padding="55, 10"
+                  ColumnSpacing="10">
+
+                <cc:TabBarButton Command="{Binding LoadHomeCommand}"
+                                 CommandParameter="{x:Reference ContentBlock}"
+                                 Style="{DynamicResource CrazyTabButtonStyleDefault}" 
+                                 Grid.Column="0" 
+                                 Source="home_icon" />
+                <cc:TabBarButton Command="{Binding LoadNotificationCommand}"
+                                 CommandParameter="{x:Reference ContentBlock}"
+                                 Style="{DynamicResource CrazyTabButtonStyleDefault}" 
+                                 Grid.Column="1" 
+                                 Source="bell_icon" />
+                <cc:TabBarButton Command="{Binding LoadCalendarCommand}"
+                                 CommandParameter="{x:Reference ContentBlock}"
+                                 Style="{DynamicResource CrazyTabButtonStyleDefault}" 
+                                 Grid.Column="2" 
+                                 Source="calendar_icon" />
+                <cc:TabBarButton Command="{Binding LoadSettingsCommand}" 
+                                 CommandParameter="{x:Reference ContentBlock}"
+                                 Style="{DynamicResource CrazyTabButtonStyleDefault}" 
+                                 Grid.Column="3" 
+                                 Source="settings_icon" />
+            </Grid>
+
+        </Border>
+
+    </AbsoluteLayout>
+    
+    
+</ContentPage>

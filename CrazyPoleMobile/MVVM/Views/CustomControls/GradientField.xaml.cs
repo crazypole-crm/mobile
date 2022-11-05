@@ -1,5 +1,4 @@
 using Microsoft.Maui.Controls.Shapes;
-using Syncfusion.Maui.TabView;
 
 namespace CrazyPoleMobile.MVVM.Views.CustomControls;
 
@@ -8,6 +7,7 @@ public partial class GradientField : ContentView
     public GradientField()
 	{
 		InitializeComponent();
+        
 	}
 
     public static readonly BindableProperty IsPasswordProperty =

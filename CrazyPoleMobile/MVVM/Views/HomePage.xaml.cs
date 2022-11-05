@@ -1,13 +1,14 @@
 using CommunityToolkit.Maui.Core.Views;
+using CrazyPoleMobile.MVVM.ViewModels;
 using Microsoft.Maui.Controls.Shapes;
-using Syncfusion.Maui.TabView;
 
 namespace CrazyPoleMobile.MVVM.Views;
 
 public partial class HomePage : ContentPage
 {
-	public HomePage()
+	public HomePage(HomePageViewModel vm)
 	{
+		BindingContext = vm;
 		InitializeComponent();
     }
 }

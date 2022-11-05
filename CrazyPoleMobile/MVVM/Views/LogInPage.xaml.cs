@@ -1,4 +1,6 @@
 ﻿
+using CrazyPoleMobile.MVVM.ViewModels;
+
 namespace CrazyPoleMobile.MVVM.Views;
 
 public partial class LogInPage : ContentPage
@@ -8,8 +10,9 @@ public partial class LogInPage : ContentPage
         await Shell.Current.GoToAsync("//Home", true);
     };
 
-    public LogInPage()
+    public LogInPage(LogInPageViewModel vm)
 	{
+		BindingContext = vm;
 		InitializeComponent();
 	}
 

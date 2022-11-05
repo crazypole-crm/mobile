@@ -20,6 +20,8 @@
     <Color x:Key="Gray600">#404040</Color>
     <Color x:Key="Gray900">#212121</Color>
     <Color x:Key="Gray950">#141414</Color>
+    <Color x:Key="TabBarLight">#6565651A</Color>
+    <Color x:Key="TabBarDark">#6565651A</Color>
     <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource Primary}"/>
     <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource Secondary}"/>
     <SolidColorBrush x:Key="TertiaryBrush" Color="{StaticResource Tertiary}"/>
@@ -53,5 +55,10 @@
     <Color x:Key="Blue100Accent">#3E8EED</Color>
     <Color x:Key="Blue200Accent">#72ACF1</Color>
     <Color x:Key="Blue300Accent">#A7CBF6</Color>
+
+    <Color x:Key="LightTabBarBg">#AAffffff</Color>
+    <Color x:Key="DarkTabBarBg">#AA000000</Color>
+    <Color x:Key="IconFilterLight">#01000000</Color>
+    <Color x:Key="IconFilterDark">#01ffffff</Color>
 
 </ResourceDictionary>

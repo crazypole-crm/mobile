@@ -19,4 +19,13 @@ public partial class IconButton : ContentView
         set => SetValue(SourceProperty, value);
     }
 
+    public static readonly BindableProperty CornerRadiusProperty =
+        BindableProperty.Create(nameof(CornerRadius), typeof(String), typeof(IconButton));
+
+    public String CornerRadius
+    {
+        get => (String)GetValue(SourceProperty);
+        set => SetValue(SourceProperty, value);
+    }
+
 }

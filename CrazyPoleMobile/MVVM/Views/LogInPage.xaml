@@ -67,13 +67,13 @@
                                      HeightRequest="65"
                                      VerticalOptions="FillAndExpand"
                                      Grid.Row="4"
-                                     OnClickCommand="{Binding LoadHome}" />
+                                     OnClickCommand="{Binding LoadRoutPageCommand}" />
             <HorizontalStackLayout Margin="10" HorizontalOptions="Center">
                 <Label VerticalOptions="Center">Нет аккаунта?</Label>
                 <Button BackgroundColor="Transparent" 
                         Text="Регистрация"
                         TextColor="{AppThemeBinding Dark={StaticResource White}, Light={StaticResource Black}}"
-                        Command="{Binding LoadSignUp}"/>
+                        Command="{Binding LoadSignUpPageCommand}"/>
             </HorizontalStackLayout>
             
         </VerticalStackLayout>

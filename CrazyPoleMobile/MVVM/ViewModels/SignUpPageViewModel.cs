@@ -1,40 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using CrazyPoleMobile.MVVM.Views;
 using System.Windows.Input;
 
 namespace CrazyPoleMobile.MVVM.ViewModels
 {
-    class SignUpPageViewModel
+    [ObservableObject]
+    public partial class SignUpPageViewModel
     {
         public SignUpPageViewModel()
         {
-
         }
 
-        public ICommand LoadLogInPage
-        {
-            get => _loadLogInPage;
-            set => _loadLogInPage = value;
-        }
-
-        public ICommand LoadHome
-        {
-            get => _loadHomePage;
-            set => _loadHomePage = value;
-        }
-
-        private ICommand _loadLogInPage = new Command(async () =>
+        [RelayCommand]
+        private async void LoadLogInPage()
         {
             await Shell.Current.GoToAsync("//LogInPage", true);
-        });
+        }
 
-        private ICommand _loadHomePage = new Command(async () =>
+        [RelayCommand]
+        private async void LoadRoutPage()
         {
-            await Shell.Current.GoToAsync("//Home", true);
-        });
-
+            await Shell.Current.GoToAsync("//RoutPage", true);
+        }
     }
 }

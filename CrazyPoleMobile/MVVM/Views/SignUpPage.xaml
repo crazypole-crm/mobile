@@ -7,10 +7,6 @@
              x:Name="this"
              x:Class="CrazyPoleMobile.MVVM.Views.SignUpPage">
 
-    <ContentPage.BindingContext>
-        <vm:SignUpPageViewModel />
-    </ContentPage.BindingContext>
-    
     <ContentPage.Behaviors>
         <mct:StatusBarBehavior StatusBarColor="{
             AppThemeBinding Light={StaticResource White}, 
@@ -71,7 +67,7 @@
             <controls:GradientButton Text="Войти в аккаунт"
                                      Margin="10,40,10,10"
                                      HeightRequest="65"
-                                     OnClickCommand="{Binding LoadHome}"
+                                     OnClickCommand="{Binding LoadRoutPageCommand}"
                                      VerticalOptions="FillAndExpand"
                                      Grid.Row="4"/>
             <HorizontalStackLayout Margin="10" HorizontalOptions="Center">
@@ -79,7 +75,7 @@
                 <Button BackgroundColor="Transparent"
                         TextColor="{AppThemeBinding Dark={StaticResource White}, Light={StaticResource Black}}"
                         Text="Войти"
-                        Command="{Binding LoadLogInPage}"/>
+                        Command="{Binding LoadLogInPageCommand}"/>
             </HorizontalStackLayout>
 
         </VerticalStackLayout>

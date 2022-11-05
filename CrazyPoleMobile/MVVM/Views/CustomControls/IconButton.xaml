@@ -16,7 +16,7 @@
         </Border.StrokeShape>
 
         <ImageButton Source="{Binding Source}"
-                     Padding="10">
+                     Padding="15">
         </ImageButton>
     </Border>
 </ContentView>
