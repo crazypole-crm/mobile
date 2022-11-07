@@ -3,23 +3,25 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace CrazyPoleMobile.MVVM.ViewModels
 {
-    [ObservableObject]
-    public partial class LogInPageViewModel
+    public partial class LogInPageViewModel : ObservableObject
     {
-        public LogInPageViewModel()
+        RoutePageViewModel _route;
+
+        public LogInPageViewModel(RoutePageViewModel route)
         {
+            _route = route;
         }
 
         [RelayCommand]
-        private async void LoadSignUpPage()
+        private void LoadSignUpPage()
         {
-            await Shell.Current.GoToAsync("//SignUpPage", true);
+            _route.LoadSignUpPage();   
         }
 
         [RelayCommand]
-        private async void LoadRoutPage()
+        private void LoadHomePage()
         {
-            await Shell.Current.GoToAsync("//RoutPage", true);
+            _route.LoadHome();
         }
     }
 }

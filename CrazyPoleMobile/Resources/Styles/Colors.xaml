@@ -41,6 +41,16 @@
         <GradientStop Color="{StaticResource Secondary}" Offset="1.0"  />
     </LinearGradientBrush>
 
+    <LinearGradientBrush x:Key="DefaultWhiteGradient" StartPoint="0,0.5" EndPoint="1,0.5">
+        <GradientStop Color="{StaticResource White}" Offset="0.0"  />
+        <GradientStop Color="{StaticResource White}" Offset="1.0"  />
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="DefaultBlackGradient" StartPoint="0,0.5" EndPoint="1,0.5">
+        <GradientStop Color="{StaticResource ClarifiedBlack}" Offset="0.0"  />
+        <GradientStop Color="{StaticResource ClarifiedBlack}" Offset="1.0"  />
+    </LinearGradientBrush>
+
     <LinearGradientBrush x:Key="DefaultGray" StartPoint="0,0.5" EndPoint="1,0.5">
         <GradientStop Color="{StaticResource Gray600}" Offset="0.0"  />
         <GradientStop Color="{StaticResource Gray600}" Offset="1.0"  />

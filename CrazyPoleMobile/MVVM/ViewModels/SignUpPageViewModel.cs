@@ -1,27 +1,27 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using CrazyPoleMobile.MVVM.Views;
-using System.Windows.Input;
 
 namespace CrazyPoleMobile.MVVM.ViewModels
 {
-    [ObservableObject]
-    public partial class SignUpPageViewModel
+    public partial class SignUpPageViewModel : ObservableObject
     {
-        public SignUpPageViewModel()
+        RoutePageViewModel _route;
+
+        public SignUpPageViewModel(RoutePageViewModel routePage)
         {
+            _route = routePage;
         }
 
         [RelayCommand]
-        private async void LoadLogInPage()
+        private void LoadLogInPage()
         {
-            await Shell.Current.GoToAsync("//LogInPage", true);
+            _route.LoadLogInPage();    
         }
 
         [RelayCommand]
-        private async void LoadRoutPage()
+        private void LoadHome()
         {
-            await Shell.Current.GoToAsync("//RoutPage", true);
+            _route.LoadHome();
         }
     }
 }

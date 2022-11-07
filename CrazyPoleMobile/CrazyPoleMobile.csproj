@@ -54,6 +54,11 @@
 
 	<ItemGroup>
 	  <Folder Include="MVVM\Models\" />
+	  <Folder Include="Platforms\Android\Behaviors\" />
+	  <Folder Include="Platforms\iOS\Behaviors\" />
+	  <Folder Include="Platforms\MacCatalyst\Behaviors\" />
+	  <Folder Include="Platforms\Tizen\Behaviors\" />
+	  <Folder Include="Platforms\Windows\Behaviors\" />
 	</ItemGroup>
 
 	<ItemGroup>

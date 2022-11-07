@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace CrazyPoleMobile.MVVM.ViewModels
 {
-    [ObservableObject]
-    public partial class CalendarPageViewModel
+    public partial class CalendarPageViewModel : ObservableObject
     {
     }
 }

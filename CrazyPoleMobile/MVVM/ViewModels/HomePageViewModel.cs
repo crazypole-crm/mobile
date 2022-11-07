@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace CrazyPoleMobile.MVVM.ViewModels
 {
-    [ObservableObject]
-    public partial class HomePageViewModel
+    public partial class HomePageViewModel : ObservableObject
     {
     }
 }

@@ -7,10 +7,6 @@
              x:Name="this"
              x:Class="CrazyPoleMobile.MVVM.Views.LogInPage">
 
-    <ContentPage.BindingContext>
-        <vm:LogInPageViewModel />
-    </ContentPage.BindingContext>
-    
     <ContentPage.Behaviors>
         <mct:StatusBarBehavior StatusBarColor="{
             AppThemeBinding Light={StaticResource White}, 
@@ -53,8 +49,7 @@
             <controls:GradientField Placeholder="Введите номер"
                                     Margin="10"
                                     HeightRequest="65"
-                                    VerticalOptions="StartAndExpand"
-                                    InputType="Telephone"/>
+                                    VerticalOptions="StartAndExpand" />
             <Label VerticalOptions="EndAndExpand"
                    Margin="10"
                    FontSize="20">Введите пароль:</Label>
@@ -67,7 +62,7 @@
                                      HeightRequest="65"
                                      VerticalOptions="FillAndExpand"
                                      Grid.Row="4"
-                                     OnClickCommand="{Binding LoadRoutPageCommand}" />
+                                     OnClickCommand="{Binding LoadHomePageCommand}" />
             <HorizontalStackLayout Margin="10" HorizontalOptions="Center">
                 <Label VerticalOptions="Center">Нет аккаунта?</Label>
                 <Button BackgroundColor="Transparent" 

@@ -1,5 +1,4 @@
-using System.Reflection;
-using System.Xml;
+
 
 namespace CrazyPoleMobile.MVVM.Views.CustomControls;
 
@@ -17,4 +16,5 @@ public class ImageResourceExtension : IMarkupExtension<string>
     {
         return (this as IMarkupExtension<string>).ProvideValue(serviceProvider);
     }
+
 }

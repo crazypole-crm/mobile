@@ -1,4 +1,6 @@
 
+using Microsoft.Maui.ApplicationModel;
+using Microsoft.Maui.Controls;
 using System.Windows.Input;
 
 namespace CrazyPoleMobile.MVVM.Views.CustomControls;
@@ -8,15 +10,69 @@ public partial class TabBarButton : ContentView
 	public TabBarButton()
 	{
         InitializeComponent();
-    } 
+        Application.Current.RequestedThemeChanged += OnAppThemeChange;
+    }
+
+    protected override void OnBindingContextChanged()
+    {
+        SetColorTheme(Application.Current.RequestedTheme);
+        base.OnBindingContextChanged();
+    }
+
+    public string CurrentSource 
+    {
+        get => Btn.Source.ToString();
+        set
+        {
+            Btn.Source = value;
+        }
+    }
+
+    public Brush CurrentBorderBrush
+    {
+        get => GetBrush(Application.Current.RequestedTheme);
+        set
+        {
+            Brdr.Stroke = value;
+        }
+    }
 
     public static readonly BindableProperty SourceProperty =
-        BindableProperty.Create(nameof(Source), typeof(ImageSource), typeof(TabBarButton));
+        BindableProperty.Create(nameof(Source), typeof(string), typeof(TabBarButton));
 
-    public ImageSource Source
+
+    public string Source
     {
-        get => (ImageSource)GetValue(SourceProperty);
+        get => (string)GetValue(SourceProperty);
         set => SetValue(SourceProperty, value);
+    }
+
+    public static readonly BindableProperty SourceLightProperty =
+        BindableProperty.Create(nameof(SourceLight), typeof(string), typeof(TabBarButton));
+
+
+    public string SourceLight
+    {
+        get => (string)GetValue(SourceLightProperty);
+        set => SetValue(SourceLightProperty, value);
+    }
+
+    public static readonly BindableProperty SourceDarkProperty =
+        BindableProperty.Create(nameof(SourceDark), typeof(string), typeof(TabBarButton));
+
+    public string SourceDark
+    {
+        get => (string)GetValue(SourceDarkProperty);
+        set => SetValue(SourceDarkProperty, value);
+    }
+
+    public static readonly BindableProperty SourceActiveProperty =
+        BindableProperty.Create(nameof(SourceActive), typeof(string), typeof(TabBarButton));
+
+    public string SourceActive
+    {
+        get => (string)GetValue(SourceActiveProperty);
+        set => SetValue(SourceActiveProperty, value);
     }
 
     public static readonly BindableProperty PaddingImageProperty =
@@ -64,13 +120,40 @@ public partial class TabBarButton : ContentView
         set => SetValue(ImageBgBrushProperty, value);
     }
 
-    public static readonly BindableProperty StrokeBrushProperty =
-        BindableProperty.Create(nameof(StrokeBrush), typeof(Brush), typeof(TabBarButton));
+    public static readonly BindableProperty StrokeDarkBrushProperty =
+        BindableProperty.Create(nameof(StrokeDarkBrush), typeof(Brush), typeof(TabBarButton));
 
-    public Brush StrokeBrush
+    public Brush StrokeDarkBrush
     {
-        get => (Brush)GetValue(StrokeBrushProperty);
-        set => SetValue(StrokeBrushProperty, value);
+        get => (Brush)GetValue(StrokeDarkBrushProperty);
+        set
+        {
+            SetValue(StrokeDarkBrushProperty, value);
+        }
+    }
+
+    public static readonly BindableProperty StrokeLightBrushProperty =
+        BindableProperty.Create(nameof(StrokeLightBrush), typeof(Brush), typeof(TabBarButton));
+
+    public Brush StrokeLightBrush
+    {
+        get => (Brush)GetValue(StrokeLightBrushProperty);
+        set
+        {
+            SetValue(StrokeLightBrushProperty, value);
+        }
+    }
+
+    public static readonly BindableProperty StrokeActiveBrushProperty =
+        BindableProperty.Create(nameof(StrokeActiveBrush), typeof(Brush), typeof(TabBarButton));
+
+    public Brush StrokeActiveBrush
+    {
+        get => (Brush)GetValue(StrokeActiveBrushProperty);
+        set
+        {
+            SetValue(StrokeActiveBrushProperty, value);
+        }
     }
 
     public static readonly BindableProperty IsSelectedProperty =
@@ -79,7 +162,11 @@ public partial class TabBarButton : ContentView
     public bool IsSelected
     {
         get => (bool)GetValue(IsSelectedProperty);
-        set => SetValue(IsSelectedProperty, value);
+        set 
+        {
+            SetValue(IsSelectedProperty, value);
+            SetColorTheme(Application.Current.RequestedTheme);
+        } 
     }
 
     public static readonly BindableProperty CommandProperty =
@@ -98,5 +185,53 @@ public partial class TabBarButton : ContentView
     {
         get => (object)GetValue(CommandParameterProperty);
         set => SetValue(CommandParameterProperty, value);
+    }
+
+    private void OnAppThemeChange(object sender, AppThemeChangedEventArgs evt)
+    {
+        SetColorTheme(evt.RequestedTheme);
+    }
+
+    private void SetColorTheme(AppTheme appTheme)
+    {
+        if (appTheme == AppTheme.Light && !IsSelected)
+        { 
+            //Brdr.SetValue(Border.StrokeProperty, null);
+            CurrentSource = SourceLight;
+            CurrentBorderBrush = StrokeLightBrush;
+        }
+
+        if (appTheme == AppTheme.Dark && !IsSelected)
+        {
+            //Brdr.SetValue(Border.StrokeProperty, null);
+            CurrentSource = SourceDark;
+            CurrentBorderBrush = StrokeDarkBrush;
+        }
+
+        if (IsSelected)
+        { 
+            //Brdr.SetValue(Border.StrokeProperty, null);
+            CurrentSource = SourceActive;
+            CurrentBorderBrush = StrokeActiveBrush;
+        }
+    }
+
+    private Brush GetBrush(AppTheme appTheme)
+    {
+        if (appTheme == AppTheme.Light && !IsSelected)
+        {
+            return StrokeLightBrush;
+        }
+
+        if (appTheme == AppTheme.Dark && !IsSelected)
+        {
+            return StrokeDarkBrush;
+        }
+
+        if (IsSelected)
+        {
+            return StrokeActiveBrush;
+        }
+        return null;
     }
 }

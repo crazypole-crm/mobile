@@ -1,11 +1,15 @@
 ﻿
 
+using CommunityToolkit.Mvvm.ComponentModel;
+using CrazyPoleMobile.MVVM.ViewModels;
+
 namespace CrazyPoleMobile.Services
 {
     public class PageNavigationService : IPageNavigationService
     {
         private readonly Stack<Page> _stack = new Stack<Page>();
         private readonly IServiceProvider _serviceProvider;
+        private IRouteController _controller;
 
         public PageNavigationService(IServiceProvider serviceProvider)
             => _serviceProvider = serviceProvider;
@@ -13,29 +17,35 @@ namespace CrazyPoleMobile.Services
         public T GetPage<T>() where T : Page
             => _serviceProvider.GetService<T>();
 
-        public void GoBack(Layout contentContainer)
+        public T GetViewModel<T>() where T : ObservableObject
+            => _serviceProvider.GetService<T>();
+
+        public void GoBack()
         {
             if (_stack.Count <= 1)
                 return;
 
             var page = PopPage() as ContentPage;
-            contentContainer.Children.Clear();
-            contentContainer.Children.Add(page.Content);
+            _controller.GetContentBlock.Children.Clear();
+            _controller.GetContentBlock.Children.Add(page.Content);
         }
 
-        public void InitRootPage(Page page)
+        public void InitRootPage(IRouteController page)
         {
-            PushPage(page);
+            _controller = page;   
         }
 
-        public void LoadPage<T>(Layout contentContainer) where T : Page
+        public void LoadPage<View, ViewModel>() where View : Page where ViewModel : ObservableObject
         {
-            ContentPage page = GetPage<T>() as ContentPage;
+            ContentPage page = GetPage<View>() as ContentPage;
 
             if (page is null) throw new Exception("Page not found");
 
-            contentContainer.Children.Clear();
-            contentContainer.Children.Add(page.Content);
+            var content = page.Content;
+            content.BindingContext = GetViewModel<ViewModel>();
+
+            _controller.GetContentBlock.Children.Clear();
+            _controller.GetContentBlock.Children.Add(page.Content);
             PushPage(page);
         }
 

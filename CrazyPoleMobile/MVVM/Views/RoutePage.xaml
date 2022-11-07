@@ -9,6 +9,7 @@
              x:Name="this"
              x:Class="CrazyPoleMobile.MVVM.Views.RoutePage">
 
+
     <ContentPage.Behaviors>
         <mct:StatusBarBehavior StatusBarColor="{
             AppThemeBinding Light={StaticResource White}, 
@@ -23,31 +24,33 @@
                 <Setter Property="PaddingBorder" Value="-20" />
                 <Setter Property="StrokeThickness" Value="3" />
                 <Setter Property="ImageBgBrush" Value="{AppThemeBinding Light={StaticResource Transparent}, Dark={StaticResource Transparent}}"/>
-                <Setter Property="StrokeBrush" Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
+                <Setter Property="StrokeDarkBrush" Value="{StaticResource DefaultWhiteGradient}" />
+                <Setter Property="StrokeLightBrush" Value="{StaticResource DefaultBlackGradient}" />
+                <Setter Property="StrokeActiveBrush" Value="{StaticResource DefaultGradient}" />
                 <Setter Property="Shape">
                     <Setter.Value>
                         <RoundRectangle CornerRadius="15" />
                     </Setter.Value>
                 </Setter>
-                <Style.Triggers>
-                    <Trigger TargetType="cc:TabBarButton" Property="IsSelected" Value="True">
-                        <Setter Property="StrokeBrush" Value="{StaticResource DefaultGradient}" />
-                    </Trigger>
-                    <Trigger TargetType="cc:TabBarButton" Property="IsSelected" Value="False">
-                        <Setter Property="StrokeBrush" Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
-                    </Trigger>
-                </Style.Triggers>
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
-    
-    
-    <AbsoluteLayout x:Name="BarLayout">
 
-        <VerticalStackLayout x:Name="ContentBlock" 
-                     AbsoluteLayout.LayoutFlags="WidthProportional">
+
+    <AbsoluteLayout x:Name="BarLayout">
+        <Grid x:Name="ContentBlock" 
+                AbsoluteLayout.LayoutFlags="All"
+                RowDefinitions="*">
+            <Grid RowDefinitions="*,*">
+                
+                <Button Grid.Row="0" Text="Hide Tab Bar" 
+                        Command="{Binding HideTabBarCommand}"/>
+
+                <Button Grid.Row="1" Text="Show Tab Bar" 
+                        Command="{Binding ShowTabBarCommand}"/>
+            </Grid>
             
-        </VerticalStackLayout>
+        </Grid>
 
 
         <Border x:Name="TabBarBlock"
@@ -67,26 +70,34 @@
                   Padding="55, 10"
                   ColumnSpacing="10">
 
-                <cc:TabBarButton Command="{Binding LoadHomeCommand}"
-                                 CommandParameter="{x:Reference ContentBlock}"
+                <cc:TabBarButton x:Name="HomeButton" 
+                                 Command="{Binding LoadHomeCommand}"
                                  Style="{DynamicResource CrazyTabButtonStyleDefault}" 
-                                 Grid.Column="0" 
-                                 Source="home_icon" />
-                <cc:TabBarButton Command="{Binding LoadNotificationCommand}"
-                                 CommandParameter="{x:Reference ContentBlock}"
+                                 Grid.Column="0"
+                                 SourceLight="home_icon_black.svg"
+                                 SourceDark="home_icon_white.svg"
+                                 SourceActive="home_icon_active.svg"/>
+                <cc:TabBarButton x:Name="NotificationButton" 
+                                 Command="{Binding LoadNotificationCommand}"
                                  Style="{DynamicResource CrazyTabButtonStyleDefault}" 
                                  Grid.Column="1" 
-                                 Source="bell_icon" />
-                <cc:TabBarButton Command="{Binding LoadCalendarCommand}"
-                                 CommandParameter="{x:Reference ContentBlock}"
+                                 SourceLight="bell_icon_black.svg"
+                                 SourceDark="bell_icon_white.svg"
+                                 SourceActive="bell_icon_active.svg" />
+                <cc:TabBarButton x:Name="CalendarButton" 
+                                 Command="{Binding LoadCalendarCommand}"
                                  Style="{DynamicResource CrazyTabButtonStyleDefault}" 
                                  Grid.Column="2" 
-                                 Source="calendar_icon" />
-                <cc:TabBarButton Command="{Binding LoadSettingsCommand}" 
-                                 CommandParameter="{x:Reference ContentBlock}"
+                                 SourceLight="calendar_icon_black.svg"
+                                 SourceDark="calendar_icon_white.svg"
+                                 SourceActive="calendar_icon_active.svg" />
+                <cc:TabBarButton x:Name="SettingsButton" 
+                                 Command="{Binding LoadSettingsCommand}" 
                                  Style="{DynamicResource CrazyTabButtonStyleDefault}" 
                                  Grid.Column="3" 
-                                 Source="settings_icon" />
+                                 SourceLight="settings_icon_black.svg"
+                                 SourceDark="settings_icon_white.svg"
+                                 SourceActive="settings_icon_active.svg" />
             </Grid>
 
         </Border>

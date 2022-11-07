@@ -12,7 +12,13 @@ public partial class RoutePage : ContentPage
 	{
 		BindingContext = vm;
 		InitializeComponent();
-		vm.InitRoot(this);
+		vm.InitRoot(
+			ContentBlock, 
+			TabBarBlock,
+			HomeButton,
+			NotificationButton,
+			CalendarButton,
+			SettingsButton);
     }
 
 	protected override void OnSizeAllocated(double width, double height)
@@ -22,11 +28,11 @@ public partial class RoutePage : ContentPage
 			var contentSize = height * 0.90f;
 			var tabBarSize = height - contentSize;
 
-            BarLayout.SetLayoutBounds(ContentBlock, new Rect(0, 0, 1, height));
-            BarLayout.SetLayoutBounds(TabBarBlock, new Rect(0, contentSize, 1, tabBarSize));
+            BarLayout.SetLayoutBounds(ContentBlock, new Rect(0, 0, 1, 1));
+            BarLayout.SetLayoutBounds(TabBarBlock, new Rect(0, contentSize + tabBarSize, 1, tabBarSize));
             _isLayoutSizeInit = true;
 		}
-
 		base.OnSizeAllocated(width, height);
+
 	}
 }

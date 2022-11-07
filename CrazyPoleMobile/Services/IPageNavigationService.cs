@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CrazyPoleMobile.MVVM.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,12 +10,13 @@ namespace CrazyPoleMobile.Services
 {
     public interface IPageNavigationService
     {
-        public void LoadPage<T>(Layout contentContainer) where T : Page;
-        public void GoBack(Layout contentContainer);
+        public void LoadPage<View, ViewModel>() where View : Page where ViewModel : ObservableObject;
+        public void GoBack();
         public void PushPage<T>(T page) where T : Page;
         public Page PopPage();
         public T GetPage<T>() where T : Page;
+        public T GetViewModel<T>() where T : ObservableObject;
         public Page PopToRootPage();
-        public void InitRootPage(Page page);
+        public void InitRootPage(IRouteController page);
     }
 }
