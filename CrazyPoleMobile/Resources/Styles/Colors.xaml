@@ -44,6 +44,14 @@
         <GradientStop Color="{StaticResource Gray600}" Offset="1.0"  />
     </LinearGradientBrush>
 
+    <Color x:Key="FontColorDarkMode">#FFFFFF</Color>
+    <Color x:Key="FontColorLightMode">#171717</Color>
+    <Color x:Key="AttentionFontColor">#EC6C21</Color>
+    <Color x:Key="BorderColorDarkMode">#414141</Color>
+    <Color x:Key="BorderColorLightMode">#171717</Color>
+    <Color x:Key="FrameFillColorDarkMode">#000000</Color>
+    <Color x:Key="FrameFillColorLightMode">#EEEEEE</Color>
+
     <Color x:Key="Yellow100Accent">#F7B548</Color>
     <Color x:Key="Yellow200Accent">#FFD590</Color>
     <Color x:Key="Yellow300Accent">#FFE5B9</Color>

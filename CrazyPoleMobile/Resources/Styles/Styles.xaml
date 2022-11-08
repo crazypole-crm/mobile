@@ -3,8 +3,81 @@
 <ResourceDictionary 
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:mct="clr-namespace:CommunityToolkit.Maui.Behaviors;assembly=CommunityToolkit.Maui">
+    xmlns:mct ="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
 
+    <Style x:Key="BorderedFrame" TargetType="Border">
+        <Setter Property="Stroke" Value="{AppThemeBinding Light={StaticResource BorderColorLightMode}, Dark={StaticResource BorderColorDarkMode}}" />
+        <Setter Property="StrokeShape">
+            <RoundRectangle CornerRadius="15" />
+        </Setter>
+        <Setter Property="StrokeThickness" Value="2" />
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource FrameFillColorLightMode}, Dark={StaticResource FrameFillColorDarkMode}}" />
+        <Setter Property="HeightRequest" Value="60" />
+    </Style>
+    
+    <Style x:Key="SmallButton" TargetType="Border" >
+        <Setter Property="WidthRequest" Value="110" />
+        <Setter Property="HeightRequest" Value="25" />
+        <Setter Property="Background" Value="{StaticResource DefaultGradient}" />
+        <Setter Property="StrokeShape">
+            <RoundRectangle CornerRadius="15" />
+        </Setter>
+    </Style>
+    
+    <Style x:Key="DayFrame" TargetType="Border" BasedOn="{StaticResource BorderedFrame}">
+        <Setter Property="StrokeShape">
+            <RoundRectangle CornerRadius="20" />
+        </Setter>
+        <Setter Property="HeightRequest" Value="65" />
+        <Setter Property="WidthRequest" Value="40" />
+    </Style>
+
+    <Style x:Key="NotificationCircle" TargetType="Ellipse">
+        <Setter Property="WidthRequest" Value="6" />
+        <Setter Property="HeightRequest" Value="6" />
+        <Setter Property="Fill" Value="{StaticResource DefaultGradient}" />
+    </Style>
+
+    <Style x:Key="LineSeparator" TargetType="Line">
+        <Setter Property="Stroke" Value="{AppThemeBinding Light={StaticResource BorderColorLightMode}, Dark={StaticResource BorderColorDarkMode}}" />
+        <Setter Property="WidthRequest" Value="2" />
+    </Style>
+
+    <Style x:Key="FontBaseStyle" TargetType="Label">
+        <Setter Property="FontFamily" Value="Montserrat" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource FontColorLightMode}, Dark={StaticResource FontColorDarkMode}}" />
+    </Style>
+
+    <Style x:Key="SmallButtonText" TargetType="Label" BasedOn="{StaticResource FontBaseStyle}">
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="TextColor" Value="{StaticResource FontColorDarkMode}" />
+        <Setter Property="FontAttributes" Value="Bold" />
+    </Style>
+
+    <Style x:Key="HeaderText" TargetType="Label" BasedOn="{StaticResource FontBaseStyle}">
+        <Setter Property="FontSize" Value="32" />
+        <Setter Property="FontAttributes" Value="Bold" />
+    </Style>
+
+
+    <Style x:Key="MainFrameText" TargetType="Label" BasedOn="{StaticResource FontBaseStyle}">
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="FontAttributes" Value="Bold" />
+    </Style>
+
+    <Style x:Key="SideFrameText" TargetType="Label" BasedOn="{StaticResource FontBaseStyle}">
+        <Setter Property="FontSize" Value="10" />
+    </Style>
+    
+    <Style x:Key="AttentionText" TargetType="Label" BasedOn="{StaticResource SideFrameText}">
+        <Setter Property="TextColor" Value="{StaticResource AttentionFontColor}" />
+    </Style>
+
+    <Style x:Key="SettingsImage" TargetType="Image">
+        <Setter Property="WidthRequest" Value="30" />
+        <Setter Property="HeightRequest" Value="30" />
+    </Style>
+    
 
     <Style TargetType="ActivityIndicator">
         <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
@@ -20,7 +93,7 @@
         <Setter Property="StrokeShape" Value="Rectangle"/>
         <Setter Property="StrokeThickness" Value="1"/>
     </Style>
-
+    
     <Style TargetType="BoxView">
         <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource Gray200}}" />
     </Style>
