@@ -1,11 +1,120 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mct ="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="CrazyPoleMobile.MVVM.Views.SettingsPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Settings"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+    <VerticalStackLayout Spacing="10" Margin="19,0">
+        <Label HorizontalOptions="Center" 
+               Style="{StaticResource HeaderText}" 
+               Margin="0,10,0,36" 
+               Text="Настройки"  />
+        
+        <Border HeightRequest="60" Style="{StaticResource BorderedFrame}" >
+            <Grid Padding="0" 
+                  ColumnDefinitions="30, *, 40"  
+                  Margin="15, 0, 20, 0">
+                <Image Grid.Column="0" 
+                       HorizontalOptions="Center" 
+                       Source="bell_icon.svg" 
+                       Style="{StaticResource SettingsImage}">
+                    <Image.Behaviors>
+                        <mct:IconTintColorBehavior TintColor="{AppThemeBinding Light={StaticResource FontColorLightMode}, Dark={StaticResource FontColorDarkMode}}" />
+                    </Image.Behaviors>
+                </Image>
+                <Label Grid.Column="1" 
+                       Margin="10, 0, 0, 0" 
+                       VerticalTextAlignment="Center" 
+                       Style="{StaticResource FontMainStyle}" 
+                       Text="Оповещения" />
+                <Switch Grid.Column="2" />
+            </Grid>
+        </Border>
+
+        <Border HeightRequest="60" Style="{StaticResource BorderedFrame}" >
+            <Grid Padding="0" 
+                  ColumnDefinitions="30, *, 40"  
+                  Margin="15, 0, 20, 0">
+                <Image Grid.Column="0" 
+                       HorizontalOptions="Center" 
+                       Style="{StaticResource SettingsImage}" 
+                       Source="theme_switch_icon.svg" />
+                <Label Grid.Column="1" 
+                       Margin="10, 0, 0, 0" 
+                       VerticalTextAlignment="Center" 
+                       Style="{StaticResource MainFrameText}"  
+                       Text="Темная тема" />
+                <Switch Grid.Column="2" />
+            </Grid>
+        </Border>
+
+        <Border HeightRequest="60" Style="{StaticResource BorderedFrame}" >
+            <Grid Padding="0" 
+                  ColumnDefinitions="30, *, 40"  
+                  Margin="15, 0, 20, 0">
+                <Image Grid.Column="0" 
+                       HorizontalOptions="Center" 
+                       Style="{StaticResource SettingsImage}" 
+                       Source="telegram_icon.svg" />
+                <Label Grid.Column="1" 
+                       Margin="10, 0, 0, 0" 
+                       VerticalTextAlignment="Center" 
+                       Style="{StaticResource MainFrameText}"  
+                       Text="Telegram" />
+            </Grid>
+        </Border>
+
+        <Border HeightRequest="60" Style="{StaticResource BorderedFrame}" >
+            <Grid Padding="0" 
+                  ColumnDefinitions="30, *, 40"  
+                  Margin="15, 0, 20, 0">
+                <Image Grid.Column="0" 
+                       HorizontalOptions="Center" 
+                       Style="{StaticResource SettingsImage}" 
+                       Source="vk_icon.svg" />
+                <Label Grid.Column="1" 
+                       Margin="10, 0, 0, 0" 
+                       VerticalTextAlignment="Center" 
+                       Style="{StaticResource MainFrameText}"  
+                       Text="Группа ВК" />
+            </Grid>
+        </Border>
+
+        <Border HeightRequest="60" Style="{StaticResource BorderedFrame}" >
+            <Grid Padding="0" 
+                  ColumnDefinitions="30, *, 40"  
+                  Margin="15, 0, 20, 0">
+                <Image Grid.Column="0" 
+                       HorizontalOptions="Center" 
+                       Style="{StaticResource SettingsImage}" 
+                       Source="whatsapp_icon.svg" />
+                <Label Grid.Column="1" 
+                       Margin="10, 0, 0, 0" 
+                       VerticalTextAlignment="Center" 
+                       Style="{StaticResource MainFrameText}"  
+                       Text="WhatsApp" />
+            </Grid>
+        </Border>
+
+        <Border HeightRequest="60" Style="{StaticResource BorderedFrame}" >
+            <Grid Padding="0" 
+                  ColumnDefinitions="30, *, 40"  
+                  Margin="15, 0, 20, 0">
+                <Image Grid.Column="0" 
+                       HorizontalOptions="Center" 
+                       Style="{StaticResource SettingsImage}" 
+                       Source="web_icon.svg" />
+                <Label Grid.Column="1" 
+                           Margin="10, 0, 0, 0" 
+                           VerticalTextAlignment="Center" 
+                           Style="{StaticResource MainFrameText}"  
+                           Text="Веб-сайт" />
+            </Grid>
+        </Border>
+        <Border Style="{StaticResource SmallButton}">
+            <Label HorizontalTextAlignment="Center" 
+                   VerticalTextAlignment="Center" 
+                   Style="{StaticResource SmallButtonText}" 
+                   Text="Выйти" />
+        </Border>
     </VerticalStackLayout>
 </ContentPage>

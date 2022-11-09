@@ -2,10 +2,69 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CrazyPoleMobile.MVVM.Views.CalendarPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Calendar"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    <Grid ColumnDefinitions="*"
+          ColumnSpacing="5"
+          RowDefinitions="40,10,100,Auto"
+          RowSpacing="0">
+        <Label Grid.Column="1" 
+               Grid.Row="0" 
+               HorizontalOptions="Center"
+               Style="{StaticResource HeaderText}"
+               Text="Расписание" />
+        
+        <CollectionView Grid.Column="1" Grid.Row="2" >
+            <!--<CollectionView.ItemTemplate>
+                
+
+               
+            </CollectionView.ItemTemplate>-->
+        </CollectionView>
+        <Grid Grid.Column="1" Grid.Row="2">
+            <Border Style="{StaticResource DayFrame}">
+                <!--<Border.GestureRecognizers>
+                                <TapGestureRecognizer 
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MonkeysViewModel}}, Path=GoToDetailsCommand}"
+                                        CommandParameter="{Binding .}"/>
+                    </Border.GestureRecognizers>-->
+                <VerticalStackLayout >
+                    <Label Grid.Row="0" 
+                           HorizontalTextAlignment="Center" 
+                           Style="{StaticResource FontMainStyle}" 
+                           Margin="0, 9, 0, 0" 
+                           Text="19"  />
+                    <Label Grid.Row="1" 
+                           HorizontalTextAlignment="Center" 
+                           Style="{StaticResource FontMainStyle}" 
+                           Margin="0, 2, 0 ,0" Text="Ср"  />
+                    <Ellipse Style="{StaticResource NotificationCircle}" 
+                             Margin="10,3,10,0" />
+                </VerticalStackLayout>
+            </Border>
+        </Grid>
+        <Grid Padding="19, 0" Grid.Column="1" Grid.Row="3">
+            <Border HeightRequest="60" Style="{StaticResource BorderedFrame}" >
+                <!--<Border.GestureRecognizers>
+                                <TapGestureRecognizer 
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MonkeysViewModel}}, Path=GoToDetailsCommand}"
+                                        CommandParameter="{Binding .}"/>
+                            </Border.GestureRecognizers>-->
+                <Grid Padding="0" ColumnDefinitions="auto,2,*">
+                    <VerticalStackLayout VerticalOptions="Center"
+                                         Grid.Column="0"
+                                         Padding="11,0">
+                        <Label Style="{StaticResource MainFrameText}" Text="09:20"  />
+                        <Label Style="{StaticResource SideFrameText}" Text="60 мин" />
+                    </VerticalStackLayout>
+                    <Line Grid.Column="1" Style="{StaticResource LineSeparator}" HeightRequest="40"  />
+                    <VerticalStackLayout VerticalOptions="Center"
+                                         Grid.Column="2"
+                                         Padding="10,0">
+                        <Label Style="{StaticResource MainFrameText}" Text="Pole dance начинающие" />
+                        <Label Style="{StaticResource SideFrameText}" Text="занято 2 места" />
+                        <Label Style="{StaticResource AttentionText}" Text="Замена Амосова А." />
+                    </VerticalStackLayout>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
 </ContentPage>
