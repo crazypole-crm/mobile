@@ -7,7 +7,6 @@ namespace CrazyPoleMobile.Services
 {
     public class PageNavigationService : IPageNavigationService
     {
-        //private readonly Stack<Page> _stack = new Stack<Page>();
         private readonly IServiceProvider _serviceProvider;
         private IRouteController _routController;
         private IPopupController _popupController;
