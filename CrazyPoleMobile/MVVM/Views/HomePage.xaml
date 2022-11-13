@@ -4,6 +4,46 @@
              xmlns:cc="clr-namespace:CrazyPoleMobile.MVVM.Views.CustomControls"
              x:Class="CrazyPoleMobile.MVVM.Views.HomePage">
 
-    <Label Text="Home" ></Label>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="T" TargetType="cc:TabBarButton" >
+                <Setter Property="PaddingImage" Value="0" />
+                <Setter Property="PaddingBorder" Value="0" />
+                <Setter Property="StrokeThickness" Value="3" />
+                <Setter Property="ImageBgBrush" Value="{AppThemeBinding Light={StaticResource Transparent}, Dark={StaticResource Transparent}}"/>
+                <Setter Property="StrokeDarkBrush" Value="{StaticResource DefaultWhiteGradient}" />
+                <Setter Property="StrokeLightBrush" Value="{StaticResource DefaultBlackGradient}" />
+                <Setter Property="StrokeActiveBrush" Value="{StaticResource DefaultGradient}" />
+                <Setter Property="Shape">
+                    <Setter.Value>
+                        <RoundRectangle CornerRadius="15" />
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+
+    <ScrollView>
+        <VerticalStackLayout>
+            <Label HorizontalOptions="Center" 
+               Style="{StaticResource HeaderText}" 
+               Margin="0,10,0,36" 
+               Text="Направления" />
+
+            <cc:TabBarButton 
+                Style="{DynamicResource Key=T}"
+                SourceActive="pole_dance_image.jpg"
+                SourceDark="pole_dance_image.jpg"
+                SourceLight="pole_dance_image.jpg"
+                StrokeActiveBrush="{StaticResource ClarifiedBlack}"
+                StrokeLightBrush="{StaticResource ClarifiedBlack}"
+                StrokeDarkBrush="{StaticResource White}">
+                
+            </cc:TabBarButton>
+            
+        </VerticalStackLayout>
+    </ScrollView>
 
 </ContentPage>

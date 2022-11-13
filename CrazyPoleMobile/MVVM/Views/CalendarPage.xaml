@@ -29,12 +29,12 @@
                 <VerticalStackLayout >
                     <Label Grid.Row="0" 
                            HorizontalTextAlignment="Center" 
-                           Style="{StaticResource FontMainStyle}" 
+                           Style="{StaticResource FontBaseStyle}" 
                            Margin="0, 9, 0, 0" 
                            Text="19"  />
                     <Label Grid.Row="1" 
                            HorizontalTextAlignment="Center" 
-                           Style="{StaticResource FontMainStyle}" 
+                           Style="{StaticResource FontBaseStyle}" 
                            Margin="0, 2, 0 ,0" Text="Ср"  />
                     <Ellipse Style="{StaticResource NotificationCircle}" 
                              Margin="10,3,10,0" />

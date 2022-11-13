@@ -7,9 +7,12 @@ namespace CrazyPoleMobile.Services
 {
     public class PageNavigationService : IPageNavigationService
     {
-        private readonly Stack<Page> _stack = new Stack<Page>();
+        //private readonly Stack<Page> _stack = new Stack<Page>();
         private readonly IServiceProvider _serviceProvider;
-        private IRouteController _controller;
+        private IRouteController _routController;
+        private IPopupController _popupController;
+
+        public INavigation Navigation => Application.Current.MainPage.Navigation;
 
         public PageNavigationService(IServiceProvider serviceProvider)
             => _serviceProvider = serviceProvider;
@@ -20,22 +23,23 @@ namespace CrazyPoleMobile.Services
         public T GetViewModel<T>() where T : ObservableObject
             => _serviceProvider.GetService<T>();
 
-        public void GoBack()
+        public async Task GoBack()
         {
-            if (_stack.Count <= 1)
+            if (Navigation.NavigationStack.Count <= 1)
                 return;
 
-            var page = PopPage() as ContentPage;
-            _controller.GetContentBlock.Children.Clear();
-            _controller.GetContentBlock.Children.Add(page.Content);
+            var page = await PopPage() as ContentPage;
+            _routController.GetContentBlock.Children.Clear();
+            _routController.GetContentBlock.Children.Add(page.Content);
         }
 
-        public void InitRootPage(IRouteController page)
+        public void InitRootPage(IRouteController router, IPopupController popup)
         {
-            _controller = page;   
+            _routController = router;
+            _popupController = popup;
         }
 
-        public void LoadPage<View, ViewModel>() where View : Page where ViewModel : ObservableObject
+        public async Task LoadPage<View, ViewModel>(bool pushStak = true) where View : Page where ViewModel : ObservableObject
         {
             ContentPage page = GetPage<View>() as ContentPage;
 
@@ -44,21 +48,22 @@ namespace CrazyPoleMobile.Services
             var content = page.Content;
             content.BindingContext = GetViewModel<ViewModel>();
 
-            _controller.GetContentBlock.Children.Clear();
-            _controller.GetContentBlock.Children.Add(page.Content);
-            PushPage(page);
+            _routController.GetContentBlock.Children.Clear();
+            _routController.GetContentBlock.Children.Add(page.Content);
+            if (pushStak)
+                await PushPage(page);
+
         }
 
-        public Page PopPage() => _stack.Pop();
+        public async Task<Page> PopPage() => await Navigation.PopAsync();
 
-        public Page PopToRootPage()
+        public async Task PushPage<T>(T page) where T : Page => await Navigation.PushModalAsync(page);
+
+        public async Task ShowPopup<View, ViewModel>()
+            where View : Page
+            where ViewModel : ObservableObject
         {
-            var rootPage = _stack.ToArray()[0];
-            _stack.Clear();
-            _stack.Push(rootPage);
-            return rootPage;
+            throw new NotImplementedException();   
         }
-
-        public void PushPage<T>(T page) where T : Page => _stack.Push(page);
     }
 }

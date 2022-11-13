@@ -12,10 +12,14 @@
             Padding="{Binding PaddingBorder}"
             Stroke="{Binding CurrentBorderBrush}"
             StrokeThickness="{Binding StrokeThickness}"
-            BackgroundColor="Transparent">
+            BackgroundColor="Transparent"
+            HeightRequest="70"
+            WidthRequest="70">
 
         <ImageButton x:Name="Btn"
-                     Background="{Binding ImageBgBrush}"
+                     VerticalOptions="Fill"
+                     HorizontalOptions="Fill"
+                     Source="{Binding CurrentSource}"
                      Padding="{Binding PaddingImage}"
                      Command="{Binding Command}"
                      CommandParameter="{Binding CommandParameter}">

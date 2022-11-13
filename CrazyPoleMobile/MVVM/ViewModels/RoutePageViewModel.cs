@@ -7,7 +7,7 @@ using Microsoft.Maui.Layouts;
 
 namespace CrazyPoleMobile.MVVM.ViewModels
 {
-    public partial class RoutePageViewModel : ObservableObject, IRouteController
+    public partial class RoutePageViewModel : ObservableObject, IRouteController, IPopupController
     {
         private IPageNavigationService _router;
         private View _tabBar;
@@ -30,21 +30,15 @@ namespace CrazyPoleMobile.MVVM.ViewModels
 
         }
 
-        public void InitRoot(
-            Layout content, 
-            View tabBar,
-            TabBarButton homeButton,
-            TabBarButton notificationButton,
-            TabBarButton calendarButton,
-            TabBarButton settingsButton)
+        public void InitRoot(RoutePage page)
         {
-            _tabBar = tabBar;
-            _content = content;
-            _homeButton = homeButton;
-            _notificationButton = notificationButton;
-            _calendarButton = calendarButton;
-            _settingsButton = settingsButton;
-            _router.InitRootPage(this);
+            _tabBar = page.TabBarBlockRef;
+            _content = page.ContentBlockRef;
+            _homeButton = page.HomeButtonRef;
+            _notificationButton = page.NotificationButtonRef;
+            _calendarButton = page.CalendarButtonRef;
+            _settingsButton = page.SettingsButtonRef;
+            _router.InitRootPage(this, this);
             _contentContext = this;
             LoadLogInPage();
         }
@@ -120,6 +114,21 @@ namespace CrazyPoleMobile.MVVM.ViewModels
         {
             _tabBar.TranslateTo(0, -_tabBar.Height, easing: Easing.SinInOut);
             _tabBarIsVisible = true;
+        }
+
+        public Frame GetPopupView()
+        {
+            return null;
+        }
+
+        public Layout GetPopupContent()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void InitTabButton<T>(TabBarButton btn, bool ShowTabs = false) where T : ContentPage
+        {
+
         }
     }
 }

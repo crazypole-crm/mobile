@@ -1,6 +1,5 @@
 
-using Microsoft.Maui.ApplicationModel;
-using Microsoft.Maui.Controls;
+using System.Reflection;
 using System.Windows.Input;
 
 namespace CrazyPoleMobile.MVVM.Views.CustomControls;
@@ -16,12 +15,13 @@ public partial class TabBarButton : ContentView
     protected override void OnBindingContextChanged()
     {
         SetColorTheme(Application.Current.RequestedTheme);
+
         base.OnBindingContextChanged();
     }
 
     public string CurrentSource 
     {
-        get => Btn.Source.ToString();
+        get => Btn?.Source.ToString() ?? "";
         set
         {
             Btn.Source = value;
@@ -37,14 +37,24 @@ public partial class TabBarButton : ContentView
         }
     }
 
-    public static readonly BindableProperty SourceProperty =
-        BindableProperty.Create(nameof(Source), typeof(string), typeof(TabBarButton));
+    public static readonly BindableProperty PageTypeProperty =
+        BindableProperty.Create(nameof(PageType), typeof(Type), typeof(TabBarButton));
 
 
-    public string Source
+    public Type PageType
     {
-        get => (string)GetValue(SourceProperty);
-        set => SetValue(SourceProperty, value);
+        get => (Type)GetValue(PageTypeProperty);
+        set => SetValue(PageTypeProperty, value);
+    }
+
+    public static readonly BindableProperty PageVMTypeProperty =
+        BindableProperty.Create(nameof(PageVMType), typeof(Type), typeof(TabBarButton));
+
+
+    public Type PageVMType
+    {
+        get => (Type)GetValue(PageVMTypeProperty);
+        set => SetValue(PageVMTypeProperty, value);
     }
 
     public static readonly BindableProperty SourceLightProperty =
@@ -196,21 +206,21 @@ public partial class TabBarButton : ContentView
     {
         if (appTheme == AppTheme.Light && !IsSelected)
         { 
-            //Brdr.SetValue(Border.StrokeProperty, null);
+            Brdr.SetValue(Border.StrokeProperty, null);
             CurrentSource = SourceLight;
             CurrentBorderBrush = StrokeLightBrush;
         }
 
         if (appTheme == AppTheme.Dark && !IsSelected)
         {
-            //Brdr.SetValue(Border.StrokeProperty, null);
+            Brdr.SetValue(Border.StrokeProperty, null);
             CurrentSource = SourceDark;
             CurrentBorderBrush = StrokeDarkBrush;
         }
 
         if (IsSelected)
-        { 
-            //Brdr.SetValue(Border.StrokeProperty, null);
+        {
+            Brdr.SetValue(Border.StrokeProperty, null);
             CurrentSource = SourceActive;
             CurrentBorderBrush = StrokeActiveBrush;
         }

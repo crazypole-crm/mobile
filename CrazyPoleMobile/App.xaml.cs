@@ -1,4 +1,6 @@
-﻿using CrazyPoleMobile.MVVM.Views;
+﻿
+using CrazyPoleMobile.MVVM.ViewModels;
+using CrazyPoleMobile.MVVM.Views;
 using CrazyPoleMobile.Services;
 
 namespace CrazyPoleMobile;

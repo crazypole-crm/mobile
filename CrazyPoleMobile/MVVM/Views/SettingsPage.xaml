@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:mct ="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:cc="clr-namespace:CrazyPoleMobile.MVVM.Views.CustomControls"
              x:Class="CrazyPoleMobile.MVVM.Views.SettingsPage">
     <VerticalStackLayout Spacing="10" Margin="19,0">
         <Label HorizontalOptions="Center" 
@@ -15,29 +16,30 @@
                   Margin="15, 0, 20, 0">
                 <Image Grid.Column="0" 
                        HorizontalOptions="Center" 
-                       Source="bell_icon.svg" 
+                       Source="{AppThemeBinding 
+                    Light={cc:ImageResource Source=bell_icon_black.png}, 
+                    Dark={cc:ImageResource Source=bell_icon_white.png}}" 
                        Style="{StaticResource SettingsImage}">
-                    <Image.Behaviors>
-                        <mct:IconTintColorBehavior TintColor="{AppThemeBinding Light={StaticResource FontColorLightMode}, Dark={StaticResource FontColorDarkMode}}" />
-                    </Image.Behaviors>
                 </Image>
                 <Label Grid.Column="1" 
                        Margin="10, 0, 0, 0" 
                        VerticalTextAlignment="Center" 
-                       Style="{StaticResource FontMainStyle}" 
+                       Style="{StaticResource MainFrameText}" 
                        Text="Оповещения" />
                 <Switch Grid.Column="2" />
             </Grid>
         </Border>
 
-        <Border HeightRequest="60" Style="{StaticResource BorderedFrame}" >
+                <Border HeightRequest="60" Style="{StaticResource BorderedFrame}" >
             <Grid Padding="0" 
                   ColumnDefinitions="30, *, 40"  
                   Margin="15, 0, 20, 0">
                 <Image Grid.Column="0" 
                        HorizontalOptions="Center" 
                        Style="{StaticResource SettingsImage}" 
-                       Source="theme_switch_icon.svg" />
+                       Source="{AppThemeBinding 
+                    Light={cc:ImageResource Source=dark_mode_icon_black.png}, 
+                    Dark={cc:ImageResource Source=dark_mode_icon_white.png}}" />
                 <Label Grid.Column="1" 
                        Margin="10, 0, 0, 0" 
                        VerticalTextAlignment="Center" 
@@ -54,7 +56,9 @@
                 <Image Grid.Column="0" 
                        HorizontalOptions="Center" 
                        Style="{StaticResource SettingsImage}" 
-                       Source="telegram_icon.svg" />
+                       Source="{AppThemeBinding 
+                    Light={cc:ImageResource Source=telegram_icon_black.png}, 
+                    Dark={cc:ImageResource Source=telegram_icon_white.png}}" />
                 <Label Grid.Column="1" 
                        Margin="10, 0, 0, 0" 
                        VerticalTextAlignment="Center" 
@@ -70,7 +74,9 @@
                 <Image Grid.Column="0" 
                        HorizontalOptions="Center" 
                        Style="{StaticResource SettingsImage}" 
-                       Source="vk_icon.svg" />
+                       Source="{AppThemeBinding 
+                    Light={cc:ImageResource Source=vk_icon_black.png}, 
+                    Dark={cc:ImageResource Source=vk_icon_white.png}}" />
                 <Label Grid.Column="1" 
                        Margin="10, 0, 0, 0" 
                        VerticalTextAlignment="Center" 
@@ -84,9 +90,11 @@
                   ColumnDefinitions="30, *, 40"  
                   Margin="15, 0, 20, 0">
                 <Image Grid.Column="0" 
-                       HorizontalOptions="Center" 
-                       Style="{StaticResource SettingsImage}" 
-                       Source="whatsapp_icon.svg" />
+                       HorizontalOptions="Center"
+                       Style="{StaticResource SettingsImage}"
+                       Source="{AppThemeBinding 
+                    Light={cc:ImageResource Source=watsapp_icon_black.png}, 
+                    Dark={cc:ImageResource Source=watsapp_icon_white.png}}" />
                 <Label Grid.Column="1" 
                        Margin="10, 0, 0, 0" 
                        VerticalTextAlignment="Center" 
@@ -102,7 +110,9 @@
                 <Image Grid.Column="0" 
                        HorizontalOptions="Center" 
                        Style="{StaticResource SettingsImage}" 
-                       Source="web_icon.svg" />
+                       Source="{AppThemeBinding 
+                    Light={cc:ImageResource Source=website_icon_black.png}, 
+                    Dark={cc:ImageResource Source=website_icon_white.png}}" />
                 <Label Grid.Column="1" 
                            Margin="10, 0, 0, 0" 
                            VerticalTextAlignment="Center" 

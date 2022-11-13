@@ -1,3 +1,4 @@
+using CommunityToolkit.Maui.Views;
 using CrazyPoleMobile.MVVM.ViewModels;
 using CrazyPoleMobile.MVVM.Views.CustomControls;
 using System.Collections;
@@ -8,18 +9,22 @@ public partial class RoutePage : ContentPage
 {
 	private bool _isLayoutSizeInit = false;
 
-	public RoutePage(RoutePageViewModel vm)
+	public Grid ContentBlockRef => ContentBlock;
+	public Border TabBarBlockRef => TabBarBlock;
+	public Frame PopupFrameRef => Popup;
+	public ScrollView PopupContentRef => PopupContent;
+	public Label PopupLabelRef => PopupLabel;
+	public TabBarButton HomeButtonRef => HomeButton;
+    public TabBarButton NotificationButtonRef => NotificationButton;
+    public TabBarButton CalendarButtonRef => CalendarButton;
+    public TabBarButton SettingsButtonRef => SettingsButton;
+
+    public RoutePage(RoutePageViewModel vm)
 	{
-		BindingContext = vm;
+        BindingContext = vm;
 		InitializeComponent();
-		vm.InitRoot(
-			ContentBlock, 
-			TabBarBlock,
-			HomeButton,
-			NotificationButton,
-			CalendarButton,
-			SettingsButton);
-    }
+		vm.InitRoot(this);
+	}
 
 	protected override void OnSizeAllocated(double width, double height)
 	{
@@ -30,7 +35,6 @@ public partial class RoutePage : ContentPage
 
             BarLayout.SetLayoutBounds(ContentBlock, new Rect(0, 0, 1, 1));
             BarLayout.SetLayoutBounds(TabBarBlock, new Rect(0, contentSize + tabBarSize, 1, tabBarSize));
-            _isLayoutSizeInit = true;
 		}
 		base.OnSizeAllocated(width, height);
 
