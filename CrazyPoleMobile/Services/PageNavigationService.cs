@@ -58,7 +58,7 @@ namespace CrazyPoleMobile.Services
 
         public async Task PushPage<T>(T page) where T : Page => await Navigation.PushModalAsync(page);
 
-        public async Task ShowPopup<View, ViewModel>()
+        public Task ShowPopup<View, ViewModel>()
             where View : Page
             where ViewModel : ObservableObject
         {

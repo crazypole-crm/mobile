@@ -7,9 +7,9 @@
              x:Name="this"
              x:Class="CrazyPoleMobile.MVVM.Views.LogInPage">
 
-    <ContentPage.BindingContext>
+    <!--<ContentPage.BindingContext>
         <vm:LogInPageViewModel />
-    </ContentPage.BindingContext>
+    </ContentPage.BindingContext>-->
     
     <ContentPage.Behaviors>
         <mct:StatusBarBehavior StatusBarColor="{

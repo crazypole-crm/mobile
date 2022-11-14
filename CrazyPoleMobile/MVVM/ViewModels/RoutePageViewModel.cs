@@ -1,7 +1,9 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Maui.Views;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CrazyPoleMobile.MVVM.Views;
 using CrazyPoleMobile.MVVM.Views.CustomControls;
+using CrazyPoleMobile.MVVM.Views.Popups;
 using CrazyPoleMobile.Services;
 using Microsoft.Maui.Layouts;
 
@@ -41,6 +43,7 @@ namespace CrazyPoleMobile.MVVM.ViewModels
             _router.InitRootPage(this, this);
             _contentContext = this;
             LoadLogInPage();
+            //await App.Current.MainPage.ShowPopupAsync(new ErrorPopup());
         }
 
 
@@ -114,6 +117,12 @@ namespace CrazyPoleMobile.MVVM.ViewModels
         {
             _tabBar.TranslateTo(0, -_tabBar.Height, easing: Easing.SinInOut);
             _tabBarIsVisible = true;
+        }
+
+        [RelayCommand]
+        private async void ShowPopup()
+        {
+            await App.Current.MainPage.ShowPopupAsync(new WarningPopup("Message"));
         }
 
         public Frame GetPopupView()

@@ -1,12 +1,46 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="CrazyPoleMobile.MVVM.Views.Popups.WarningPopup"
-             Title="WarningPopup">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
-</ContentPage>
+<ct:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+          xmlns:ct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+          xmlns:cc="clr-namespace:CrazyPoleMobile.MVVM.Views.CustomControls"
+          x:Name="this"
+          CanBeDismissedByTappingOutsideOfPopup="False"
+          Color="Transparent"
+          x:Class="CrazyPoleMobile.MVVM.Views.Popups.WarningPopup">
+    <Border BindingContext="{x:Reference this}" 
+            Style="{StaticResource BorderedFrame}"
+            HeightRequest="300"
+            WidthRequest="500"
+            Padding="20">
+        <Grid RowDefinitions="250*, 50*">
+
+            <ct:DockLayout Grid.Row="0"
+                           VerticalOptions="Fill"
+                           HorizontalOptions="Fill">
+                <Image Source="warning_ico.png"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"
+                   Margin="50"
+                   HeightRequest="50"
+                   WidthRequest="50"
+                   ct:DockLayout.DockPosition="Left"/>
+
+                <Label Text="{Binding Message}"
+                       Style="{StaticResource FontBaseStyle}"
+                       VerticalOptions="Center"
+                       VerticalTextAlignment="Center"
+                       HorizontalTextAlignment="Center"
+                       ct:DockLayout.DockPosition="Right"/>
+            </ct:DockLayout>
+
+            <ct:DockLayout Grid.Row="1">
+
+                <cc:GradientButton ct:DockLayout.DockPosition="Bottom"
+                                   HeightRequest="50"
+                                   Text="OK"
+                                   OnClickCommand="{Binding CloseCommand}" />
+            </ct:DockLayout>
+
+        </Grid>
+    </Border>
+</ct:Popup>

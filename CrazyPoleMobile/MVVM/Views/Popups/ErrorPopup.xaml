@@ -2,12 +2,44 @@
 <ct:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
           xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
           xmlns:ct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+          x:Name="this"
+          CanBeDismissedByTappingOutsideOfPopup="False"
+          Color="Transparent"
           xmlns:cc="clr-namespace:CrazyPoleMobile.MVVM.Views.CustomControls"
           x:Class="CrazyPoleMobile.MVVM.Views.Popups.ErrorPopup">
-    <Border Style="{StaticResource BorderedFrame}"
+    <Border BindingContext="{x:Reference this}" 
+            Style="{StaticResource BorderedFrame}"
             HeightRequest="300"
-            WidthRequest="300">
+            WidthRequest="500"
+            Padding="20">
+        <Grid RowDefinitions="250*, 50*">
 
-        <cc:GradientButton VerticalOptions="End" Text="OK"/>
+            <ct:DockLayout Grid.Row="0"
+                           VerticalOptions="Fill"
+                           HorizontalOptions="Fill">
+                <Image Source="error_ico.png"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"
+                   Margin="50"
+                   HeightRequest="50"
+                   WidthRequest="50"
+                   ct:DockLayout.DockPosition="Left"/>
+
+                <Label Text="{Binding Message}"
+                       VerticalOptions="Center"
+                       VerticalTextAlignment="Center"
+                       HorizontalTextAlignment="Center"
+                       ct:DockLayout.DockPosition="Right"/>
+            </ct:DockLayout>
+
+            <ct:DockLayout Grid.Row="1">
+                
+                <cc:GradientButton ct:DockLayout.DockPosition="Bottom"
+                                   HeightRequest="50"
+                                   Text="OK"
+                                   OnClickCommand="{Binding CloseCommand}" />
+            </ct:DockLayout>
+            
+        </Grid>
     </Border>
 </ct:Popup>

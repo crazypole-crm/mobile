@@ -1,7 +1,9 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Maui.Views;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using CrazyPoleMobile.MVVM.Views;
+using CrazyPoleMobile.MVVM.Views.Popups;
 using CrazyPoleMobile.Services.Api;
+using System.Net;
 
 namespace CrazyPoleMobile.MVVM.ViewModels
 {
@@ -10,11 +12,9 @@ namespace CrazyPoleMobile.MVVM.ViewModels
         private RoutePageViewModel _route;
         private AuthenticationApi _auth;
 
-        [ObservableProperty] private string _email;
-        [ObservableProperty] private string _password;
-        [ObservableProperty] private string _repeatPassword;
-        [ObservableProperty] private string _message;
-        [ObservableProperty] private bool _messageVisible = false;
+        [ObservableProperty] private string _email = string.Empty;
+        [ObservableProperty] private string _password = string.Empty;
+        [ObservableProperty] private string _repeatPassword = string.Empty;
 
 
         public SignUpPageViewModel(
@@ -37,28 +37,35 @@ namespace CrazyPoleMobile.MVVM.ViewModels
             _route.LoadHome();
         }
 
-        private void ShowMessage(string message)
-        {
-            Message = message;
-            MessageVisible = true;
-        }
-
         [RelayCommand]
         private async void Registration()
         {
-            if (_password == "" || _repeatPassword == "" || _email == "")
+            if (_password == string.Empty ||
+                _repeatPassword == string.Empty ||
+                _email == string.Empty)
             {
-                ShowMessage("Все поля должны быть заполнены");
+                await App.Current.MainPage.ShowPopupAsync(
+                    new WarningPopup("Все поля должны быть заполнены"));
                 return;
             }
 
             if (_password != _repeatPassword)
             {
-                ShowMessage("Пароли не совпадают");
+                await App.Current.MainPage.ShowPopupAsync(
+                    new WarningPopup("Пароли не совпадают"));
                 return;
             }
 
-            await _auth.Registration(_email, _password);               
+            var status = await _auth.Registration(_email, _password);
+
+            if (status == HttpStatusCode.OK)
+            {
+                _route.LoadHome();
+                return;
+            }    
+
+            await App.Current.MainPage.ShowPopupAsync(
+                    new ErrorPopup(status.ToString()));
         }
     }
 }

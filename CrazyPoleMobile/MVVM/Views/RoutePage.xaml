@@ -43,7 +43,7 @@
                 AbsoluteLayout.LayoutFlags="All"
                 RowDefinitions="*">
             <Grid RowDefinitions="*,*">
-
+                <Button Command="{Binding ShowPopupCommand}"/>
 
             </Grid>
 

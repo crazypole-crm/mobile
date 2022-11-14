@@ -34,17 +34,6 @@
                FontSize="45"
                FontAttributes="Bold"
                Grid.Row="1">Регистрация</Label>
-        <Label x:Name="MessageLabel" Margin="0,0,0,0"
-               HorizontalOptions="CenterAndExpand"
-               HeightRequest="40"
-               VerticalOptions="End"
-               FontSize="35"
-               TextColor="Red"
-               Grid.Row="1"
-               Grid.RowSpan="2"
-               IsVisible="{Binding MessageVisible}"
-               Text="{Binding Message}" />
-
 
         <VerticalStackLayout Grid.Row="3">
             <Label VerticalOptions="End"

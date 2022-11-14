@@ -29,6 +29,15 @@
     <MauiXaml Update="MVVM\Views\HomePage.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
+    <MauiXaml Update="MVVM\Views\Popups\ErrorPopup.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
+    <MauiXaml Update="MVVM\Views\Popups\InfoPopup.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
+    <MauiXaml Update="MVVM\Views\Popups\WarningPopup.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
     <MauiXaml Update="MVVM\Views\RoutePage.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>

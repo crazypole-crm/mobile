@@ -1,9 +1,17 @@
+using CommunityToolkit.Maui.Views;
+using System.Windows.Input;
+
 namespace CrazyPoleMobile.MVVM.Views.Popups;
 
-public partial class WarningPopup : ContentPage
+public partial class WarningPopup : Popup
 {
-	public WarningPopup()
+    public string Message { get; set; } = "";
+    public ICommand CloseCommand { get; set; }
+
+    public WarningPopup(string message)
 	{
-		InitializeComponent();
+        this.Message = message;
+        CloseCommand = new Command(() => Close());
+        InitializeComponent();
 	}
 }
