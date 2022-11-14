@@ -7,6 +7,10 @@
              x:Name="this"
              x:Class="CrazyPoleMobile.MVVM.Views.SignUpPage">
 
+    <!--<ContentPage.BindingContext>
+        <vm:SignUpPageViewModel />
+    </ContentPage.BindingContext>-->
+    
     <ContentPage.Behaviors>
         <mct:StatusBarBehavior StatusBarColor="{
             AppThemeBinding Light={StaticResource White}, 
@@ -30,34 +34,44 @@
                FontSize="45"
                FontAttributes="Bold"
                Grid.Row="1">Регистрация</Label>
+        <Label x:Name="MessageLabel" Margin="0,0,0,0"
+               HorizontalOptions="CenterAndExpand"
+               HeightRequest="40"
+               VerticalOptions="End"
+               FontSize="35"
+               TextColor="Red"
+               Grid.Row="1"
+               Grid.RowSpan="2"
+               IsVisible="{Binding MessageVisible}"
+               Text="{Binding Message}" />
 
 
         <VerticalStackLayout Grid.Row="3">
             <Label VerticalOptions="End"
                    FontSize="20"
-                   Margin="10">Номер телефона:</Label>
-            <controls:GradientField Placeholder="Введите номер"
-                                    Margin="10"
+                   Margin="10">Email:</Label>
+            <controls:GradientField Margin="10"
                                     HeightRequest="65"
-                                    VerticalOptions="StartAndExpand" /> 
+                                    VerticalOptions="StartAndExpand"
+                                    Text="{Binding Email, Mode=TwoWay}"/> 
             <Label VerticalOptions="EndAndExpand"
                    Margin="10"
                    FontSize="20">Пароль:</Label>
-            <controls:GradientField Placeholder="Введите пароль"
-                                    Margin="10"
+            <controls:GradientField Margin="10"
                                     VerticalOptions="StartAndExpand"
-                                    IsPassword="True"/>
+                                    IsPassword="True"
+                                    Text="{Binding Password, Mode=TwoWay}"/>
             <Label VerticalOptions="EndAndExpand"
                    Margin="10"
                    FontSize="20">Повторите пароль:</Label>
-            <controls:GradientField Placeholder="Повторите пароль"
-                                    Margin="10"
+            <controls:GradientField Margin="10"
                                     VerticalOptions="StartAndExpand"
-                                    IsPassword="True"/>
-            <controls:GradientButton Text="Войти в аккаунт"
+                                    IsPassword="True"
+                                    Text="{Binding RepeatPassword, Mode=TwoWay}"/>
+            <controls:GradientButton Text="Создать аккаунт"
                                      Margin="10,40,10,10"
                                      HeightRequest="65"
-                                     OnClickCommand="{Binding LoadHomeCommand}"
+                                     OnClickCommand="{Binding RegistrationCommand}"
                                      VerticalOptions="FillAndExpand"
                                      Grid.Row="4"/>
             <HorizontalStackLayout Margin="10" HorizontalOptions="Center">

@@ -7,6 +7,10 @@
              x:Name="this"
              x:Class="CrazyPoleMobile.MVVM.Views.LogInPage">
 
+    <ContentPage.BindingContext>
+        <vm:LogInPageViewModel />
+    </ContentPage.BindingContext>
+    
     <ContentPage.Behaviors>
         <mct:StatusBarBehavior StatusBarColor="{
             AppThemeBinding Light={StaticResource White}, 
@@ -40,29 +44,39 @@
                FontSize="45"
                FontAttributes="Bold"
                Grid.Row="1">Вход</Label>
+        <Label x:Name="MessageLabel" Margin="0,0,0,0"
+               HorizontalOptions="CenterAndExpand"
+               HeightRequest="40"
+               VerticalOptions="End"
+               FontSize="35"
+               TextColor="Red"
+               Grid.Row="1"
+               Grid.RowSpan="2"
+               IsVisible="{Binding MessageVisible}"
+               Text="{Binding Message}" />
 
 
         <VerticalStackLayout Grid.Row="3">
             <Label VerticalOptions="End"
                    FontSize="20"
-                   Margin="10">Введите номер телефона:</Label>
-            <controls:GradientField Placeholder="Введите номер"
-                                    Margin="10"
+                   Margin="10">Email:</Label>
+            <controls:GradientField Margin="10"
                                     HeightRequest="65"
-                                    VerticalOptions="StartAndExpand" />
+                                    VerticalOptions="StartAndExpand" 
+                                    Text="{Binding Email, Mode=TwoWay}" />
             <Label VerticalOptions="EndAndExpand"
                    Margin="10"
                    FontSize="20">Введите пароль:</Label>
-            <controls:GradientField Placeholder="Введите пароль"
-                                    Margin="10"
+            <controls:GradientField Margin="10"
                                     VerticalOptions="StartAndExpand"
-                                    IsPassword="True"/>
+                                    IsPassword="True"
+                                    Text="{Binding Password, Mode=TwoWay}"/>
             <controls:GradientButton Text="Войти в аккаунт"
                                      Margin="10,40,10,10"
                                      HeightRequest="65"
                                      VerticalOptions="FillAndExpand"
                                      Grid.Row="4"
-                                     OnClickCommand="{Binding LoadHomePageCommand}" />
+                                     OnClickCommand="{Binding LogInCommand}" />
             <HorizontalStackLayout Margin="10" HorizontalOptions="Center">
                 <Label VerticalOptions="Center">Нет аккаунта?</Label>
                 <Button BackgroundColor="Transparent" 

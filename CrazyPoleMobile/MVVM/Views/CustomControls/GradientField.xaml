@@ -18,7 +18,8 @@
                Focused="OnFocus"
                Unfocused="OnUnfocus"
                Keyboard="{Binding InputType}"
-               IsPassword="{Binding IsPassword}"/>
+               IsPassword="{Binding IsPassword}"
+               Text="{Binding Text}"/>
     </Border>
 
     

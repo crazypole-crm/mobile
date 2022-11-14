@@ -37,6 +37,15 @@ public partial class GradientField : ContentView
         set => SetValue(InputTypeProperty, value);
     }
 
+    public static readonly BindableProperty TextProperty =
+        BindableProperty.Create(nameof(Text), typeof(string), typeof(GradientField));
+
+    public string Text
+    {
+        get => (string)GetValue(TextProperty);
+        set => SetValue(TextProperty, value);
+    }
+
     public void OnFocus(object sender, FocusEventArgs args)
 	{
 		if (Application.Current.Resources.TryGetValue("DefaultGradient", out object data))
