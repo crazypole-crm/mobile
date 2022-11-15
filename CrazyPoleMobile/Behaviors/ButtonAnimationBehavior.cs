@@ -17,6 +17,7 @@ namespace CrazyPoleMobile.Behaviors
             base.OnAttachedTo(bindable);
             bindable.Pressed += OnPressed;
             bindable.Released += OnReleased;
+            bindable.Unfocused += OnReleased;
             _pressedScale = bindable.Scale - DELTA_SCALE;
             _releasedScale = bindable.Scale;
         }
@@ -39,6 +40,8 @@ namespace CrazyPoleMobile.Behaviors
                 _pressedAnimation = null;
             }
         }
+
+        
 
         private async void OnReleased(object sender, EventArgs args)
         {

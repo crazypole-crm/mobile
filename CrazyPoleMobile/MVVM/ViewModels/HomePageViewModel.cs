@@ -9,5 +9,6 @@ namespace CrazyPoleMobile.MVVM.ViewModels
 {
     public partial class HomePageViewModel : ObservableObject
     {
+
     }
 }

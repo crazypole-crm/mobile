@@ -7,7 +7,6 @@ public partial class GradientField : ContentView
     public GradientField()
 	{
 		InitializeComponent();
-        
 	}
 
     public static readonly BindableProperty IsPasswordProperty =
@@ -46,9 +45,27 @@ public partial class GradientField : ContentView
         set => SetValue(TextProperty, value);
     }
 
+    public static readonly BindableProperty LockProperty =
+        BindableProperty.Create(nameof(Lock), typeof(bool), typeof(GradientField));
+
+    public bool Lock
+    {
+        get => (bool)GetValue(LockProperty);
+        set 
+        {
+            SetValue(LockProperty, value);
+            if (!value)
+            {
+                OnUnfocus(this, null);
+            }
+            
+        } 
+    }
+
     public void OnFocus(object sender, FocusEventArgs args)
 	{
-		if (Application.Current.Resources.TryGetValue("DefaultGradient", out object data))
+		if (Application.Current.Resources.TryGetValue("DefaultGradient", out object data) &&
+            !Lock)
 		{
 			Framing.Stroke = (LinearGradientBrush)data;	
 		}
@@ -57,7 +74,8 @@ public partial class GradientField : ContentView
 
 	public void OnUnfocus(object sender, FocusEventArgs args)
 	{
-        if (Application.Current.Resources.TryGetValue("DefaultGray", out object data))
+        if (Application.Current.Resources.TryGetValue("DefaultGray", out object data) &&
+            !Lock)
         {
             Framing.Stroke = (LinearGradientBrush)data;
         }

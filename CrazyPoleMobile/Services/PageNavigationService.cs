@@ -1,6 +1,7 @@
 ﻿
 
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel.__Internals;
 using CrazyPoleMobile.MVVM.ViewModels;
 
 namespace CrazyPoleMobile.Services
@@ -9,7 +10,9 @@ namespace CrazyPoleMobile.Services
     {
         private readonly IServiceProvider _serviceProvider;
         private IRouteController _routController;
-        private IPopupController _popupController;
+
+        private Dictionary<Type, Page> _pageCache = new();
+        private Dictionary<Type, ObservableObject> _viewModelCache = new();
 
         public INavigation Navigation => Application.Current.MainPage.Navigation;
 
@@ -17,10 +20,28 @@ namespace CrazyPoleMobile.Services
             => _serviceProvider = serviceProvider;
 
         public T GetPage<T>() where T : Page
-            => _serviceProvider.GetService<T>();
+        {
+            if (_pageCache.ContainsKey(typeof(T)))
+            {
+                return (T)_pageCache[typeof(T)];
+            }
+
+            var page = _serviceProvider.GetService<T>();
+            _pageCache.Add(typeof(T), page);
+            return page;
+        }
 
         public T GetViewModel<T>() where T : ObservableObject
-            => _serviceProvider.GetService<T>();
+        {
+            if (_viewModelCache.ContainsKey(typeof(T)))
+            {
+                return (T)_viewModelCache[typeof(T)];
+            }
+
+            var vm = _serviceProvider.GetService<T>();
+            _viewModelCache.Add(typeof(T), vm);
+            return vm;
+        }
 
         public async Task GoBack()
         {
@@ -32,13 +53,12 @@ namespace CrazyPoleMobile.Services
             _routController.GetContentBlock.Children.Add(page.Content);
         }
 
-        public void InitRootPage(IRouteController router, IPopupController popup)
+        public void InitRootPage(IRouteController router)
         {
             _routController = router;
-            _popupController = popup;
         }
 
-        public async Task LoadPage<View, ViewModel>(bool pushStak = true) where View : Page where ViewModel : ObservableObject
+        public async Task LoadPage<View, ViewModel>(bool pushStak = false) where View : Page where ViewModel : ObservableObject
         {
             ContentPage page = GetPage<View>() as ContentPage;
 
@@ -56,13 +76,6 @@ namespace CrazyPoleMobile.Services
 
         public async Task<Page> PopPage() => await Navigation.PopAsync();
 
-        public async Task PushPage<T>(T page) where T : Page => await Navigation.PushModalAsync(page);
-
-        public Task ShowPopup<View, ViewModel>()
-            where View : Page
-            where ViewModel : ObservableObject
-        {
-            throw new NotImplementedException();   
-        }
+        public async Task PushPage<T>(T page) where T : Page => await Navigation.PushAsync(page);
     }
 }

@@ -33,9 +33,27 @@ public partial class GradientButton : ContentView
     public ICommand OnClickCommand
     {
         get => (ICommand)GetValue(OnClickCommandProperty);
-        set 
-        {
+        set
+        { 
             SetValue(OnClickCommandProperty, value);
         }
+    }
+
+    public static readonly BindableProperty IsInteractableProperty =
+        BindableProperty.Create(nameof(IsInteractable), typeof(bool), typeof(GradientButton));
+
+    public bool IsInteractable
+    {
+        get => (bool)GetValue(IsInteractableProperty);
+        set => SetValue(IsInteractableProperty, value);
+    }
+
+    public static readonly BindableProperty PlayLoadAnimationProperty =
+        BindableProperty.Create(nameof(PlayLoadAnimation), typeof(bool), typeof(GradientButton));
+
+    public bool PlayLoadAnimation
+    {
+        get => (bool)GetValue(PlayLoadAnimationProperty);
+        set => SetValue(PlayLoadAnimationProperty, value);
     }
 }

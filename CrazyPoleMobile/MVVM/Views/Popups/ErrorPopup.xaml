@@ -36,6 +36,7 @@
                 
                 <cc:GradientButton ct:DockLayout.DockPosition="Bottom"
                                    HeightRequest="50"
+                                   CornerRadius="15"
                                    Text="OK"
                                    OnClickCommand="{Binding CloseCommand}" />
             </ct:DockLayout>

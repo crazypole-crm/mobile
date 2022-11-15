@@ -11,7 +11,6 @@ namespace CrazyPoleMobile.Services
         public Task<Page> PopPage();
         public T GetPage<T>() where T : Page;
         public T GetViewModel<T>() where T : ObservableObject;
-        public Task ShowPopup<View, ViewModel>() where View : Page where ViewModel : ObservableObject;
-        public void InitRootPage(IRouteController router, IPopupController popup);
+        public void InitRootPage(IRouteController router);
     }
 }

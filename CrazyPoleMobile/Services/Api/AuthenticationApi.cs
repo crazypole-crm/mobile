@@ -13,13 +13,21 @@ namespace CrazyPoleMobile.Services.Api
 
         public async Task<HttpStatusCode> LogIn(string email, string password)
         {
-            var response = await _client.PostAsJsonAsync<UserAuthData>(
-                    $"{HC.HOST_NAME}{HC.LOGIN_ROUTE}", 
-                    new() 
-                    { 
-                        Email = email,
-                        Password = password
-                    });
+            HttpResponseMessage response = new();
+            try
+            {
+                response = await _client.PostAsJsonAsync<UserAuthData>(
+                        $"{HC.HOST_NAME}{HC.LOGIN_ROUTE}", 
+                        new() 
+                        { 
+                            Email = email,
+                            Password = password
+                        });
+            }
+            catch
+            {
+                response.StatusCode = HttpStatusCode.ServiceUnavailable;
+            }
             return response.StatusCode;
         }
 
@@ -30,13 +38,21 @@ namespace CrazyPoleMobile.Services.Api
 
         public async Task<HttpStatusCode> Registration(string email, string password)
         {
-            var response = await _client.PostAsJsonAsync<UserAuthData>(
-                    $"{HC.HOST_NAME}{HC.REGISTRATION_ROUTE}",
-                    new()
-                    {
-                        Email = email,
-                        Password = password
-                    });
+            HttpResponseMessage response = new();
+            try
+            {
+                response = await _client.PostAsJsonAsync<UserAuthData>(
+                        $"{HC.HOST_NAME}{HC.REGISTRATION_ROUTE}",
+                        new()
+                        {
+                            Email = email,
+                            Password = password
+                        });
+            }
+            catch
+            {
+                response.StatusCode = HttpStatusCode.ServiceUnavailable;
+            }
             return response.StatusCode;
         }
     }

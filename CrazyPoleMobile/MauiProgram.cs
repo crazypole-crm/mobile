@@ -3,6 +3,7 @@ using CrazyPoleMobile.MVVM.Views;
 using CrazyPoleMobile.MVVM.ViewModels;
 using CrazyPoleMobile.Services;
 using CrazyPoleMobile.Services.Api;
+using Syncfusion.Maui.Core.Hosting;
 
 namespace CrazyPoleMobile;
 
@@ -13,8 +14,9 @@ public static class MauiProgram
 		var builder = MauiApp.CreateBuilder();
 		builder
 			.UseMauiApp<App>()
-			.UseMauiCommunityToolkit()			
-			.ConfigureFonts(fonts =>
+			.UseMauiCommunityToolkit()
+			.ConfigureSyncfusionCore()
+            .ConfigureFonts(fonts =>
 			{
                 fonts.AddFont("Montserrat-Regular.ttf", "MontserratRegular");
                 fonts.AddFont("Montserrat-Semibold.ttf", "MontserratSemibold");

@@ -11,9 +11,6 @@ public partial class RoutePage : ContentPage
 
 	public Grid ContentBlockRef => ContentBlock;
 	public Border TabBarBlockRef => TabBarBlock;
-	public Frame PopupFrameRef => Popup;
-	public ScrollView PopupContentRef => PopupContent;
-	public Label PopupLabelRef => PopupLabel;
 	public TabBarButton HomeButtonRef => HomeButton;
     public TabBarButton NotificationButtonRef => NotificationButton;
     public TabBarButton CalendarButtonRef => CalendarButton;

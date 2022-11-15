@@ -16,6 +16,9 @@ namespace CrazyPoleMobile.MVVM.ViewModels
         [ObservableProperty] private string _password = string.Empty;
         [ObservableProperty] private string _repeatPassword = string.Empty;
 
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(RegistrationCommand))]
+        private bool _notRegistrationProcess = true;
 
         public SignUpPageViewModel(
             RoutePageViewModel routePage,
@@ -26,26 +29,29 @@ namespace CrazyPoleMobile.MVVM.ViewModels
         }
 
         [RelayCommand]
-        private void LoadLogInPage()
+        private async void LoadLogInPage()
         {
-            _route.LoadLogInPage();    
+            await _route.LoadLogInPage();    
         }
 
         [RelayCommand]
-        private void LoadHome()
+        private async void LoadHome()
         {
-            _route.LoadHome();
+            await _route.LoadHome();
         }
 
-        [RelayCommand]
+        [RelayCommand(CanExecute = nameof(NotRegistrationProcess))]
         private async void Registration()
         {
+            NotRegistrationProcess = false;
+
             if (_password == string.Empty ||
                 _repeatPassword == string.Empty ||
                 _email == string.Empty)
             {
                 await App.Current.MainPage.ShowPopupAsync(
                     new WarningPopup("Все поля должны быть заполнены"));
+                NotRegistrationProcess = true;
                 return;
             }
 
@@ -53,6 +59,7 @@ namespace CrazyPoleMobile.MVVM.ViewModels
             {
                 await App.Current.MainPage.ShowPopupAsync(
                     new WarningPopup("Пароли не совпадают"));
+                NotRegistrationProcess = true;
                 return;
             }
 
@@ -60,9 +67,12 @@ namespace CrazyPoleMobile.MVVM.ViewModels
 
             if (status == HttpStatusCode.OK)
             {
-                _route.LoadHome();
+                await _route.LoadHome();
+                NotRegistrationProcess = true;
                 return;
-            }    
+            }
+
+            NotRegistrationProcess = true;
 
             await App.Current.MainPage.ShowPopupAsync(
                     new ErrorPopup(status.ToString()));

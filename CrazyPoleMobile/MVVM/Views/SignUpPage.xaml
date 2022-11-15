@@ -4,12 +4,17 @@
              xmlns:mct="clr-namespace:CommunityToolkit.Maui.Behaviors;assembly=CommunityToolkit.Maui"
              xmlns:controls="clr-namespace:CrazyPoleMobile.MVVM.Views.CustomControls"
              xmlns:vm="clr-namespace:CrazyPoleMobile.MVVM.ViewModels"
+             xmlns:c="clr-namespace:CrazyPoleMobile.Converters"
              x:Name="this"
              x:Class="CrazyPoleMobile.MVVM.Views.SignUpPage">
 
     <!--<ContentPage.BindingContext>
         <vm:SignUpPageViewModel />
     </ContentPage.BindingContext>-->
+
+    <ContentPage.Resources>
+        <c:InverseBooleanConverter x:Key="Invers" />
+    </ContentPage.Resources>
     
     <ContentPage.Behaviors>
         <mct:StatusBarBehavior StatusBarColor="{
@@ -42,6 +47,8 @@
             <controls:GradientField Margin="10"
                                     HeightRequest="65"
                                     VerticalOptions="StartAndExpand"
+                                    Lock="{Binding NotRegistrationProcess, 
+                Converter={StaticResource Invers}}"
                                     Text="{Binding Email, Mode=TwoWay}"/> 
             <Label VerticalOptions="EndAndExpand"
                    Margin="10"
@@ -49,6 +56,8 @@
             <controls:GradientField Margin="10"
                                     VerticalOptions="StartAndExpand"
                                     IsPassword="True"
+                                    Lock="{Binding NotRegistrationProcess, 
+                Converter={StaticResource Invers}}"
                                     Text="{Binding Password, Mode=TwoWay}"/>
             <Label VerticalOptions="EndAndExpand"
                    Margin="10"
@@ -56,10 +65,15 @@
             <controls:GradientField Margin="10"
                                     VerticalOptions="StartAndExpand"
                                     IsPassword="True"
+                                    Lock="{Binding NotRegistrationProcess, 
+                Converter={StaticResource Invers}}"
                                     Text="{Binding RepeatPassword, Mode=TwoWay}"/>
             <controls:GradientButton Text="Создать аккаунт"
                                      Margin="10,40,10,10"
                                      HeightRequest="65"
+                                     CornerRadius="15"
+                                     PlayLoadAnimation="{Binding NotRegistrationProcess, 
+                Converter={StaticResource Invers}}"
                                      OnClickCommand="{Binding RegistrationCommand}"
                                      VerticalOptions="FillAndExpand"
                                      Grid.Row="4"/>

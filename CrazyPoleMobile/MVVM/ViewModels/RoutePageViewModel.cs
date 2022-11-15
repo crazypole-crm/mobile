@@ -9,7 +9,7 @@ using Microsoft.Maui.Layouts;
 
 namespace CrazyPoleMobile.MVVM.ViewModels
 {
-    public partial class RoutePageViewModel : ObservableObject, IRouteController, IPopupController
+    public partial class RoutePageViewModel : ObservableObject, IRouteController
     {
         private IPageNavigationService _router;
         private View _tabBar;
@@ -32,7 +32,7 @@ namespace CrazyPoleMobile.MVVM.ViewModels
 
         }
 
-        public void InitRoot(RoutePage page)
+        public async void InitRoot(RoutePage page)
         {
             _tabBar = page.TabBarBlockRef;
             _content = page.ContentBlockRef;
@@ -40,10 +40,9 @@ namespace CrazyPoleMobile.MVVM.ViewModels
             _notificationButton = page.NotificationButtonRef;
             _calendarButton = page.CalendarButtonRef;
             _settingsButton = page.SettingsButtonRef;
-            _router.InitRootPage(this, this);
+            _router.InitRootPage(this);
             _contentContext = this;
-            LoadLogInPage();
-            //await App.Current.MainPage.ShowPopupAsync(new ErrorPopup());
+            await LoadLogInPage();
         }
 
 
@@ -56,88 +55,67 @@ namespace CrazyPoleMobile.MVVM.ViewModels
         }
 
         [RelayCommand]
-        public void LoadHome()
+        public async Task LoadHome()
         {
             DeactivateAllButtons();
-            _router.LoadPage<HomePage, HomePageViewModel>();
             _homeButton.IsSelected = true;
             ShowTabBar();
+            await _router.LoadPage<HomePage, HomePageViewModel>();
         }
 
         [RelayCommand]
-        public void LoadNotification()
+        public async Task LoadNotification()
         {
             DeactivateAllButtons();
-            _router.LoadPage<NotificationPage, NotificationPageViewModel>();
             _notificationButton.IsSelected = true;
             ShowTabBar();
+            await _router.LoadPage<NotificationPage, NotificationPageViewModel>();
         }
 
         [RelayCommand]
-        public void LoadCalendar()
+        public async Task LoadCalendar()
         {
             DeactivateAllButtons();
-            _router.LoadPage<CalendarPage, CalendarPageViewModel>();
             _calendarButton.IsSelected = true;
             ShowTabBar();
+            await _router.LoadPage<CalendarPage, CalendarPageViewModel>();
         }
 
         [RelayCommand]
-        public void LoadSettings()
+        public async Task LoadSettings()
         {
             DeactivateAllButtons();
-            _router.LoadPage<SettingsPage, SettingsPageViewModel>();
             _settingsButton.IsSelected = true;
             ShowTabBar();
+            await _router.LoadPage<SettingsPage, SettingsPageViewModel>();
         }
 
-        public void LoadSignUpPage()
+        public async Task LoadSignUpPage()
         {
             DeactivateAllButtons();
-            _router.LoadPage<SignUpPage, SignUpPageViewModel>();
             HideTabBar();
+            await _router.LoadPage<SignUpPage, SignUpPageViewModel>();
         }
 
-        public void LoadLogInPage()
+        public async Task LoadLogInPage()
         {
             DeactivateAllButtons();
-            _router.LoadPage<LogInPage, LogInPageViewModel>();
             HideTabBar();
+            await _router.LoadPage<LogInPage, LogInPageViewModel>();
         }
 
         [RelayCommand]
-        private void HideTabBar()
+        private async void HideTabBar()
         {
-            _tabBar.TranslateTo(0, 0, easing: Easing.SinInOut);
             _tabBarIsVisible = false;
+            await _tabBar.TranslateTo(0, 0, easing: Easing.SinInOut);
         }
 
         [RelayCommand]
-        private void ShowTabBar()
+        private async void ShowTabBar()
         {
-            _tabBar.TranslateTo(0, -_tabBar.Height, easing: Easing.SinInOut);
             _tabBarIsVisible = true;
-        }
-
-        [RelayCommand]
-        private async void ShowPopup()
-        {
-            await App.Current.MainPage.ShowPopupAsync(new WarningPopup("Message"));
-        }
-
-        public Frame GetPopupView()
-        {
-            return null;
-        }
-
-        public Layout GetPopupContent()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void InitTabButton<T>(TabBarButton btn, bool ShowTabs = false) where T : ContentPage
-        {
-
+            await _tabBar.TranslateTo(0, -_tabBar.Height, easing: Easing.SinInOut);
         }
     }
 }

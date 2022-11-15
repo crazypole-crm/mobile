@@ -15,6 +15,10 @@ namespace CrazyPoleMobile.MVVM.ViewModels
         [ObservableProperty] private string _email = string.Empty;
         [ObservableProperty] private string _password = string.Empty;
 
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(LogInCommand))]
+        private bool _notLoginProcess = true;
+
         public LogInPageViewModel(
             RoutePageViewModel route,
             AuthenticationApi auth)
@@ -24,24 +28,27 @@ namespace CrazyPoleMobile.MVVM.ViewModels
         }
 
         [RelayCommand]
-        private void LoadSignUpPage()
+        private async void LoadSignUpPage()
         {
-            _route.LoadSignUpPage();   
+            await _route.LoadSignUpPage();   
         }
 
         [RelayCommand]
-        private void LoadHomePage()
+        private async void LoadHomePage()
         {
-            _route.LoadHome();
+            await _route.LoadHome();
         }
 
-        [RelayCommand]
+        [RelayCommand(CanExecute = nameof(NotLoginProcess))]
         private async void LogIn()
         {
+            NotLoginProcess = false;
+
             if (_password == string.Empty || _email == string.Empty)
             {
                 await App.Current.MainPage.ShowPopupAsync(
                     new WarningPopup("Все поля должны быть заполнены"));
+                NotLoginProcess = true;
                 return;
             }
 
@@ -49,9 +56,12 @@ namespace CrazyPoleMobile.MVVM.ViewModels
 
             if (status == HttpStatusCode.OK)
             { 
-                _route.LoadHome();
+                await _route.LoadHome();
+                NotLoginProcess = true;
                 return;
             }
+
+            NotLoginProcess = true;
 
             await App.Current.MainPage.ShowPopupAsync(
                     new ErrorPopup(status.ToString()));
