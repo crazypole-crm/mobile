@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "467159187127",
+    "project_id": "crazypole-4f9c0",
+    "storage_bucket": "crazypole-4f9c0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:467159187127:android:2f9526d54f21370ab71732",
+        "android_client_info": {
+          "package_name": "com.crazypole.mobile.client"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "467159187127-du11dteb91e6lk5bl3gp1mnmbb6j4isp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBC80t8Y2nRT3wreLr7apPOOU5oMf2ERIk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "467159187127-du11dteb91e6lk5bl3gp1mnmbb6j4isp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
