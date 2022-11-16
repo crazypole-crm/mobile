@@ -15,7 +15,7 @@
 		<ApplicationTitle>Crazy Pole</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.crazypole.client</ApplicationId>
+		<ApplicationId>com.crazypole.mobile.client</ApplicationId>
 		<ApplicationIdGuid>a48a2183-97e0-46ab-bb3f-61800ba2bbc6</ApplicationIdGuid>
 
 		<!-- Versions -->
