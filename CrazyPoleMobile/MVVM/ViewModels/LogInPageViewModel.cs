@@ -2,15 +2,18 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CrazyPoleMobile.MVVM.Views.Popups;
+using CrazyPoleMobile.Services;
 using CrazyPoleMobile.Services.Api;
 using System.Net;
+using SKeys = CrazyPoleMobile.Services.SecureStorageKeysProviderService;
 
 namespace CrazyPoleMobile.MVVM.ViewModels
 {
     public partial class LogInPageViewModel : ObservableObject
     {
-        RoutePageViewModel _route;
-        AuthenticationApi _auth;
+        private readonly RoutePageViewModel _route;
+        private readonly AuthenticationApi _auth;
+        private readonly ISecureStorageService _store;
 
         [ObservableProperty] private string _email = string.Empty;
         [ObservableProperty] private string _password = string.Empty;
@@ -21,10 +24,12 @@ namespace CrazyPoleMobile.MVVM.ViewModels
 
         public LogInPageViewModel(
             RoutePageViewModel route,
-            AuthenticationApi auth)
+            AuthenticationApi auth,
+            ISecureStorageService store)
         {
             _route = route;
             _auth = auth;
+            _store = store;
         }
 
         [RelayCommand]
@@ -34,9 +39,9 @@ namespace CrazyPoleMobile.MVVM.ViewModels
         }
 
         [RelayCommand]
-        private async void LoadHomePage()
+        private void LoadHomePage()
         {
-            await _route.LoadHome();
+            _route.LoadHome();
         }
 
         [RelayCommand(CanExecute = nameof(NotLoginProcess))]
@@ -56,8 +61,10 @@ namespace CrazyPoleMobile.MVVM.ViewModels
 
             if (status == HttpStatusCode.OK)
             { 
-                await _route.LoadHome();
+                _route.LoadHome();
                 NotLoginProcess = true;
+                await _store.Save(SKeys.USER_EMAIL_KEY, _email);
+                await _store.Save(SKeys.USER_PASSWORD_KEY, _password);
                 return;
             }
 

@@ -20,6 +20,11 @@ public partial class RoutePage : ContentPage
 	{
         BindingContext = vm;
 		InitializeComponent();
+		this.Loaded += (s, args) => InitVm(vm);
+	}
+
+	private void InitVm(RoutePageViewModel vm)
+	{
 		vm.InitRoot(this);
 	}
 

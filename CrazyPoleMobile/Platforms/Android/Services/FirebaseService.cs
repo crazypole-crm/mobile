@@ -2,7 +2,10 @@
 using Android.App;
 using Android.Content;
 using AndroidX.Core.App;
+using CrazyPoleMobile.Services;
 using Firebase.Messaging;
+using Storage = Microsoft.Maui.Storage.SecureStorage;
+using SKeys = CrazyPoleMobile.Services.SecureStorageKeysProviderService;
 
 namespace CrazyPoleMobile.Platforms.Android.Services
 {
@@ -10,18 +13,12 @@ namespace CrazyPoleMobile.Platforms.Android.Services
     [IntentFilter(new[] { "com.google.firebase.MESSAGING_EVENT" })]
     public class FirebaseService : FirebaseMessagingService
     {
-        public const string DEVICE_TOKEN_NAME = "DeviceToken";
-
         public FirebaseService() { }
-        public override void OnNewToken(string token)
+
+        public override async void OnNewToken(string token)
         {
             base.OnNewToken(token);
-            if (Preferences.ContainsKey(DEVICE_TOKEN_NAME))
-            {
-                Preferences.Remove(DEVICE_TOKEN_NAME);
-            }
-
-            Preferences.Set(DEVICE_TOKEN_NAME, token);
+            await Storage.Default.SetAsync(SKeys.DEVICE_NOTIFICATION_TOKEN_KEY, token);
         }
         public override void OnMessageReceived(RemoteMessage message)
         {

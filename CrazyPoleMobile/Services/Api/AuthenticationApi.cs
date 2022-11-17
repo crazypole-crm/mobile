@@ -31,9 +31,19 @@ namespace CrazyPoleMobile.Services.Api
             return response.StatusCode;
         }
 
-        public Task LogOut()
+        public async Task<HttpStatusCode> LogOut()
         {
-            throw new NotImplementedException();
+            HttpResponseMessage response = new();
+            try
+            {
+                response = await _client.PostAsync(
+                    $"{HC.HOST_NAME}{HC.LOGOUT_ROUTE}", null);
+            }
+            catch
+            {
+                response.StatusCode = HttpStatusCode.ServiceUnavailable;
+            }
+            return response.StatusCode;
         }
 
         public async Task<HttpStatusCode> Registration(string email, string password)

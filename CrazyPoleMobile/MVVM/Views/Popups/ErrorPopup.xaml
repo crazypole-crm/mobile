@@ -10,7 +10,6 @@
     <Border BindingContext="{x:Reference this}" 
             Style="{StaticResource BorderedFrame}"
             HeightRequest="300"
-            WidthRequest="500"
             Padding="20">
         <Grid RowDefinitions="250*, 50*">
 
@@ -35,7 +34,6 @@
             <ct:DockLayout Grid.Row="1">
                 
                 <cc:GradientButton ct:DockLayout.DockPosition="Bottom"
-                                   HeightRequest="50"
                                    CornerRadius="15"
                                    Text="OK"
                                    OnClickCommand="{Binding CloseCommand}" />

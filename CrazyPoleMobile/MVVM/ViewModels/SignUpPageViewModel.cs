@@ -2,15 +2,18 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CrazyPoleMobile.MVVM.Views.Popups;
+using CrazyPoleMobile.Services;
 using CrazyPoleMobile.Services.Api;
 using System.Net;
+using SKeys = CrazyPoleMobile.Services.SecureStorageKeysProviderService;
 
 namespace CrazyPoleMobile.MVVM.ViewModels
 {
     public partial class SignUpPageViewModel : ObservableObject
     {
-        private RoutePageViewModel _route;
-        private AuthenticationApi _auth;
+        private readonly RoutePageViewModel _route;
+        private readonly AuthenticationApi _auth;
+        private readonly ISecureStorageService _store;
 
         [ObservableProperty] private string _email = string.Empty;
         [ObservableProperty] private string _password = string.Empty;
@@ -22,22 +25,24 @@ namespace CrazyPoleMobile.MVVM.ViewModels
 
         public SignUpPageViewModel(
             RoutePageViewModel routePage,
-            AuthenticationApi auth)
+            AuthenticationApi auth,
+            ISecureStorageService storage)
         {
             _route = routePage;
             _auth = auth;
+            _store = storage;
         }
 
         [RelayCommand]
-        private async void LoadLogInPage()
+        private void LoadLogInPage()
         {
-            await _route.LoadLogInPage();    
+            _route.LoadLogInPage();    
         }
 
         [RelayCommand]
-        private async void LoadHome()
+        private void LoadHome()
         {
-            await _route.LoadHome();
+            _route.LoadHome();
         }
 
         [RelayCommand(CanExecute = nameof(NotRegistrationProcess))]
@@ -67,8 +72,11 @@ namespace CrazyPoleMobile.MVVM.ViewModels
 
             if (status == HttpStatusCode.OK)
             {
-                await _route.LoadHome();
+                _route.LoadHome();
+
                 NotRegistrationProcess = true;
+                await _store.Save(SKeys.USER_EMAIL_KEY, _email);
+                await _store.Save(SKeys.USER_PASSWORD_KEY, _password);
                 return;
             }
 

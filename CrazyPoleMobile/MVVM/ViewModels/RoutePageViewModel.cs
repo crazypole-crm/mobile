@@ -5,13 +5,17 @@ using CrazyPoleMobile.MVVM.Views;
 using CrazyPoleMobile.MVVM.Views.CustomControls;
 using CrazyPoleMobile.MVVM.Views.Popups;
 using CrazyPoleMobile.Services;
-using Microsoft.Maui.Layouts;
+using CrazyPoleMobile.Services.Api;
+using System.Net;
+using SKeys = CrazyPoleMobile.Services.SecureStorageKeysProviderService;
 
 namespace CrazyPoleMobile.MVVM.ViewModels
 {
     public partial class RoutePageViewModel : ObservableObject, IRouteController
     {
-        private IPageNavigationService _router;
+        private readonly IPageNavigationService _router;
+        private readonly ISecureStorageService _store;
+        private readonly AuthenticationApi _auth;
         private View _tabBar;
         private Layout _content;
 
@@ -26,10 +30,14 @@ namespace CrazyPoleMobile.MVVM.ViewModels
         public Layout GetContentBlock => _content;
         public View GetTabBarView => _tabBar;
 
-        public RoutePageViewModel(IPageNavigationService router)
+        public RoutePageViewModel(
+            IPageNavigationService router,
+            ISecureStorageService store,
+            AuthenticationApi auth)
         {
             _router = router;
-
+            _store = store;
+            _auth = auth;
         }
 
         public async void InitRoot(RoutePage page)
@@ -42,7 +50,25 @@ namespace CrazyPoleMobile.MVVM.ViewModels
             _settingsButton = page.SettingsButtonRef;
             _router.InitRootPage(this);
             _contentContext = this;
-            await LoadLogInPage();
+
+            var password = await _store.Get(SKeys.USER_PASSWORD_KEY);
+            var email = await _store.Get(SKeys.USER_EMAIL_KEY);
+
+            if (password == null || email == null)
+            {
+                LoadLogInPage();
+            }
+            else
+            {
+                var status = await _auth.LogIn(email, password);
+                if (status == HttpStatusCode.OK)
+                    LoadHome();
+                else
+                {
+                    LoadLogInPage();
+                    await App.Current.MainPage.ShowPopupAsync(new ErrorPopup(status.ToString()));
+                }
+            }
         }
 
 
@@ -55,7 +81,7 @@ namespace CrazyPoleMobile.MVVM.ViewModels
         }
 
         [RelayCommand]
-        public async Task LoadHome()
+        public async void LoadHome()
         {
             DeactivateAllButtons();
             _homeButton.IsSelected = true;
@@ -97,7 +123,7 @@ namespace CrazyPoleMobile.MVVM.ViewModels
             await _router.LoadPage<SignUpPage, SignUpPageViewModel>();
         }
 
-        public async Task LoadLogInPage()
+        public async void LoadLogInPage()
         {
             DeactivateAllButtons();
             HideTabBar();
