@@ -53,7 +53,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
+<<<<<<< Updated upstream
 	  <Folder Include="MVVM\Models\" />
+=======
+	  <Folder Include="Platforms\Android\Behaviors\" />
+	  <Folder Include="Platforms\iOS\Behaviors\" />
+	  <Folder Include="Platforms\MacCatalyst\Behaviors\" />
+	  <Folder Include="Platforms\Tizen\Behaviors\" />
+	  <Folder Include="Platforms\Windows\Behaviors\" />
+>>>>>>> Stashed changes
 	</ItemGroup>
 
 	<ItemGroup>
@@ -71,6 +79,15 @@
 
 	<ItemGroup>
 	  <MauiXaml Update="MVVM\Views\CalendarPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="MVVM\Views\Components\CalendarDayFrame.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="MVVM\Views\Components\NotificationFrame.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="MVVM\Views\Components\TrainingInformationFrame.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="MVVM\Views\CustomControls\GradientButton.xaml">
