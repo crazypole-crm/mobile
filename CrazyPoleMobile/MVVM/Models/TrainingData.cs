@@ -17,6 +17,9 @@ namespace CrazyPoleMobile.MVVM.Models
         public TimeOnly TimeStart { get; }
         public TimeOnly TimeEnd { get; }
         public string Description { get; }
+
+        public TrainingData()
+        { }
     }
 
     public class GroupedTrainingData : TrainingData

@@ -4,9 +4,9 @@ namespace CrazyPoleMobile.MVVM.Views;
 
 public partial class CalendarPage : ContentPage
 {
-	public CalendarPage(CalendarPageViewModel vm)
+	public CalendarPage(CalendarPageViewModel viewmodel)
 	{
-		BindingContext = vm;
+		BindingContext = viewmodel;
 		InitializeComponent();
 	}
 }

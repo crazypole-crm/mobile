@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CrazyPoleMobile.MVVM.Views.Components.TrainingInformationFrame">
+    <Border HeightRequest="60" Style="{StaticResource BorderedFrame}" >
+        <!--<Border.GestureRecognizers>
+                                <TapGestureRecognizer 
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MonkeysViewModel}}, Path=GoToDetailsCommand}"
+                                        CommandParameter="{Binding .}"/>
+                            </Border.GestureRecognizers>-->
+        <Grid Padding="0" ColumnDefinitions="auto,2,*">
+            <VerticalStackLayout VerticalOptions="Center"
+                                         Grid.Column="0"
+                                         Padding="11,0">
+                <Label Style="{StaticResource MainFrameText}" Text="{Binding TimeStart, StringFormat='{0:hh\:mm}'}"  />
+                <Label Style="{StaticResource SideFrameText}" Text="{Binding TimeEnd, StringFormat='{0:mm} мин'}" />
+            </VerticalStackLayout>
+            <Line Grid.Column="1" Style="{StaticResource LineSeparator}" HeightRequest="40"  />
+            <VerticalStackLayout VerticalOptions="Center"
+                                         Grid.Column="2"
+                                         Padding="10,0">
+                <Label Style="{StaticResource MainFrameText}" Text="Pole dance начинающие" />
+                <Label Style="{StaticResource SideFrameText}" Text="занято 2 места" />
+                <Label Style="{StaticResource AttentionText}" Text="Замена Амосова А." />
+            </VerticalStackLayout>
+        </Grid>
+    </Border>
+</ContentView>
