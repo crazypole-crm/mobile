@@ -35,7 +35,6 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
         <Grid Grid.Column="1" Grid.Row="2">
-<<<<<<< Updated upstream
             <Border Style="{StaticResource DayFrame}">
                 <!--<Border.GestureRecognizers>
                                 <TapGestureRecognizer 
@@ -81,9 +80,6 @@
                     </VerticalStackLayout>
                 </Grid>
             </Border>
-=======
-            
->>>>>>> Stashed changes
         </Grid>
         <CollectionView  Grid.Column="1" 
                          Grid.Row="3"

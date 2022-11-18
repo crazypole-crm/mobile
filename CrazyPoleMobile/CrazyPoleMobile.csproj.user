@@ -3,18 +3,12 @@
   <PropertyGroup>
     <ActiveDebugFramework>net6.0-android</ActiveDebugFramework>
     <IsFirstTimeProjectOpen>False</IsFirstTimeProjectOpen>
-<<<<<<< Updated upstream
-    <ActiveDebugProfile>Xiaomi M2012K11AG (Android 12.1 — API 32)</ActiveDebugProfile>
-    <SelectedPlatformGroup>PhysicalDevice</SelectedPlatformGroup>
-    <DefaultDevice>pixel_5_-_api_31</DefaultDevice>
-=======
-    <ActiveDebugProfile>Pixel 5 - API 31 (Android 12.0 - API 31)</ActiveDebugProfile>
+    <ActiveDebugProfile>Android Emulator</ActiveDebugProfile>
     <SelectedPlatformGroup>Emulator</SelectedPlatformGroup>
     <DefaultDevice>pixel_5_-_api_31</DefaultDevice>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-android|AnyCPU'">
     <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>
->>>>>>> Stashed changes
   </PropertyGroup>
   <ItemGroup>
     <MauiXaml Update="MVVM\Views\CalendarPage.xaml">
