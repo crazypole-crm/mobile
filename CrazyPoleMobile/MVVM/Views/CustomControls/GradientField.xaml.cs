@@ -9,8 +9,20 @@ public partial class GradientField : ContentView
 		InitializeComponent();
 	}
 
+    public static readonly BindableProperty IsAttentionProperty =
+        BindableProperty.Create(nameof(IsAttention), typeof(bool), typeof(GradientField), false);
+
+    public bool IsAttention
+    {
+        get => (bool)GetValue(IsAttentionProperty);
+        set 
+        { 
+            SetValue(IsAttentionProperty, value);
+        }       
+    }
+
     public static readonly BindableProperty IsPasswordProperty =
-        BindableProperty.Create(nameof(IsPassword), typeof(bool), typeof(GradientButton), false);
+        BindableProperty.Create(nameof(IsPassword), typeof(bool), typeof(GradientField), false);
 
     public bool IsPassword
     {
@@ -45,6 +57,15 @@ public partial class GradientField : ContentView
         set => SetValue(TextProperty, value);
     }
 
+    public static readonly BindableProperty AttentionTextProperty =
+        BindableProperty.Create(nameof(AttentionText), typeof(string), typeof(GradientField));
+
+    public string AttentionText
+    {
+        get => (string)GetValue(AttentionTextProperty);
+        set => SetValue(AttentionTextProperty, value);
+    }
+
     public static readonly BindableProperty LockProperty =
         BindableProperty.Create(nameof(Lock), typeof(bool), typeof(GradientField));
 
@@ -54,26 +75,21 @@ public partial class GradientField : ContentView
         set 
         {
             SetValue(LockProperty, value);
-            if (!value)
-            {
-                OnUnfocus(this, null);
-            }
-            
         } 
     }
 
     public void OnFocus(object sender, FocusEventArgs args)
 	{
-		if (Application.Current.Resources.TryGetValue("DefaultGradient", out object data) &&
-            !Lock)
-		{
-			Framing.Stroke = (LinearGradientBrush)data;	
-		}
-
+        IsAttention = false;
+        if (Application.Current.Resources.TryGetValue("DefaultGradient", out object data) &&
+                  !Lock)
+        {
+            Framing.Stroke = (LinearGradientBrush)data;
+        }
 	}
 
-	public void OnUnfocus(object sender, FocusEventArgs args)
-	{
+    public void OnUnfocus(object sender, FocusEventArgs args)
+    {
         if (Application.Current.Resources.TryGetValue("DefaultGray", out object data) &&
             !Lock)
         {

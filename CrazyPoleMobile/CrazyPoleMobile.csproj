@@ -51,6 +51,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <AndroidResource Remove="Platforms\Android\Behaviors\**" />
+	  <Compile Remove="Platforms\Android\Behaviors\**" />
+	  <EmbeddedResource Remove="Platforms\Android\Behaviors\**" />
+	  <MauiCss Remove="Platforms\Android\Behaviors\**" />
+	  <MauiXaml Remove="Platforms\Android\Behaviors\**" />
+	  <None Remove="Platforms\Android\Behaviors\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <Compile Remove="Resources\Styles\Paths.xaml.cs" />
 	</ItemGroup>
 
@@ -59,7 +68,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Platforms\Android\Behaviors\" />
 	  <Folder Include="Platforms\iOS\Behaviors\" />
 	  <Folder Include="Platforms\MacCatalyst\Behaviors\" />
 	  <Folder Include="Platforms\Tizen\Behaviors\" />

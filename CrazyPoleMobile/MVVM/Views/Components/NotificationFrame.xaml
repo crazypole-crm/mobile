@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Name="this"
              x:Class="CrazyPoleMobile.MVVM.Views.Components.NotificationFrame">
-    
-    <Border Style="{StaticResource BorderedFrame}" >
-        <!--<Border.GestureRecognizers>
-                                <TapGestureRecognizer 
-                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MonkeysViewModel}}, Path=GoToDetailsCommand}"
-                                        CommandParameter="{Binding .}"/>
-                            </Border.GestureRecognizers>-->
-        <Grid Padding="0" ColumnDefinitions="20, *" FlowDirection="RightToLeft"  Margin="20, 0, 20, 0">
-            <VerticalStackLayout VerticalOptions="Center"
-                                         Grid.Column="1"
-                                         Padding="10,0"
-                                         FlowDirection="LeftToRight">
-                <Label Style="{StaticResource MainFrameText}" Text="Pole dance начинающие"  />
-                <Label Style="{StaticResource SideFrameText}" Text="занято 2 места" />
-                <Label Style="{StaticResource AttentionText}" Text="Замена Амосова А." />
-            </VerticalStackLayout>
-            <Image Grid.Column="0" HorizontalOptions="Center"  Source="close_icon.svg" />
-        </Grid>
+
+    <Border Style="{StaticResource BorderedFrame}"
+            StrokeThickness="4"
+            BindingContext="{x:Reference this}">
+        <Frame Padding="10">
+            <Grid Padding="0" ColumnDefinitions="20, *" FlowDirection="RightToLeft"  Margin="20, 0, 20, 0">
+                <VerticalStackLayout VerticalOptions="Center"
+                                             Grid.Column="1"
+                                             Padding="10,0"
+                                             FlowDirection="LeftToRight">
+                    <Label Style="{StaticResource MainFrameText}" Text="{Binding Title}"  />
+                    <Label Style="{StaticResource SideFrameText}" Text="{Binding Subtitle}" />
+                    <Label Style="{StaticResource AttentionText}" Text="{Binding Description}" />
+                </VerticalStackLayout>
+                <ImageButton Style="{StaticResource CloseImageButton}"
+                             Command="{Binding Command}"
+                             Grid.Column="0" HorizontalOptions="Center" />
+            </Grid>
+        </Frame>
     </Border>
     
 </ContentView>

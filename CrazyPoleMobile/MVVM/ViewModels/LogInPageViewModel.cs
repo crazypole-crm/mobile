@@ -4,8 +4,9 @@ using CommunityToolkit.Mvvm.Input;
 using CrazyPoleMobile.MVVM.Views.Popups;
 using CrazyPoleMobile.Services;
 using CrazyPoleMobile.Services.Api;
+using System.ComponentModel.DataAnnotations;
 using System.Net;
-using SKeys = CrazyPoleMobile.Services.SecureStorageKeysProviderService;
+using SKeys = CrazyPoleMobile.Helpers.SecureStorageKeysProviderHelper;
 
 namespace CrazyPoleMobile.MVVM.ViewModels
 {
@@ -17,6 +18,10 @@ namespace CrazyPoleMobile.MVVM.ViewModels
 
         [ObservableProperty] private string _email = string.Empty;
         [ObservableProperty] private string _password = string.Empty;
+        [ObservableProperty] private string _attentionText = string.Empty;
+
+        [ObservableProperty] private bool _emailAttention = false;
+        [ObservableProperty] private bool _passwordAttention = false;
 
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(LogInCommand))]
@@ -51,8 +56,12 @@ namespace CrazyPoleMobile.MVVM.ViewModels
 
             if (_password == string.Empty || _email == string.Empty)
             {
-                await App.Current.MainPage.ShowPopupAsync(
-                    new WarningPopup("Все поля должны быть заполнены"));
+                
+                AttentionText = "Поле обязательно к заполнению";
+
+                EmailAttention = _email == string.Empty;
+                PasswordAttention = _password == string.Empty;
+
                 NotLoginProcess = true;
                 return;
             }

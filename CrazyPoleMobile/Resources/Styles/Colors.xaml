@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <Color x:Key="Transparent">#00000000</Color>
+    <Color x:Key="AttentionRed">#E0304D</Color>
     <Color x:Key="Primary">#E0304D</Color>
     <Color x:Key="Secondary">#EC6C21</Color>
     <Color x:Key="Tertiary">#2B0B98</Color>
@@ -54,6 +55,11 @@
     <LinearGradientBrush x:Key="DefaultGray" StartPoint="0,0.5" EndPoint="1,0.5">
         <GradientStop Color="{StaticResource Gray600}" Offset="0.0"  />
         <GradientStop Color="{StaticResource Gray600}" Offset="1.0"  />
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="DefaultAttention" StartPoint="0,0.5" EndPoint="1,0.5">
+        <GradientStop Color="{StaticResource AttentionRed}" Offset="0.0"  />
+        <GradientStop Color="{StaticResource AttentionRed}" Offset="1.0"  />
     </LinearGradientBrush>
 
     <Color x:Key="FontColorDarkMode">#FFFFFF</Color>

@@ -6,11 +6,8 @@
              xmlns:vm="clr-namespace:CrazyPoleMobile.MVVM.ViewModels"
              xmlns:c="clr-namespace:CrazyPoleMobile.Converters"
              x:Name="this"
+             x:DataType="vm:SignUpPageViewModel"
              x:Class="CrazyPoleMobile.MVVM.Views.SignUpPage">
-
-    <!--<ContentPage.BindingContext>
-        <vm:SignUpPageViewModel />
-    </ContentPage.BindingContext>-->
 
     <ContentPage.Resources>
         <c:InverseBooleanConverter x:Key="Invers" />
@@ -43,34 +40,39 @@
         <VerticalStackLayout Grid.Row="3">
             <Label VerticalOptions="End"
                    FontSize="20"
-                   Margin="10">Email:</Label>
-            <controls:GradientField Margin="10"
-                                    HeightRequest="65"
+                   Margin="20, 0, 0, 0">Email:</Label>
+            <controls:GradientField Margin="10"                                    
                                     VerticalOptions="StartAndExpand"
                                     Lock="{Binding NotRegistrationProcess, 
                 Converter={StaticResource Invers}}"
-                                    Text="{Binding Email, Mode=TwoWay}"/> 
+                                    Text="{Binding Email, Mode=TwoWay}"
+                                    AttentionText="{Binding AttentionText}"
+                                    IsAttention="{Binding EmailAttention, Mode=TwoWay}"/> 
             <Label VerticalOptions="EndAndExpand"
-                   Margin="10"
+                   Margin="20, 0, 0, 0"
                    FontSize="20">Пароль:</Label>
             <controls:GradientField Margin="10"
                                     VerticalOptions="StartAndExpand"
                                     IsPassword="True"
                                     Lock="{Binding NotRegistrationProcess, 
                 Converter={StaticResource Invers}}"
-                                    Text="{Binding Password, Mode=TwoWay}"/>
+                                    AttentionText="{Binding AttentionText}"
+                                    Text="{Binding Password, Mode=TwoWay}"
+                                    IsAttention="{Binding PasswordAttention, Mode=TwoWay}"/>
             <Label VerticalOptions="EndAndExpand"
-                   Margin="10"
+                   Margin="20, 0, 0, 0"
                    FontSize="20">Повторите пароль:</Label>
             <controls:GradientField Margin="10"
                                     VerticalOptions="StartAndExpand"
                                     IsPassword="True"
                                     Lock="{Binding NotRegistrationProcess, 
                 Converter={StaticResource Invers}}"
-                                    Text="{Binding RepeatPassword, Mode=TwoWay}"/>
+                                    Text="{Binding RepeatPassword, Mode=TwoWay}"
+                                    AttentionText="{Binding AttentionText}"
+                                    IsAttention="{Binding RepeatPasswordAttention, Mode=TwoWay}"/>
             <controls:GradientButton Text="Создать аккаунт"
-                                     Margin="10,40,10,10"
-                                     HeightRequest="65"
+                                     Margin="13,10,13,10"
+                                     HeightRequest="55"
                                      CornerRadius="15"
                                      PlayLoadAnimation="{Binding NotRegistrationProcess, 
                 Converter={StaticResource Invers}}"

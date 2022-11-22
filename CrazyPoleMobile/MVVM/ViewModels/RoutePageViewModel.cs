@@ -7,7 +7,7 @@ using CrazyPoleMobile.MVVM.Views.Popups;
 using CrazyPoleMobile.Services;
 using CrazyPoleMobile.Services.Api;
 using System.Net;
-using SKeys = CrazyPoleMobile.Services.SecureStorageKeysProviderService;
+using SKeys = CrazyPoleMobile.Helpers.SecureStorageKeysProviderHelper;
 
 namespace CrazyPoleMobile.MVVM.ViewModels
 {
@@ -54,21 +54,22 @@ namespace CrazyPoleMobile.MVVM.ViewModels
             var password = await _store.Get(SKeys.USER_PASSWORD_KEY);
             var email = await _store.Get(SKeys.USER_EMAIL_KEY);
 
-            if (password == null || email == null)
-            {
-                LoadLogInPage();
-            }
-            else
-            {
-                var status = await _auth.LogIn(email, password);
-                if (status == HttpStatusCode.OK)
-                    LoadHome();
-                else
-                {
-                    LoadLogInPage();
-                    await App.Current.MainPage.ShowPopupAsync(new ErrorPopup(status.ToString()));
-                }
-            }
+            //if (password == null || email == null)
+            //{
+            //    LoadLogInPage();
+            //}
+            //else
+            //{
+            //    var status = await _auth.LogIn(email, password);
+            //    if (status == HttpStatusCode.OK)
+            //        LoadHome();
+            //    else
+            //    {
+            //        LoadLogInPage();
+            //        await App.Current.MainPage.ShowPopupAsync(new ErrorPopup(status.ToString()));
+            //    }
+            //}
+            LoadHome();
         }
 
 

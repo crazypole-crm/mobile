@@ -1,11 +1,11 @@
-﻿
-using Android.App;
+﻿using Android.App;
 using Android.Content;
 using AndroidX.Core.App;
-using CrazyPoleMobile.Services;
 using Firebase.Messaging;
 using Storage = Microsoft.Maui.Storage.SecureStorage;
-using SKeys = CrazyPoleMobile.Services.SecureStorageKeysProviderService;
+using SKeys = CrazyPoleMobile.Helpers.SecureStorageKeysProviderHelper;
+using CrazyPoleMobile.Helpers;
+using CrazyPoleMobile.Services;
 
 namespace CrazyPoleMobile.Platforms.Android.Services
 {
@@ -13,45 +13,47 @@ namespace CrazyPoleMobile.Platforms.Android.Services
     [IntentFilter(new[] { "com.google.firebase.MESSAGING_EVENT" })]
     public class FirebaseService : FirebaseMessagingService
     {
-        public FirebaseService() { }
+        private Action<string> _onNewToken;
+        private Action<string, string, string> _onMessageReceived;
+
+
+        public FirebaseService() 
+        {
+            var notificationService = ServiceHelper.GetService<NotificationService>();
+            _onMessageReceived = notificationService.OnMessageReceived;
+            _onNewToken = notificationService.OnNewToken;
+        }
 
         public override async void OnNewToken(string token)
         {
             base.OnNewToken(token);
             await Storage.Default.SetAsync(SKeys.DEVICE_NOTIFICATION_TOKEN_KEY, token);
+            _onNewToken(token);
         }
         public override void OnMessageReceived(RemoteMessage message)
         {
             base.OnMessageReceived(message);
 
-            var notification = message.GetNotification();
-
-            SendNotification(notification.Body, notification.Title, message.Data);
+            SendNotification(message.Data);
         }
 
-        private void SendNotification(string messageBody, string title, IDictionary<string, string> data) 
+        private void SendNotification(IDictionary<string, string> data) 
         {
-            var intent = new Intent(this, typeof(MainActivity));
-            intent.AddFlags(ActivityFlags.ClearTop);
-
-            foreach (var key in data.Keys) 
-            {
-                intent.PutExtra(key, data[key]);
-            }
-
-            var pendingIntent = PendingIntent.GetActivity(this,
-                MainActivity.NOTIFICATION_ID, intent, PendingIntentFlags.Immutable);
+            var title = data["title"];
+            var body = data["subtitle"];
+            var desc = data["description"];
 
             var notificationBuilder = new NotificationCompat.Builder(this, MainActivity.CHANNEL_ID)
                 .SetContentTitle(title)
                 .SetSmallIcon(Resource.Mipmap.appicon)
-                .SetContentText(messageBody)
+                .SetContentText(body)
+                .SetContentInfo(desc)
                 .SetChannelId(MainActivity.CHANNEL_ID)
-                .SetContentIntent(pendingIntent)
                 .SetPriority(2);
 
             var notificationManager = NotificationManagerCompat.From(this);
             notificationManager.Notify(MainActivity.NOTIFICATION_ID, notificationBuilder.Build());
+            _onMessageReceived(title, body, desc);
         }
     }
 }

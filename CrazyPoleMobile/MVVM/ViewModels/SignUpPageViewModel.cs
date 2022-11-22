@@ -5,7 +5,7 @@ using CrazyPoleMobile.MVVM.Views.Popups;
 using CrazyPoleMobile.Services;
 using CrazyPoleMobile.Services.Api;
 using System.Net;
-using SKeys = CrazyPoleMobile.Services.SecureStorageKeysProviderService;
+using SKeys = CrazyPoleMobile.Helpers.SecureStorageKeysProviderHelper;
 
 namespace CrazyPoleMobile.MVVM.ViewModels
 {
@@ -18,6 +18,11 @@ namespace CrazyPoleMobile.MVVM.ViewModels
         [ObservableProperty] private string _email = string.Empty;
         [ObservableProperty] private string _password = string.Empty;
         [ObservableProperty] private string _repeatPassword = string.Empty;
+        [ObservableProperty] private string _attentionText = string.Empty;
+
+        [ObservableProperty] private bool _emailAttention = false;
+        [ObservableProperty] private bool _passwordAttention = false;
+        [ObservableProperty] private bool _repeatPasswordAttention = false;
 
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(RegistrationCommand))]
@@ -54,16 +59,21 @@ namespace CrazyPoleMobile.MVVM.ViewModels
                 _repeatPassword == string.Empty ||
                 _email == string.Empty)
             {
-                await App.Current.MainPage.ShowPopupAsync(
-                    new WarningPopup("Все поля должны быть заполнены"));
+                EmailAttention = _email.Length == 0;
+                PasswordAttention = _password.Length == 0;
+                RepeatPasswordAttention = _repeatPassword.Length == 0;
+
+                AttentionText = "Поле обязательно к заполнению";
+
                 NotRegistrationProcess = true;
                 return;
             }
 
             if (_password != _repeatPassword)
             {
-                await App.Current.MainPage.ShowPopupAsync(
-                    new WarningPopup("Пароли не совпадают"));
+                RepeatPasswordAttention = true;
+                AttentionText = "Пароли не совпадают";
+
                 NotRegistrationProcess = true;
                 return;
             }

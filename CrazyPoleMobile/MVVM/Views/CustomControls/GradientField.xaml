@@ -16,8 +16,7 @@
             <Setter Property="VisualStateManager.VisualStateGroups">
                 <VisualStateGroupList>
                     <VisualStateGroup x:Name="CommonStates">
-                        <VisualState x:Name="Normal">
-                        </VisualState>
+                        <VisualState x:Name="Normal" />
                         <VisualState x:Name="Disabled">
                             <VisualState.Setters>
                                 <Setter Property="TextColor" Value="Gray" />
@@ -27,21 +26,39 @@
                 </VisualStateGroupList>
             </Setter>
         </Style>
+        <Style TargetType="Border" x:Key="GradientEntryBorder">
+            <Setter Property="Padding" Value="10" />
+            <Setter Property="Background" Value="{AppThemeBinding Dark={StaticResource ClarifiedBlack}, Light={StaticResource White}}" />
+            <Setter Property="StrokeThickness" Value="2" />
+            <Setter Property="StrokeShape" Value="RoundRectangle 15" />
+            <Style.Triggers>
+                <DataTrigger TargetType="Border"
+                             Binding="{Binding Source={x:Reference this}, Path=IsAttention}"
+                             Value="True">
+                    <Setter Property="Stroke" Value="{StaticResource DefaultAttention}" />
+                </DataTrigger>
+                <DataTrigger TargetType="Border"
+                             Binding="{Binding Source={x:Reference this}, Path=IsAttention}"
+                             Value="False">
+                    <Setter Property="Stroke" Value="{StaticResource DefaultGray}" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
     </ContentView.Resources>
-    
-    <Border BindingContext="{x:Reference this}" 
-            Padding="10"
-            x:Name="Framing"
-            Background="{AppThemeBinding Dark={StaticResource ClarifiedBlack}, Light={StaticResource White}}" 
-            StrokeThickness="2"
-            Stroke="{StaticResource Gray600}">
-        <Border.StrokeShape>
-            <RoundRectangle CornerRadius="15"/>
-        </Border.StrokeShape>
-        <Entry Style="{DynamicResource GradientEntry}" 
-               Focused="OnFocus"
-               Unfocused="OnUnfocus" />
-    </Border>
+
+    <StackLayout BindingContext="{x:Reference this}">
+        <Border x:Name="Framing"
+                Style="{StaticResource GradientEntryBorder}">
+            <Entry x:Name="TextEntry" Style="{DynamicResource GradientEntry}" 
+                   Focused="OnFocus"
+                   Unfocused="OnUnfocus"/>
+        </Border>
+        <Label Style="{StaticResource FontBaseStyle}" 
+               Text="{Binding AttentionText}" 
+               Margin="10, 5, 0, 0"
+               TextColor="{StaticResource AttentionRed}"
+               IsVisible="{Binding IsAttention}"/>
+    </StackLayout>
 
     
 </ContentView>

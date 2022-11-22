@@ -37,7 +37,6 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-
     <AbsoluteLayout x:Name="BarLayout">
         <Grid x:Name="ContentBlock" 
                 AbsoluteLayout.LayoutFlags="All"
@@ -47,6 +46,7 @@
             </Grid>
 
         </Grid>
+
 
 
         <Border x:Name="TabBarBlock"

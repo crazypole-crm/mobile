@@ -23,6 +23,8 @@ public static class MauiProgram
 
             });
 
+		builder.Services.AddSingleton<NotificationService>();
+
 		// SecureStorageService
 		builder.Services.AddSingleton<ISecureStorageService, SecureStorageService>();
 
