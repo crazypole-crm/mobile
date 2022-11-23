@@ -1,4 +1,5 @@
 ﻿using CrazyPoleMobile.MVVM.Models;
+using Microsoft.Maui.ApplicationModel.Communication;
 using System.Net;
 using System.Net.Http.Json;
 using HC = CrazyPoleMobile.Services.Api.HostConfiguration;
@@ -58,6 +59,21 @@ namespace CrazyPoleMobile.Services.Api
                             Email = email,
                             Password = password
                         });
+            }
+            catch
+            {
+                response.StatusCode = HttpStatusCode.ServiceUnavailable;
+            }
+            return response.StatusCode;
+        }
+
+        public async Task<HttpStatusCode> CurrentUser()
+        {
+            HttpResponseMessage response = new();
+            try
+            {
+                response = await _client.PostAsJsonAsync<UserAuthData>(
+                        $"{HC.HOST_NAME}{HC.CURRENT_USER}", null);
             }
             catch
             {

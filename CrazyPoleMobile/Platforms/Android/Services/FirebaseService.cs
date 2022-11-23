@@ -4,6 +4,7 @@ using AndroidX.Core.App;
 using Firebase.Messaging;
 using Storage = Microsoft.Maui.Storage.SecureStorage;
 using SKeys = CrazyPoleMobile.Helpers.SecureStorageKeysProviderHelper;
+using PK = CrazyPoleMobile.Helpers.PreferencesKeysHelper;
 using CrazyPoleMobile.Helpers;
 using CrazyPoleMobile.Services;
 
@@ -52,7 +53,8 @@ namespace CrazyPoleMobile.Platforms.Android.Services
                 .SetPriority(2);
 
             var notificationManager = NotificationManagerCompat.From(this);
-            notificationManager.Notify(MainActivity.NOTIFICATION_ID, notificationBuilder.Build());
+            if (Preferences.Default.Get<bool>(PK.NOTIFICATIONS_ENABLE_KEY, true))
+                notificationManager.Notify(MainActivity.NOTIFICATION_ID, notificationBuilder.Build());
             _onMessageReceived(title, body, desc);
         }
     }

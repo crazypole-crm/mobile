@@ -14,7 +14,7 @@
     
     <Grid ColumnDefinitions="*"
           ColumnSpacing="5"
-          RowDefinitions="100,*"
+          RowDefinitions="60,*"
           RowSpacing="30">
         <Label Style="{StaticResource BackgroundFontStyle}" 
                Text="Оповещений пока нет"

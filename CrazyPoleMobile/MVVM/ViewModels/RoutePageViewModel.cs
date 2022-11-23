@@ -51,25 +51,18 @@ namespace CrazyPoleMobile.MVVM.ViewModels
             _router.InitRootPage(this);
             _contentContext = this;
 
-            var password = await _store.Get(SKeys.USER_PASSWORD_KEY);
-            var email = await _store.Get(SKeys.USER_EMAIL_KEY);
+            //var password = await _store.Get(SKeys.USER_PASSWORD_KEY);
+            //var email = await _store.Get(SKeys.USER_EMAIL_KEY);
 
-            //if (password == null || email == null)
+            var status = await _auth.CurrentUser();
+
+            //if (status == HttpStatusCode.OK)
             //{
-            //    LoadLogInPage();
+                LoadHome();
+            //    return;
             //}
-            //else
-            //{
-            //    var status = await _auth.LogIn(email, password);
-            //    if (status == HttpStatusCode.OK)
-            //        LoadHome();
-            //    else
-            //    {
-            //        LoadLogInPage();
-            //        await App.Current.MainPage.ShowPopupAsync(new ErrorPopup(status.ToString()));
-            //    }
-            //}
-            LoadHome();
+
+            //LoadLogInPage();
         }
 
 

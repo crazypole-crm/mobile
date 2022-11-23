@@ -3,13 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:mct ="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:cc="clr-namespace:CrazyPoleMobile.MVVM.Views.CustomControls"
+             xmlns:vm="clr-namespace:CrazyPoleMobile.MVVM.ViewModels"
+             x:DataType="vm:SettingsPageViewModel"
              x:Class="CrazyPoleMobile.MVVM.Views.SettingsPage">
 
-    <Grid RowDefinitions="100,*">
+    <Grid RowDefinitions="60,*">
 
         <ScrollView Grid.Row="1" Grid.RowSpan="2">
-                <VerticalStackLayout Spacing="10" Margin="19,15">
-                    <Border HeightRequest="60" Style="{StaticResource BorderedFrame}" >
+            <VerticalStackLayout Spacing="10" Margin="19,15">
+                <Border HeightRequest="60" Style="{StaticResource BorderedFrame}" >
                         <Grid Padding="0" 
                           ColumnDefinitions="30, *, 40"  
                           Margin="15, 0, 20, 0">
@@ -25,84 +27,96 @@
                                VerticalTextAlignment="Center" 
                                Style="{StaticResource MainFrameText}" 
                                Text="Оповещения" />
-                            <Switch Grid.Column="2" />
+                            <Switch Grid.Column="2" IsToggled="{Binding NotificationEnabled}" />
                         </Grid>
                     </Border>
 
-                    <Border HeightRequest="60" Style="{StaticResource BorderedFrame}" >
-                        <Grid Padding="0" 
-                          ColumnDefinitions="30, *, 40"  
-                          Margin="15, 0, 20, 0">
-                            <Image Grid.Column="0" 
+                <Border HeightRequest="60" Style="{StaticResource BorderedFrame}" >
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OpenTelegrammCommand}" />
+                    </Border.GestureRecognizers>
+                    <Grid Padding="0" 
+                      ColumnDefinitions="30, *, 40"  
+                      Margin="15, 0, 20, 0">
+                        <Image Grid.Column="0" 
                                HorizontalOptions="Center" 
                                Style="{StaticResource SettingsImage}" 
                                Source="{AppThemeBinding 
                             Light={cc:ImageResource Source=telegram_icon_black.png}, 
                             Dark={cc:ImageResource Source=telegram_icon_white.png}}" />
-                            <Label Grid.Column="1" 
+                        <Label Grid.Column="1" 
                                Margin="10, 0, 0, 0" 
                                VerticalTextAlignment="Center" 
                                Style="{StaticResource MainFrameText}"  
                                Text="Telegram" />
-                        </Grid>
-                    </Border>
+                    </Grid>
+                </Border>
 
-                    <Border HeightRequest="60" Style="{StaticResource BorderedFrame}" >
-                        <Grid Padding="0" 
-                          ColumnDefinitions="30, *, 40"  
-                          Margin="15, 0, 20, 0">
-                            <Image Grid.Column="0" 
+                <Border HeightRequest="60" Style="{StaticResource BorderedFrame}" >
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OpenVKCommand}" />
+                    </Border.GestureRecognizers>
+                    <Grid Padding="0" 
+                      ColumnDefinitions="30, *, 40"  
+                      Margin="15, 0, 20, 0">
+                        <Image Grid.Column="0" 
                                HorizontalOptions="Center" 
                                Style="{StaticResource SettingsImage}" 
                                Source="{AppThemeBinding 
                             Light={cc:ImageResource Source=vk_icon_black.png}, 
                             Dark={cc:ImageResource Source=vk_icon_white.png}}" />
-                            <Label Grid.Column="1" 
+                        <Label Grid.Column="1" 
                                Margin="10, 0, 0, 0" 
                                VerticalTextAlignment="Center" 
                                Style="{StaticResource MainFrameText}"  
                                Text="Группа ВК" />
-                        </Grid>
-                    </Border>
+                    </Grid>
+                </Border>
 
-                    <Border HeightRequest="60" Style="{StaticResource BorderedFrame}" >
-                        <Grid Padding="0" 
+                <Border HeightRequest="60" Style="{StaticResource BorderedFrame}" >
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OpenWhatsAppCommand}" />
+                    </Border.GestureRecognizers>
+                    <Grid Padding="0" 
                           ColumnDefinitions="30, *, 40"  
                           Margin="15, 0, 20, 0">
-                            <Image Grid.Column="0" 
+                        <Image Grid.Column="0" 
                                HorizontalOptions="Center"
                                Style="{StaticResource SettingsImage}"
                                Source="{AppThemeBinding 
                             Light={cc:ImageResource Source=watsapp_icon_black.png}, 
                             Dark={cc:ImageResource Source=watsapp_icon_white.png}}" />
-                            <Label Grid.Column="1" 
+                        <Label Grid.Column="1" 
                                Margin="10, 0, 0, 0" 
                                VerticalTextAlignment="Center" 
                                Style="{StaticResource MainFrameText}"  
                                Text="WhatsApp" />
-                        </Grid>
-                    </Border>
+                    </Grid>
+                </Border>
 
-                    <Border HeightRequest="60" Style="{StaticResource BorderedFrame}" >
-                        <Grid Padding="0" 
-                          ColumnDefinitions="30, *, 40"  
-                          Margin="15, 0, 20, 0">
-                            <Image Grid.Column="0" 
+                <Border HeightRequest="60" Style="{StaticResource BorderedFrame}" >
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OpenWebSiteCommand}" />
+                    </Border.GestureRecognizers>
+                    <Grid Padding="0" 
+                      ColumnDefinitions="30, *, 40"  
+                      Margin="15, 0, 20, 0">
+                        <Image Grid.Column="0" 
                                HorizontalOptions="Center" 
                                Style="{StaticResource SettingsImage}" 
                                Source="{AppThemeBinding 
                             Light={cc:ImageResource Source=website_icon_black.png}, 
                             Dark={cc:ImageResource Source=website_icon_white.png}}" />
-                            <Label Grid.Column="1" 
+                        <Label Grid.Column="1" 
                                    Margin="10, 0, 0, 0" 
                                    VerticalTextAlignment="Center" 
                                    Style="{StaticResource MainFrameText}"  
                                    Text="Веб-сайт" />
-                        </Grid>
-                    </Border>
+                    </Grid>
+                </Border>
 
-                </VerticalStackLayout>
-            </ScrollView>
+            </VerticalStackLayout>
+        </ScrollView>
 
         <Grid RowDefinitions="*, 40"
               Grid.Row="1"
@@ -111,7 +125,7 @@
             <cc:GradientButton Text="Выйти"
                                WidthRequest="100"
                                CornerRadius="20"
-                               OnClickCommand="{Binding CloseAllCommand}"
+                               OnClickCommand="{Binding LogOutCommand}"
                                Grid.Row="1"></cc:GradientButton>
             
         </Grid>
