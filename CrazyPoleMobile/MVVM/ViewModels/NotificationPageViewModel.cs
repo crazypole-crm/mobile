@@ -32,6 +32,7 @@ namespace CrazyPoleMobile.MVVM.ViewModels
             foreach (var data in dataArray)
             { 
                 _notifications.Add(data);
+                await Task.Delay(50);
                 _notificationsRef.Add(data.RemoveThis);
                 await Task.Delay(50);
             }

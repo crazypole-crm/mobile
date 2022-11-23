@@ -14,14 +14,15 @@
     
     <Grid ColumnDefinitions="*"
           ColumnSpacing="5"
-          RowDefinitions="40,*"
+          RowDefinitions="100,*"
           RowSpacing="30">
         <Label Style="{StaticResource BackgroundFontStyle}" 
                Text="Оповещений пока нет"
                Grid.Row="1"
                HorizontalOptions="Center"
                VerticalOptions="Center"
-               IsVisible="{Binding NotificationsEmpty}"></Label>
+               IsVisible="{Binding NotificationsEmpty}"
+               Padding="0, 0, 0, 130"></Label>
         <ScrollView Padding="10, 0, 10, 130"
                     Grid.Row="1">
             <CollectionView ItemsSource="{Binding Notifications}">
@@ -41,7 +42,7 @@
                    Text="Оповещения" />
         <Grid RowDefinitions="*,40"
               Grid.Row="1"
-              Padding="0, 0, 0, 90">
+              Padding="0, 0, 0, 105">
             <cc:GradientButton Text="Закрыть все"
                                WidthRequest="200"
                                CornerRadius="20"

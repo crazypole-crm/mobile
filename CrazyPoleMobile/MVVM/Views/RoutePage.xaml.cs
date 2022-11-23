@@ -1,14 +1,15 @@
 using CommunityToolkit.Maui.Views;
 using CrazyPoleMobile.MVVM.ViewModels;
 using CrazyPoleMobile.MVVM.Views.CustomControls;
+using CrazyPoleMobile.Services;
 using System.Collections;
 
 namespace CrazyPoleMobile.MVVM.Views;
 
 public partial class RoutePage : ContentPage
 {
-	private bool _isLayoutSizeInit = false;
-
+	private double _tabBarHeight = 100;
+	private double _contentHeight;
 	public Grid ContentBlockRef => ContentBlock;
 	public Border TabBarBlockRef => TabBarBlock;
 	public TabBarButton HomeButtonRef => HomeButton;
@@ -30,14 +31,10 @@ public partial class RoutePage : ContentPage
 
 	protected override void OnSizeAllocated(double width, double height)
 	{
-		if (!_isLayoutSizeInit)
-		{
-			var contentSize = height * 0.90f;
-			var tabBarSize = height - contentSize;
+		_contentHeight = height * (1 - (_tabBarHeight / height));
 
-            BarLayout.SetLayoutBounds(ContentBlock, new Rect(0, 0, 1, 1));
-            BarLayout.SetLayoutBounds(TabBarBlock, new Rect(0, contentSize + tabBarSize + 5, 1, tabBarSize));
-		}
+		BarLayout.SetLayoutBounds(ContentBlock, new Rect(0, 0, 1, 1));
+		BarLayout.SetLayoutBounds(TabBarBlock, new Rect(0, _contentHeight + _tabBarHeight + 5, 1, _tabBarHeight));
 		base.OnSizeAllocated(width, height);
 
 	}

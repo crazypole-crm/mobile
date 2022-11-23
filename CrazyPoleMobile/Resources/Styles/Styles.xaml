@@ -53,7 +53,8 @@
     </Style>
 
     <Style x:Key="BackgroundFontStyle" TargetType="Label" BasedOn="{StaticResource FontBaseStyle}">
-        <Setter Property="TextColor" Value="{StaticResource Gray600}" />
+        <Setter Property="TextColor" Value="{StaticResource Gray600Fade}" />
+        <Setter Property="FontSize" Value="24" />
     </Style>
     
     <Style x:Key="SmallButtonText" TargetType="Label" BasedOn="{StaticResource FontBaseStyle}">
