@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -54,6 +55,11 @@ namespace CrazyPoleMobile.MVVM.Models
         public bool Equals(CalendarDay other)
         {
             return _date == other._date;
+        }
+
+        public override string ToString()
+        {
+            return Day.ToString();
         }
     }
 }
