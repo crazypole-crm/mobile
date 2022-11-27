@@ -14,43 +14,75 @@ namespace CrazyPoleMobile.MVVM.ViewModels
 {
     public partial class CalendarPageViewModel : ObservableObject
     {
-        [ObservableProperty]
-        [NotifyPropertyChangedFor(nameof(Dates))]
-        private ObservableGroupedCollection<CalendarDay, TrainingData> _trainings = new();
+        //[ObservableProperty]
+        //[NotifyPropertyChangedFor(nameof(Dates))]
+        //private ObservableGroupedCollection<CalendarDay, TrainingData> _trainings = new();
 
         [ObservableProperty]
-        private ObservableCollection<TrainingData> _currentDayTrainings;
+        private ObservableCollection<DaysCollection> _dates = new();
 
-        public ObservableCollection<CalendarDay> Dates 
-        { 
-            get 
-            {
-                var dates = new ObservableCollection<CalendarDay>();
-                foreach (var group in _trainings)
-                    dates.Add(group.Key);
-                
-                return dates;
-            } 
-        }
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(SelectedDate))]
+        private DaysCollection _currentDayTrainings;
+
+        public CalendarDay SelectedDate => _currentDayTrainings.Date;
+
+        //public ObservableCollection<CalendarDay> Dates 
+        //{ 
+        //    get 
+        //    {
+        //        var dates = new ObservableCollection<CalendarDay>();
+        //        foreach (var group in _trainings)
+        //            dates.Add(group.Key);
+
+        //        return dates;
+        //    } 
+        //}
 
         public CalendarPageViewModel()
         {
-            List<TrainingData> a = new() { new TrainingData() };
-            var group = new ObservableGroup<CalendarDay, TrainingData>(new(new DateTime(2022, 11, 18)), a); 
-            _trainings.Add(group);
-            _trainings.Add(new(new CalendarDay(new DateTime(2022, 11, 19))));
-            _currentDayTrainings = new ObservableCollection<TrainingData>() { new TrainingData(), new TrainingData() };
+            List<TrainingData> a = new() 
+            { 
+                new TrainingData(),
+                new TrainingData(),
+                new TrainingData(),
+                new TrainingData(),
+                new TrainingData(),
+                new TrainingData(),
+                new TrainingData(),
+                new TrainingData(),
+                new TrainingData(),
+                new TrainingData(),
+                new TrainingData(),
+                new TrainingData(),
+                new TrainingData(),
+                new TrainingData(),
+                new TrainingData(),
+                new TrainingData(),
+                new TrainingData(),
+                new TrainingData(),
+            };
+            //var group = new ObservableGroup<CalendarDay, TrainingData>(new(new DateTime(2022, 11, 18)), a);
+            //_trainings.Add(group);
+
+            //_trainings.Add(new(new CalendarDay(new DateTime(2022, 11, 19))));
+            //_currentDayTrainings = new ObservableCollection<TrainingData>() { new TrainingData(), new TrainingData() };
+            var group = new DaysCollection(new(new DateTime(2022, 11, 18)), new(a));
+            var group2 = new DaysCollection(new(new DateTime(2022, 11, 26 )), new());
+            _dates = new() { group, group2 };
+            _currentDayTrainings = group2;
         }
 
         [RelayCommand]
-        private void SelectDay(object sender)
+        private async Task SelectDay(object sender)
         {
             var currentDay = (CalendarDay)sender;
             if (currentDay == null)
                 return;
 
-            CurrentDayTrainings = _trainings.FirstGroupByKeyOrDefault(currentDay);
-        }
+            await Task.Delay(200);
+            await Task.Run( () => { CurrentDayTrainings = _dates.Where(day => day.Date == currentDay).FirstOrDefault(); });
 
+        }
     }
 }
