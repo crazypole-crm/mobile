@@ -1,6 +1,5 @@
-﻿
-
-using CrazyPoleMobile.Services;
+﻿using CrazyPoleMobile.Services;
+using CrazyPoleMobile.Services.Api;
 
 namespace CrazyPoleMobile;
 
@@ -10,7 +9,8 @@ public partial class App : Application
 
 	public App(NotificationService service)
 	{
-		InitializeComponent();
+
+        InitializeComponent();
 		MainPage = new AppShell();
 		_notifications = service;
 	}
@@ -20,7 +20,8 @@ public partial class App : Application
         var window = base.CreateWindow(activationState);
 		window.Activated += (s, e) => _notifications.LoadAllNotifications();
 		window.Destroying += (s, e) => _notifications.SaveAllNotifications();
-		//window.Resumed += (s, e) => _notifications.LoadAllNotifications();
+		//window.Created += (s, e) => HostConfiguration.LoadClientCookies();
+		window.Stopped += (s, e) => HostConfiguration.SaveClientCookies();
 		return window;
     }
 }

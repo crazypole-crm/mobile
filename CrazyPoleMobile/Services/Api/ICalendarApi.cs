@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using System.Net;
 
 namespace CrazyPoleMobile.Services.Api
 {
     public interface ICalendarApi
     {
-        public Task GetDirections();
-        public Task GetTrainingsForPeriod(DateTime start, DateTime end);
-        public Task GetHalls();
+        public Task<HttpStatusCode> GetDirections();
+        public Task<HttpStatusCode> GetTrainingsForPeriod(DateTime start, DateTime end);
+        public Task<HttpStatusCode> GetHalls();
     }
 }

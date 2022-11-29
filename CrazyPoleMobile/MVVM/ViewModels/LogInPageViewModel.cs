@@ -74,6 +74,7 @@ namespace CrazyPoleMobile.MVVM.ViewModels
                 NotLoginProcess = true;
                 //await _store.Save(SKeys.USER_EMAIL_KEY, _email);
                 //await _store.Save(SKeys.USER_PASSWORD_KEY, _password);
+                //await _store.Save(SKeys.SESSION_ID, );
                 return;
             }
 

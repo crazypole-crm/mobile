@@ -1,16 +1,15 @@
 ﻿using CrazyPoleMobile.MVVM.Models;
-using Microsoft.Maui.ApplicationModel.Communication;
 using System.Net;
 using System.Net.Http.Json;
 using HC = CrazyPoleMobile.Services.Api.HostConfiguration;
+using SK = CrazyPoleMobile.Helpers.SecureStorageKeysProviderHelper;
 
 namespace CrazyPoleMobile.Services.Api
 {
-
-
     public class AuthenticationApi : IAuthenticationApi
     {
         private readonly HttpClient _client = HC.Client;
+        private readonly CookieContainer _cookies = HC.Cookies;
 
         public async Task<HttpStatusCode> LogIn(string email, string password)
         {
@@ -60,7 +59,7 @@ namespace CrazyPoleMobile.Services.Api
                             Password = password
                         });
             }
-            catch
+            catch (Exception /*ex*/)
             {
                 response.StatusCode = HttpStatusCode.ServiceUnavailable;
             }
@@ -72,12 +71,13 @@ namespace CrazyPoleMobile.Services.Api
             HttpResponseMessage response = new();
             try
             {
+                //_client.DefaultRequestHeaders.Add(SK.PHPSESSID, await SecureStorage.Default.GetAsync(SK.PHPSESSID));
                 response = await _client.PostAsJsonAsync<UserAuthData>(
                         $"{HC.HOST_NAME}{HC.CURRENT_USER}", null);
             }
             catch
             {
-                response.StatusCode = HttpStatusCode.ServiceUnavailable;
+                //response.StatusCode = HttpStatusCode.ServiceUnavailable;
             }
             return response.StatusCode;
         }

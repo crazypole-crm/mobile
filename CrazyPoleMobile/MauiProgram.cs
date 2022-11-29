@@ -4,6 +4,7 @@ using CrazyPoleMobile.MVVM.ViewModels;
 using CrazyPoleMobile.Services;
 using CrazyPoleMobile.Services.Api;
 using Syncfusion.Maui.Core.Hosting;
+using CrazyPoleMobile.Data.Cookies;
 
 namespace CrazyPoleMobile;
 
@@ -50,6 +51,7 @@ public static class MauiProgram
 		builder.Services.AddSingleton<RoutePageViewModel>();
 
 		builder.Services.AddSingleton<IPageNavigationService, PageNavigationService>();
+		builder.Services.AddSingleton<CookieDataBase>();
 
         return builder.Build();
 	}

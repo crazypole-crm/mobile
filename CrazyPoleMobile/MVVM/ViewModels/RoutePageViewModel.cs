@@ -1,13 +1,10 @@
-﻿using CommunityToolkit.Maui.Views;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CrazyPoleMobile.MVVM.Views;
 using CrazyPoleMobile.MVVM.Views.CustomControls;
-using CrazyPoleMobile.MVVM.Views.Popups;
 using CrazyPoleMobile.Services;
 using CrazyPoleMobile.Services.Api;
 using System.Net;
-using SKeys = CrazyPoleMobile.Helpers.SecureStorageKeysProviderHelper;
 
 namespace CrazyPoleMobile.MVVM.ViewModels
 {
@@ -51,18 +48,16 @@ namespace CrazyPoleMobile.MVVM.ViewModels
             _router.InitRootPage(this);
             _contentContext = this;
 
-            //var password = await _store.Get(SKeys.USER_PASSWORD_KEY);
-            //var email = await _store.Get(SKeys.USER_EMAIL_KEY);
-
+            await HostConfiguration.LoadClientCookies();
             var status = await _auth.CurrentUser();
 
-            //if (status == HttpStatusCode.OK)
-            //{
+            if (status == HttpStatusCode.OK)
+            {
                 LoadHome();
-            //    return;
-            //}
+                return;
+            }
 
-            //LoadLogInPage();
+            LoadLogInPage();
         }
 
 
