@@ -22,8 +22,8 @@
     <Color x:Key="Gray600Fade">#88404040</Color>
     <Color x:Key="Gray900">#212121</Color>
     <Color x:Key="Gray950">#141414</Color>
-    <Color x:Key="TabBarLight">#6565651A</Color>
-    <Color x:Key="TabBarDark">#6565651A</Color>
+    <Color x:Key="TabBarLight">#55191919</Color>
+    <Color x:Key="TabBarDark">#39ffffff</Color>
     <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource Primary}"/>
     <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource Secondary}"/>
     <SolidColorBrush x:Key="TertiaryBrush" Color="{StaticResource Tertiary}"/>

@@ -120,7 +120,7 @@
 
         <Grid RowDefinitions="*, 40"
               Grid.Row="1"
-              Padding="0, 0, 0, 105">
+              Padding="0, 0, 0, 80">
 
             <cc:GradientButton Text="Выйти"
                                WidthRequest="100"

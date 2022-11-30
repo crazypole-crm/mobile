@@ -110,6 +110,12 @@
 	  <MauiXaml Update="MVVM\Views\CalendarPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="MVVM\Views\Components\DirectionFrame.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="MVVM\Views\Components\FavouritesFrame.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="MVVM\Views\CustomControls\GradientButton.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

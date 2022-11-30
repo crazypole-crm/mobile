@@ -12,9 +12,9 @@
             Padding="{Binding PaddingBorder}"
             Stroke="{Binding CurrentBorderBrush}"
             StrokeThickness="{Binding StrokeThickness}"
-            BackgroundColor="Transparent"
-            HeightRequest="70"
-            WidthRequest="70">
+            BackgroundColor="{AppThemeBinding Dark={StaticResource Black}, Light={StaticResource White}}"
+            HeightRequest="55"
+            WidthRequest="55">
 
         <ImageButton x:Name="Btn"
                      VerticalOptions="Fill"

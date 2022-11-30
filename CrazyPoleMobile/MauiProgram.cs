@@ -54,5 +54,6 @@ public static class MauiProgram
 		builder.Services.AddSingleton<CookieDataBase>();
 
         return builder.Build();
+
 	}
 }
