@@ -72,7 +72,7 @@ namespace CrazyPoleMobile.MVVM.ViewModels
                 Uri uri = new(url);
                 BrowserLaunchOptions options = new()
                 {
-                    LaunchMode = BrowserLaunchMode.External,
+                    LaunchMode = BrowserLaunchMode.SystemPreferred,
                     TitleMode = BrowserTitleMode.Show
                 };
 
