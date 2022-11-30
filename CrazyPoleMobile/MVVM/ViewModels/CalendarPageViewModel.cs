@@ -25,7 +25,7 @@ namespace CrazyPoleMobile.MVVM.ViewModels
         [NotifyPropertyChangedFor(nameof(SelectedDate))]
         private DaysCollection _currentDayTrainings;
 
-        public CalendarDay SelectedDate => _currentDayTrainings.Date;
+        public CalendarDay SelectedDate => _currentDayTrainings?.Date;
 
         //public ObservableCollection<CalendarDay> Dates 
         //{ 

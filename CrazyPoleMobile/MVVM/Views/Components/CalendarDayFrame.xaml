@@ -6,7 +6,7 @@
              x:Name="DayFrameComponent">
     <ContentView.ControlTemplate>
         <ControlTemplate>
-            <Border Style="{StaticResource DayFrame}" BindingContext="{x:Reference this}">
+            <Border Style="{StaticResource DayFrame}">
                 <VerticalStackLayout >
                     <Label Grid.Row="0"
                            HorizontalTextAlignment="Center" 
