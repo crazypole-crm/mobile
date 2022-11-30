@@ -54,7 +54,7 @@ namespace CrazyPoleMobile.Platforms.Android.Services
 
             var notificationManager = NotificationManagerCompat.From(this);
             if (Preferences.Default.Get<bool>(PK.NOTIFICATIONS_ENABLE_KEY, true))
-                notificationManager.Notify(MainActivity.NOTIFICATION_ID, notificationBuilder.Build());
+                notificationManager.Notify(MainActivity.NotificationId, notificationBuilder.Build());
             _onMessageReceived(title, body, desc);
         }
     }
