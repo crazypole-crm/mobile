@@ -44,9 +44,9 @@ namespace CrazyPoleMobile.MVVM.ViewModels
         }
 
         [RelayCommand]
-        private void LoadHomePage()
+        private async void LoadHomePage()
         {
-            _route.LoadHome();
+            await _route.LoadHome();
         }
 
         [RelayCommand(CanExecute = nameof(NotLoginProcess))]
@@ -70,7 +70,7 @@ namespace CrazyPoleMobile.MVVM.ViewModels
 
             if (status == HttpStatusCode.OK)
             { 
-                _route.LoadHome();
+                await _route.LoadHome();
                 NotLoginProcess = true;
                 //await _store.Save(SKeys.USER_EMAIL_KEY, _email);
                 //await _store.Save(SKeys.USER_PASSWORD_KEY, _password);

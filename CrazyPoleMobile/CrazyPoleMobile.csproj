@@ -34,8 +34,8 @@
 		<AndroidKeyStore>True</AndroidKeyStore>
 		<AndroidSigningKeyStore>..\key.keystore</AndroidSigningKeyStore>
 		<AndroidSigningKeyAlias>key</AndroidSigningKeyAlias>
-		<AndroidSigningKeyPass></AndroidSigningKeyPass>
-		<AndroidSigningStorePass></AndroidSigningStorePass>
+		<AndroidSigningKeyPass>FILOFIFO</AndroidSigningKeyPass>
+		<AndroidSigningStorePass>FILOFIFO</AndroidSigningStorePass>
 	</PropertyGroup>
 	
 	<PropertyGroup Condition="'$(RunConfiguration)'=='Default'" />

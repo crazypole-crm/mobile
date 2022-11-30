@@ -19,7 +19,6 @@
         <ImageButton x:Name="Btn"
                      VerticalOptions="Fill"
                      HorizontalOptions="Fill"
-                     Source="{Binding CurrentSource}"
                      Padding="{Binding PaddingImage}"
                      Command="{Binding Command}"
                      CommandParameter="{Binding CommandParameter}">
