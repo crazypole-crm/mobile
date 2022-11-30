@@ -10,8 +10,6 @@ namespace CrazyPoleMobile.Services
     {
         private readonly IServiceProvider _serviceProvider;
         private IRouteController _routController;
-        private double _contentHeight;
-        private double _tabBarHeight;
 
         private Dictionary<Type, Page> _pageCache = new();
         private Dictionary<Type, ObservableObject> _viewModelCache = new();
@@ -69,7 +67,10 @@ namespace CrazyPoleMobile.Services
             var content = page.Content;
             content.BindingContext = GetViewModel<ViewModel>();
 
-            _routController.GetContentBlock.Children.Clear();
+            await Task.Run(() =>
+            {
+                _routController.GetContentBlock.Children.Clear();
+            });
             _routController.GetContentBlock.Children.Add(page.Content);
             if (pushStak)
                 await PushPage(page);

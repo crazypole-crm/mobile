@@ -37,7 +37,7 @@ namespace CrazyPoleMobile.MVVM.ViewModels
         [RelayCommand]
         private async void LogOut()
         {
-            _route.LoadLogInPage();
+            await _route.LoadLogInPage();
             await _auth.LogOut();
         }
 

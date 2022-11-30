@@ -37,7 +37,7 @@ namespace CrazyPoleMobile.MVVM.ViewModels
             _auth = auth;
         }
 
-        public async void InitRoot(RoutePage page)
+        public async Task InitRoot(RoutePage page)
         {
             _tabBar = page.TabBarBlockRef;
             _content = page.ContentBlockRef;
@@ -48,16 +48,15 @@ namespace CrazyPoleMobile.MVVM.ViewModels
             _router.InitRootPage(this);
             _contentContext = this;
 
-            await HostConfiguration.LoadClientCookies();
-            var status = await _auth.CurrentUser();
+            //await HostConfiguration.LoadClientCookies();
+            //var status = await _auth.CurrentUser();
 
-            if (status == HttpStatusCode.OK)
-            {
-                LoadHome();
-                return;
-            }
-
-            LoadLogInPage();
+            //if (status == HttpStatusCode.OK)
+            //{
+                await LoadHome();
+                //return;
+            //}
+            //LoadLogInPage();
         }
 
 
@@ -70,7 +69,7 @@ namespace CrazyPoleMobile.MVVM.ViewModels
         }
 
         [RelayCommand]
-        public async void LoadHome()
+        public async Task LoadHome()
         {
             DeactivateAllButtons();
             _homeButton.IsSelected = true;
@@ -108,19 +107,19 @@ namespace CrazyPoleMobile.MVVM.ViewModels
         public async Task LoadSignUpPage()
         {
             DeactivateAllButtons();
-            HideTabBar();
+            await HideTabBar();
             await _router.LoadPage<SignUpPage, SignUpPageViewModel>();
         }
 
-        public async void LoadLogInPage()
+        public async Task LoadLogInPage()
         {
             DeactivateAllButtons();
-            HideTabBar();
+            await HideTabBar();
             await _router.LoadPage<LogInPage, LogInPageViewModel>();
         }
 
         [RelayCommand]
-        private async void HideTabBar()
+        private async Task HideTabBar()
         {
             _tabBarIsVisible = false;
             await _tabBar.TranslateTo(0, 0, easing: Easing.SinInOut);
