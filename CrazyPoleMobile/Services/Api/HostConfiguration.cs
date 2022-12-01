@@ -11,6 +11,7 @@ namespace CrazyPoleMobile.Services.Api
         public const string LOGIN_ROUTE = "/login";
         public const string LOGOUT_ROUTE = "/logout";
         public const string CURRENT_USER = "/current/user_data";
+        public const string CHANGE_PASS = "/update/password";
 
         private static CookieDataBase _db = ServiceHelper.GetService<CookieDataBase>();
         private static CookieContainer _cookieContainer = new();

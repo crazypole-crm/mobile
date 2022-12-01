@@ -1,4 +1,5 @@
 ﻿using CrazyPoleMobile.MVVM.Models;
+using System.Data;
 using System.Net;
 using System.Net.Http.Json;
 using HC = CrazyPoleMobile.Services.Api.HostConfiguration;
@@ -66,20 +67,42 @@ namespace CrazyPoleMobile.Services.Api
             return response.StatusCode;
         }
 
-        public async Task<HttpStatusCode> CurrentUser()
+        public async Task<HttpData<UserAuthData>> CurrentUser()
         {
             HttpResponseMessage response = new();
+            HttpData<UserAuthData> data = new();
             try
             {
-                //_client.DefaultRequestHeaders.Add(SK.PHPSESSID, await SecureStorage.Default.GetAsync(SK.PHPSESSID));
-                response = await _client.PostAsJsonAsync<UserAuthData>(
+                response = await _client.PostAsync(
                         $"{HC.HOST_NAME}{HC.CURRENT_USER}", null);
+
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    var content = await response.Content.ReadFromJsonAsync<UserAuthData>();
+                    data.Data = content;
+                }
             }
-            catch
+            finally
             {
-                //response.StatusCode = HttpStatusCode.ServiceUnavailable;
+                data.Status = response.StatusCode;
             }
-            return response.StatusCode;
+            return data;
+        }
+
+        public async Task<HttpStatusCode> ChangePassword(ChangePasswordData request)
+        {
+            HttpResponseMessage response = new();
+            HttpStatusCode status;
+            try
+            {
+                response = await _client.PostAsJsonAsync(
+                        $"{HC.HOST_NAME}{HC.CHANGE_PASS}", request);
+            }
+            finally
+            {
+                status = response.StatusCode;   
+            }
+            return status;
         }
     }
 }

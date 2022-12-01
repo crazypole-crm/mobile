@@ -48,15 +48,15 @@ namespace CrazyPoleMobile.MVVM.ViewModels
             _router.InitRootPage(this);
             _contentContext = this;
 
-            //await HostConfiguration.LoadClientCookies();
-            //var status = await _auth.CurrentUser();
+            await HostConfiguration.LoadClientCookies();
+            var data = await _auth.CurrentUser();
 
-            //if (status == HttpStatusCode.OK)
-            //{
+            if (data.Status == HttpStatusCode.OK)
+            {
                 await LoadHome();
-                //return;
-            //}
-            //LoadLogInPage();
+                return;
+            }
+            await LoadLogInPage();
         }
 
 
@@ -116,6 +116,11 @@ namespace CrazyPoleMobile.MVVM.ViewModels
             DeactivateAllButtons();
             await HideTabBar();
             await _router.LoadPage<LogInPage, LogInPageViewModel>();
+        }
+
+        public async Task LoadChangePassword()
+        {
+            await _router.LoadPage<ChangePasswordPage, ChangePasswordViewModel>(true);
         }
 
         [RelayCommand]

@@ -42,6 +42,12 @@ namespace CrazyPoleMobile.MVVM.ViewModels
         }
 
         [RelayCommand]
+        private async void ChangePassword()
+        {
+            await _route.LoadChangePassword();   
+        }
+
+        [RelayCommand]
         private static void OpenVK(object sender)
         {
             OpenUri("https://vk.com/crazypole");

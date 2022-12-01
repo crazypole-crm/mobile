@@ -21,7 +21,7 @@
                                            Grid.Column="1"
                                            VerticalOptions="Center"
                                            HorizontalOptions="End"
-                                           CornerRadius="20"/>
+                                           CornerRadius="30"/>
                     </Grid>
                 </tools:Expander.Header>
             

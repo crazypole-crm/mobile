@@ -33,24 +33,26 @@ public static class MauiProgram
 		builder.Services.AddSingleton<AuthenticationApi>();
 
 		// Provide page services
-		builder.Services.AddTransient<HomePage>();
-		builder.Services.AddTransient<NotificationPage>();
-		builder.Services.AddTransient<CalendarPage>();
-		builder.Services.AddTransient<SettingsPage>();
-		builder.Services.AddTransient<SignUpPage>();
-		builder.Services.AddTransient<LogInPage>();
-		builder.Services.AddTransient<RoutePage>();
+		builder.Services.AddSingleton<HomePage>();
+		builder.Services.AddSingleton<NotificationPage>();
+		builder.Services.AddSingleton<CalendarPage>();
+		builder.Services.AddSingleton<SettingsPage>();
+		builder.Services.AddSingleton<SignUpPage>();
+		builder.Services.AddSingleton<LogInPage>();
+		builder.Services.AddSingleton<RoutePage>();
+        builder.Services.AddSingleton<ChangePasswordPage>();
 
-		// Provide ViewModels services
-		builder.Services.AddSingleton<HomePageViewModel>();
+        // Provide ViewModels services
+        builder.Services.AddSingleton<HomePageViewModel>();
         builder.Services.AddSingleton<NotificationPageViewModel>();
         builder.Services.AddSingleton<CalendarPageViewModel>();
         builder.Services.AddSingleton<SettingsPageViewModel>();
 		builder.Services.AddSingleton<SignUpPageViewModel>();
 		builder.Services.AddSingleton<LogInPageViewModel>();
 		builder.Services.AddSingleton<RoutePageViewModel>();
+        builder.Services.AddSingleton<ChangePasswordViewModel>();
 
-		builder.Services.AddSingleton<IPageNavigationService, PageNavigationService>();
+        builder.Services.AddSingleton<IPageNavigationService, PageNavigationService>();
 		builder.Services.AddSingleton<CookieDataBase>();
 
         return builder.Build();
