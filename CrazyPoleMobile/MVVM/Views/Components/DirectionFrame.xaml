@@ -3,25 +3,33 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:tools="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:cc="clr-namespace:CrazyPoleMobile.MVVM.Views.CustomControls"
+             xmlns:controls="clr-namespace:CrazyPoleMobile.MVVM.Views.Components"
+             x:Name="this"
              x:Class="CrazyPoleMobile.MVVM.Views.Components.DirectionFrame">
     <Border Style="{StaticResource BorderedFrame}"
-            StrokeThickness="4">
+            StrokeThickness="4"
+            BindingContext="{x:Reference this}">
         <Frame Padding="20">
             <tools:Expander>
                 <tools:Expander.Header>
                     <Grid ColumnDefinitions="2*,*"
                           RowDefinitions="*">
-                        <Label Style="{StaticResource MainFrameText}" 
-                               Text="Some Text"
-                               FontSize="24"
-                               Grid.Column="0"
-                               VerticalOptions="Center"
-                               HorizontalOptions="Start"/>
+                        <Frame Grid.Column="0"
+                               Padding="0,0,10,0">
+                            <Label Style="{StaticResource MainFrameText}" 
+                                   Text="{Binding HeaderText}"
+                                   FontSize="16"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Start"
+                                   VerticalTextAlignment="Center"/>
+                        </Frame>
                         <cc:GradientButton Text="Записаться" 
                                            Grid.Column="1"
+                                           HeightRequest="50"
                                            VerticalOptions="Center"
                                            HorizontalOptions="End"
-                                           CornerRadius="30"/>
+                                           CornerRadius="30"
+                                           OnClickCommand="{Binding OpenCommand}"/>
                     </Grid>
                 </tools:Expander.Header>
             

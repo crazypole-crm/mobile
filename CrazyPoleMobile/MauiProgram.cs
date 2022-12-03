@@ -31,6 +31,7 @@ public static class MauiProgram
 
 		// Api services
 		builder.Services.AddSingleton<AuthenticationApi>();
+		builder.Services.AddSingleton<CalendarApi>();
 
 		// Provide page services
 		builder.Services.AddSingleton<HomePage>();
@@ -41,6 +42,7 @@ public static class MauiProgram
 		builder.Services.AddSingleton<LogInPage>();
 		builder.Services.AddSingleton<RoutePage>();
         builder.Services.AddSingleton<ChangePasswordPage>();
+		builder.Services.AddSingleton<UserInfoUpdatePage>();
 
         // Provide ViewModels services
         builder.Services.AddSingleton<HomePageViewModel>();
@@ -51,6 +53,7 @@ public static class MauiProgram
 		builder.Services.AddSingleton<LogInPageViewModel>();
 		builder.Services.AddSingleton<RoutePageViewModel>();
         builder.Services.AddSingleton<ChangePasswordViewModel>();
+		builder.Services.AddSingleton<UserInfoUpdateViewModel>();
 
         builder.Services.AddSingleton<IPageNavigationService, PageNavigationService>();
 		builder.Services.AddSingleton<CookieDataBase>();

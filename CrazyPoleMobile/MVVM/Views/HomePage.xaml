@@ -5,9 +5,14 @@
              xmlns:components="clr-namespace:CrazyPoleMobile.MVVM.Views.Components"
              xmlns:vm="clr-namespace:CrazyPoleMobile.MVVM.ViewModels"
              xmlns:model="clr-namespace:CrazyPoleMobile.MVVM.Models"
+             xmlns:converters="clr-namespace:CrazyPoleMobile.Converters"
              x:DataType="vm:HomePageViewModel"
              x:Class="CrazyPoleMobile.MVVM.Views.HomePage">
-
+    <ContentPage.Resources>
+        <converters:InverseBooleanConverter x:Key="Invers" />
+    </ContentPage.Resources>
+    
+    
     <Grid ColumnDefinitions="*"
           ColumnSpacing="5"
           RowDefinitions="60,*"
@@ -49,15 +54,21 @@
             <ScrollView VerticalScrollBarVisibility="Never"
                         Grid.Row="3"
                         Padding="0, 0, 0, 75">
-                <CollectionView ItemsSource="{Binding Directions}"
-                                Margin="5, 0">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="model:MockDirectionsData">
-                            <components:DirectionFrame />
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
+                <Grid>
+                    <ActivityIndicator IsRunning="{Binding LoadDirectionsProcess}"
+                                       HeightRequest="75"
+                                       Color="{StaticResource Secondary}"
+                                       WidthRequest="75"></ActivityIndicator>
+                    <CollectionView ItemsSource="{Binding Directions}"
+                                    Margin="5, 0">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="model:MockDirectionsData">
+                                <components:DirectionFrame HeaderText="{Binding Direction}"/>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
 
-                </CollectionView>
+                    </CollectionView>
+                </Grid>
             </ScrollView>
 
         </Grid>

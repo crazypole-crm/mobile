@@ -1,5 +1,5 @@
 ﻿using CrazyPoleMobile.MVVM.Models;
-using System.Data;
+using System.Text.Json;
 using System.Net;
 using System.Net.Http.Json;
 using HC = CrazyPoleMobile.Services.Api.HostConfiguration;
@@ -10,7 +10,6 @@ namespace CrazyPoleMobile.Services.Api
     public class AuthenticationApi : IAuthenticationApi
     {
         private readonly HttpClient _client = HC.Client;
-        private readonly CookieContainer _cookies = HC.Cookies;
 
         public async Task<HttpStatusCode> LogIn(string email, string password)
         {
@@ -25,10 +24,8 @@ namespace CrazyPoleMobile.Services.Api
                             Password = password
                         });
             }
-            catch
-            {
-                response.StatusCode = HttpStatusCode.ServiceUnavailable;
-            }
+            catch { }
+
             return response.StatusCode;
         }
 
@@ -40,10 +37,8 @@ namespace CrazyPoleMobile.Services.Api
                 response = await _client.PostAsync(
                     $"{HC.HOST_NAME}{HC.LOGOUT_ROUTE}", null);
             }
-            catch
-            {
-                response.StatusCode = HttpStatusCode.ServiceUnavailable;
-            }
+            catch { }
+
             return response.StatusCode;
         }
 
@@ -60,10 +55,8 @@ namespace CrazyPoleMobile.Services.Api
                             Password = password
                         });
             }
-            catch (Exception /*ex*/)
-            {
-                response.StatusCode = HttpStatusCode.ServiceUnavailable;
-            }
+            catch { }
+
             return response.StatusCode;
         }
 
@@ -82,6 +75,7 @@ namespace CrazyPoleMobile.Services.Api
                     data.Data = content;
                 }
             }
+            catch { }
             finally
             {
                 data.Status = response.StatusCode;
@@ -98,9 +92,28 @@ namespace CrazyPoleMobile.Services.Api
                 response = await _client.PostAsJsonAsync(
                         $"{HC.HOST_NAME}{HC.CHANGE_PASS}", request);
             }
+            catch { }
             finally
             {
-                status = response.StatusCode;   
+                status = response.StatusCode;
+            }
+            return status;
+        }
+
+        public async Task<HttpStatusCode> UpdateUserData(UpdateUserData request)
+        {
+            HttpResponseMessage response = new();
+            HttpStatusCode status;
+            try
+            {
+                response = await _client.PostAsJsonAsync(
+                        $"{HC.HOST_NAME}{HC.CHANGE_USER_DATA}",
+                        request);
+            }
+            catch { }
+            finally
+            {
+                status = response.StatusCode;
             }
             return status;
         }

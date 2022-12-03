@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:cc="clr-namespace:CrazyPoleMobile.MVVM.Views.CustomControls"
+             xmlns:vm="clr-namespace:CrazyPoleMobile.MVVM.ViewModels"
+             xmlns:converters="clr-namespace:CrazyPoleMobile.Converters"
+             x:DataType="vm:UserInfoUpdateViewModel"
+             x:Class="CrazyPoleMobile.MVVM.Views.UserInfoUpdatePage"
+             Shell.NavBarIsVisible="False">
+    <ContentPage.Resources>
+        <converters:InverseBooleanConverter x:Key="Invers" />
+    </ContentPage.Resources>
+    <Grid RowDefinitions="60,*">
+        <Grid ColumnDefinitions="50,*"
+              Grid.Row="0">
+            <Label Style="{StaticResource HeaderText}" 
+                   Text="Профиль"
+                   Margin="0, 0, 20, 0"
+                   Grid.ColumnSpan="2"
+                   VerticalOptions="Center"
+                   HorizontalOptions="End"
+                   FontAutoScalingEnabled="True" />
+            <cc:IconButton Grid.Column="0"
+                           Grid.ColumnSpan="2"
+                           HeightRequest="45"
+                           WidthRequest="45"
+                           Margin="20, 3, 0, 0"
+                           Command="{Binding BackCommand}"
+                           HorizontalOptions="Start"
+                           VerticalOptions="Center"
+                           Source="{
+                AppThemeBinding 
+                Light={cc:ImageResource Source=close_icon_black.png},
+                Dark={cc:ImageResource Source=close_icon_white.png}}" />
+        </Grid>
+
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout VerticalOptions="Center"
+                                 Spacing="0">
+                <Label Style="{StaticResource FontBaseStyle}" 
+                   VerticalOptions="End"
+                   FontSize="20"
+                   Margin="20, 0, 0, 0">Фамилия:</Label>
+                <cc:GradientField Margin="10"
+                              VerticalOptions="Center"
+                              Lock="{Binding NotUpdateDataProcess, 
+                Converter={StaticResource Invers}}"
+                              Text="{Binding LastName, Mode=TwoWay}"
+                              IsAttention="{Binding LastNameAttention, Mode=TwoWay}"
+                              AttentionText="{Binding AttentionText}"/>
+                <Label Style="{StaticResource FontBaseStyle}" 
+                   VerticalOptions="End"
+                   FontSize="20"
+                   Margin="20, 0, 0, 0">Имя:</Label>
+                <cc:GradientField Margin="10"
+                              VerticalOptions="Center"
+                              Lock="{Binding NotUpdateDataProcess, 
+                Converter={StaticResource Invers}}"
+                              Text="{Binding FirstName, Mode=TwoWay}"
+                              IsAttention="{Binding FirstNameAttention, Mode=TwoWay}"
+                              AttentionText="{Binding AttentionText}"/>
+                <Label Style="{StaticResource FontBaseStyle}" 
+                   VerticalOptions="End"
+                   FontSize="20"
+                   Margin="20, 0, 0, 0">Отчество:</Label>
+                <cc:GradientField Margin="10"
+                              VerticalOptions="Center"
+                              Lock="{Binding NotUpdateDataProcess, 
+                Converter={StaticResource Invers}}"
+                              Text="{Binding MiddleName, Mode=TwoWay}"
+                              IsAttention="{Binding MiddleNameAttention, Mode=TwoWay}"
+                              AttentionText="{Binding AttentionText}"/>
+                <Label Style="{StaticResource FontBaseStyle}" 
+                   VerticalOptions="End"
+                   FontSize="20"
+                   Margin="20, 0, 0, 0">Номер телефона:</Label>
+                <cc:GradientField Margin="10"
+                              VerticalOptions="Center"
+                              Lock="{Binding NotUpdateDataProcess, 
+                Converter={StaticResource Invers}}"
+                              Text="{Binding PhoneNumber, Mode=TwoWay}"
+                              IsAttention="{Binding PhoneNumberAttention, Mode=TwoWay}"
+                              AttentionText="{Binding AttentionText}"
+                              InputType="{x:Static Keyboard.Telephone}"/>
+                <Label Style="{StaticResource FontBaseStyle}" 
+                   VerticalOptions="End"
+                   FontSize="20"
+                   Margin="20, 0, 0, 0">Дата рождения:</Label>
+                <cc:GradientField Margin="10"
+                              VerticalOptions="Center"
+                              Lock="{Binding NotUpdateDataProcess, 
+                Converter={StaticResource Invers}}"
+                              Text="{Binding BirthDay, Mode=TwoWay}"
+                              IsAttention="{Binding BirthDayAttention, Mode=TwoWay}"
+                              AttentionText="{Binding AttentionText}"
+                              InputType="{x:Static Keyboard.Numeric}"/>
+                <Label Style="{StaticResource FontBaseStyle}" 
+                   VerticalOptions="End"
+                   FontSize="20"
+                   Margin="20, 0, 0, 0">Email:</Label>
+                <cc:GradientField Margin="10"
+                              VerticalOptions="Center"
+                              Lock="{Binding NotUpdateDataProcess, 
+                Converter={StaticResource Invers}}"
+                              Text="{Binding Email, Mode=TwoWay}"
+                              IsAttention="{Binding EmailAttention, Mode=TwoWay}"
+                              AttentionText="{Binding AttentionText}"
+                              InputType="{x:Static Keyboard.Email}"/>
+                <cc:GradientButton Text="Сохранить"
+                               Margin="13,10,13,10"
+                               HeightRequest="55"
+                               CornerRadius="15"
+                               PlayLoadAnimation="{Binding NotUpdateDataProcess, 
+                Converter={StaticResource Invers}}"
+                               VerticalOptions="Center"
+                               Grid.Row="4"
+                               OnClickCommand="{Binding UpdateUserDataCommand}" />
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>
