@@ -1,10 +1,12 @@
 ﻿
+using System.Text.Json.Serialization;
+
 namespace CrazyPoleMobile.MVVM.Models
 {
     public enum TrainingType
     {
-        Grouped     = 0,
-        Individual  = 1
+        Individual,
+        Group,
     }
 
     public class TrainingData
@@ -24,7 +26,7 @@ namespace CrazyPoleMobile.MVVM.Models
 
     public class GroupedTrainingData : TrainingData
     {
-        public static TrainingType Type => TrainingType.Grouped;
+        public static TrainingType Type => TrainingType.Group;
         public string[] Clients { get; }
     }
 
