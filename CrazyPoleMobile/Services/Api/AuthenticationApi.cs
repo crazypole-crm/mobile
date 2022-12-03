@@ -67,7 +67,7 @@ namespace CrazyPoleMobile.Services.Api
             try
             {
                 response = await _client.PostAsync(
-                        $"{HC.HOST_NAME}{HC.CURRENT_USER}", null);
+                        $"{HC.HOST_NAME}{HC.CURRENT_USER_ROUTE}", null);
 
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
@@ -90,7 +90,7 @@ namespace CrazyPoleMobile.Services.Api
             try
             {
                 response = await _client.PostAsJsonAsync(
-                        $"{HC.HOST_NAME}{HC.CHANGE_PASS}", request);
+                        $"{HC.HOST_NAME}{HC.CHANGE_PASS_ROUTE}", request);
             }
             catch { }
             finally
@@ -107,7 +107,7 @@ namespace CrazyPoleMobile.Services.Api
             try
             {
                 response = await _client.PostAsJsonAsync(
-                        $"{HC.HOST_NAME}{HC.CHANGE_USER_DATA}",
+                        $"{HC.HOST_NAME}{HC.CHANGE_USER_DATA_ROUTE}",
                         request);
             }
             catch { }

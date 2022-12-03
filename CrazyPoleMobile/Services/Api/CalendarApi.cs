@@ -1,4 +1,5 @@
-﻿using CrazyPoleMobile.Services.Api.Data;
+﻿using CrazyPoleMobile.MVVM.Models;
+using CrazyPoleMobile.Services.Api.Data;
 using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json;
@@ -27,22 +28,15 @@ namespace CrazyPoleMobile.Services.Api
             }
         };
 
-        private HttpClient _client;
-
-        public CalendarApi()
-        {
-            _client = new();
-            _client.BaseAddress =  new("http://10.0.2.2");
-        }
-
         public async Task<List<ApiDirectionData>> GetDirections()
         {
             HttpResponseMessage response = new();
             List<ApiDirectionData> directionData = new();
             try
             {
-                response = await _client.PostAsync(
-                    "/list/courses", null);
+                response = await HostConfiguration.Client.PostAsync(
+                    $"{HostConfiguration.HOST_NAME}{HostConfiguration.GET_DIRECTION_ROUTE}", 
+                    null);
 
                 var inputJson = await response.Content.ReadAsStreamAsync();
                 directionData = await JsonSerializer.DeserializeAsync<List<ApiDirectionData>>(inputJson, _jsonOptions);
@@ -61,8 +55,8 @@ namespace CrazyPoleMobile.Services.Api
             List<ApiHallData> directionData = new();
             try
             {
-                response = await _client.PostAsync(
-                    "/list/courses", null);
+                response = await HostConfiguration.Client.PostAsync(
+                    $"{HostConfiguration.HOST_NAME}{HostConfiguration.GET_HALLS_ROUTE}", null);
 
                 var inputJson = await response.Content.ReadAsStreamAsync();
                 directionData = await JsonSerializer.DeserializeAsync<List<ApiHallData>>(inputJson, _jsonOptions);
@@ -81,8 +75,8 @@ namespace CrazyPoleMobile.Services.Api
             List<ApiTrainingData> trainingData = new();
             try
             {
-                response = await _client.PostAsJsonAsync<Period>(
-                    "/list/trainings",
+                response = await HostConfiguration.Client.PostAsJsonAsync<Period>(
+                    $"{HostConfiguration.HOST_NAME}{HostConfiguration.GET_TRAININGS_ROUTE}",
                     new()
                     {
                         StartDate = ((DateTimeOffset)start).ToUnixTimeMilliseconds(),
@@ -106,8 +100,8 @@ namespace CrazyPoleMobile.Services.Api
             List<ApiUserData> usersData = new();
             try
             {
-                response = await _client.PostAsJsonAsync<UsersData>(
-                "/get/users_data", 
+                response = await HostConfiguration.Client.PostAsJsonAsync<UsersData>(
+                $"{HostConfiguration.HOST_NAME}{HostConfiguration.GET_USER_DATA_ROUTE}", 
                 new()
                 {
                     Ids = UsersId
