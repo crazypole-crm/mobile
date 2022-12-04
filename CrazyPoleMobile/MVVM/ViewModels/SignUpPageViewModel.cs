@@ -107,6 +107,7 @@ namespace CrazyPoleMobile.MVVM.ViewModels
             }
 
             await _store.Save(SKeys.USER_ID, data.Data.Id);
+            await _store.Save(SKeys.USER_EMAIL, _email);
             await _route.LoadHome();
 
             NotRegistrationProcess = true;

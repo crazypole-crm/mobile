@@ -3,6 +3,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.ComponentModel.__Internals;
 using CrazyPoleMobile.MVVM.ViewModels;
+using System.Runtime.CompilerServices;
 
 namespace CrazyPoleMobile.Services
 {

@@ -24,7 +24,7 @@ public partial class RoutePage : ContentPage
 	private async void InitVm(RoutePageViewModel vm)
 	{
 		await Task.Delay(100);
-		await vm.InitRoot(this);
+		vm.InitRoot(this);
 	}
 
 	protected override void OnSizeAllocated(double width, double height)

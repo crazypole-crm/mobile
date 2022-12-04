@@ -17,13 +17,13 @@
                    Text="Профиль"
                    Margin="0, 0, 20, 0"
                    Grid.ColumnSpan="2"
-                   VerticalOptions="Center"
+                   VerticalOptions="End"
                    HorizontalOptions="End"
                    FontAutoScalingEnabled="True" />
             <cc:IconButton Grid.Column="0"
                            Grid.ColumnSpan="2"
-                           HeightRequest="45"
-                           WidthRequest="45"
+                           HeightRequest="55"
+                           WidthRequest="55"
                            Margin="20, 3, 0, 0"
                            Command="{Binding BackCommand}"
                            HorizontalOptions="Start"
@@ -34,88 +34,117 @@
                 Dark={cc:ImageResource Source=close_icon_white.png}}" />
         </Grid>
 
-        <ScrollView Grid.Row="1">
-            <VerticalStackLayout VerticalOptions="Center"
-                                 Spacing="0">
+        <ScrollView Grid.Row="1"
+                    Padding="10">
+            <VerticalStackLayout VerticalOptions="Start"
+                                 Spacing="10">
                 <Label Style="{StaticResource FontBaseStyle}" 
-                   VerticalOptions="End"
-                   FontSize="20"
-                   Margin="20, 0, 0, 0">Фамилия:</Label>
-                <cc:GradientField Margin="10"
-                              VerticalOptions="Center"
-                              Lock="{Binding NotUpdateDataProcess, 
-                Converter={StaticResource Invers}}"
-                              Text="{Binding LastName, Mode=TwoWay}"
-                              IsAttention="{Binding LastNameAttention, Mode=TwoWay}"
-                              AttentionText="{Binding AttentionText}"/>
+                       VerticalOptions="End"
+                       FontSize="20"
+                       Padding="10,0,0,0">Фамилия:</Label>
+                <cc:GradientField Lock="{Binding NotUpdateDataProcess, 
+                    Converter={StaticResource Invers}}"
+                                  Text="{Binding LastName, Mode=TwoWay}"
+                                  IsAttention="{Binding LastNameAttention, Mode=TwoWay}"
+                                  AttentionText="{Binding AttentionText}" />
                 <Label Style="{StaticResource FontBaseStyle}" 
-                   VerticalOptions="End"
-                   FontSize="20"
-                   Margin="20, 0, 0, 0">Имя:</Label>
-                <cc:GradientField Margin="10"
-                              VerticalOptions="Center"
-                              Lock="{Binding NotUpdateDataProcess, 
-                Converter={StaticResource Invers}}"
-                              Text="{Binding FirstName, Mode=TwoWay}"
-                              IsAttention="{Binding FirstNameAttention, Mode=TwoWay}"
-                              AttentionText="{Binding AttentionText}"/>
+                       VerticalOptions="End"
+                       FontSize="20"
+                       Padding="10,0,0,0">Имя:</Label>
+                <cc:GradientField VerticalOptions="Center"
+                                  Lock="{Binding NotUpdateDataProcess, 
+                    Converter={StaticResource Invers}}"
+                                  Text="{Binding FirstName, Mode=TwoWay}"
+                                  IsAttention="{Binding FirstNameAttention, Mode=TwoWay}"
+                                  AttentionText="{Binding AttentionText}"/>
                 <Label Style="{StaticResource FontBaseStyle}" 
-                   VerticalOptions="End"
-                   FontSize="20"
-                   Margin="20, 0, 0, 0">Отчество:</Label>
-                <cc:GradientField Margin="10"
-                              VerticalOptions="Center"
-                              Lock="{Binding NotUpdateDataProcess, 
-                Converter={StaticResource Invers}}"
-                              Text="{Binding MiddleName, Mode=TwoWay}"
-                              IsAttention="{Binding MiddleNameAttention, Mode=TwoWay}"
-                              AttentionText="{Binding AttentionText}"/>
+                       VerticalOptions="End"
+                       FontSize="20"
+                       Padding="10,0,0,0">Отчество:</Label>
+                <cc:GradientField VerticalOptions="Center"
+                                  Lock="{Binding NotUpdateDataProcess, 
+                    Converter={StaticResource Invers}}"
+                                  Text="{Binding MiddleName, Mode=TwoWay}"
+                                  IsAttention="{Binding MiddleNameAttention, Mode=TwoWay}"
+                                  AttentionText="{Binding AttentionText}"/>
                 <Label Style="{StaticResource FontBaseStyle}" 
-                   VerticalOptions="End"
-                   FontSize="20"
-                   Margin="20, 0, 0, 0">Номер телефона:</Label>
-                <cc:GradientField Margin="10"
-                              VerticalOptions="Center"
-                              Lock="{Binding NotUpdateDataProcess, 
-                Converter={StaticResource Invers}}"
-                              Text="{Binding PhoneNumber, Mode=TwoWay}"
-                              IsAttention="{Binding PhoneNumberAttention, Mode=TwoWay}"
-                              AttentionText="{Binding AttentionText}"
-                              InputType="{x:Static Keyboard.Telephone}"/>
+                       VerticalOptions="End"
+                       FontSize="20"
+                       Padding="10,0,0,0">Номер телефона:</Label>
+                <cc:GradientField VerticalOptions="Center"
+                                  Lock="{Binding NotUpdateDataProcess, 
+                    Converter={StaticResource Invers}}"
+                                  Text="{Binding PhoneNumber, Mode=TwoWay}"
+                                  IsAttention="{Binding PhoneNumberAttention, Mode=TwoWay}"
+                                  AttentionText="{Binding AttentionText}"
+                                  InputType="{x:Static Keyboard.Telephone}"/>
                 <Label Style="{StaticResource FontBaseStyle}" 
-                   VerticalOptions="End"
-                   FontSize="20"
-                   Margin="20, 0, 0, 0">Дата рождения:</Label>
-                <cc:GradientField Margin="10"
-                              VerticalOptions="Center"
-                              Lock="{Binding NotUpdateDataProcess, 
-                Converter={StaticResource Invers}}"
-                              Text="{Binding BirthDay, Mode=TwoWay}"
-                              IsAttention="{Binding BirthDayAttention, Mode=TwoWay}"
-                              AttentionText="{Binding AttentionText}"
-                              InputType="{x:Static Keyboard.Numeric}"/>
+                       VerticalOptions="End"
+                       FontSize="20"
+                       Padding="10,0,0,0">Дата рождения:</Label>
+                <Grid ColumnDefinitions="*,55">
+                    <cc:GradientField VerticalOptions="Center"
+                                      Lock="True"
+                                      Padding="0,0,0,0"
+                                      Text="{Binding BirthDay, Mode=TwoWay, StringFormat='{0:d}'}"
+                                      IsAttention="{Binding BirthDayAttention, Mode=TwoWay}"
+                                      AttentionText="{Binding AttentionText}"
+                                      InputType="{x:Static Keyboard.Numeric}"/>
+                    <Grid Grid.Column="1"
+                          HeightRequest="50"
+                          HorizontalOptions="Center"
+                          Padding="0"
+                          RowDefinitions="*"
+                          ColumnDefinitions="*">
+                        <cc:IconButton Grid.Column="0"
+                                       Grid.Row="0"
+                                       HeightRequest="55"
+                                       WidthRequest="55"
+                                       Source="{AppThemeBinding 
+                            Dark={cc:ImageResource Source=calendar_icon_white.png}, 
+                            Light={cc:ImageResource Source=calendar_icon_black.png}
+                            }"></cc:IconButton>
+                        <DatePicker VerticalOptions="Center"
+                                    HorizontalOptions="Center"
+                                    TextColor="Transparent"
+                                    Date="{Binding BirthDay, Mode=TwoWay}"/>
+                        
+                    </Grid>
+                </Grid>
                 <Label Style="{StaticResource FontBaseStyle}" 
-                   VerticalOptions="End"
-                   FontSize="20"
-                   Margin="20, 0, 0, 0">Email:</Label>
-                <cc:GradientField Margin="10"
-                              VerticalOptions="Center"
-                              Lock="{Binding NotUpdateDataProcess, 
-                Converter={StaticResource Invers}}"
-                              Text="{Binding Email, Mode=TwoWay}"
-                              IsAttention="{Binding EmailAttention, Mode=TwoWay}"
-                              AttentionText="{Binding AttentionText}"
-                              InputType="{x:Static Keyboard.Email}"/>
+                       VerticalOptions="End"
+                       FontSize="20"
+                       Padding="10,0,0,0">Email:</Label>
+                <cc:GradientField VerticalOptions="Center"
+                                  Lock="{Binding NotUpdateDataProcess, 
+                    Converter={StaticResource Invers}}"
+                                  Text="{Binding Email, Mode=TwoWay}"
+                                  IsAttention="{Binding EmailAttention, Mode=TwoWay}"
+                                  AttentionText="{Binding AttentionText}"
+                                  InputType="{x:Static Keyboard.Email}"/>
                 <cc:GradientButton Text="Сохранить"
-                               Margin="13,10,13,10"
-                               HeightRequest="55"
-                               CornerRadius="15"
-                               PlayLoadAnimation="{Binding NotUpdateDataProcess, 
-                Converter={StaticResource Invers}}"
-                               VerticalOptions="Center"
-                               Grid.Row="4"
-                               OnClickCommand="{Binding UpdateUserDataCommand}" />
+                                   HeightRequest="55"
+                                   Margin="0,15,0,0"
+                                   CornerRadius="15"
+                                   Padding="5,0"
+                                   PlayLoadAnimation="{Binding NotUpdateDataProcess, 
+                    Converter={StaticResource Invers}}"
+                                   VerticalOptions="Center"
+                                   Grid.Row="4"
+                                   OnClickCommand="{Binding UpdateDataCommand}" />
             </VerticalStackLayout>
         </ScrollView>
+
+        <Frame Grid.Row="1"
+               BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray101010}}"
+               BorderColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray101010}}"
+               IsVisible="{Binding Loaded, Converter={StaticResource Invers}}">
+            <ActivityIndicator Color="{StaticResource Secondary}"
+                               IsRunning="True"
+                               HeightRequest="80"
+                               WidthRequest="80"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center"/>
+        </Frame>
     </Grid>
 </ContentPage>

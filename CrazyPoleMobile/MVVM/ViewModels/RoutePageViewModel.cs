@@ -5,6 +5,8 @@ using CrazyPoleMobile.MVVM.Views.CustomControls;
 using CrazyPoleMobile.Services;
 using CrazyPoleMobile.Services.Api;
 using System.Net;
+using SKeys = CrazyPoleMobile.Helpers.SecureStorageKeysProviderHelper;
+
 
 namespace CrazyPoleMobile.MVVM.ViewModels
 {
@@ -23,6 +25,7 @@ namespace CrazyPoleMobile.MVVM.ViewModels
 
         [ObservableProperty] private bool _tabBarIsVisible = false;
         [ObservableProperty] private object _contentContext = null;
+        [ObservableProperty] private bool _contentLoaded = false;
 
         public Layout GetContentBlock => _content;
         public View GetTabBarView => _tabBar;
@@ -37,7 +40,7 @@ namespace CrazyPoleMobile.MVVM.ViewModels
             _auth = auth;
         }
 
-        public async Task InitRoot(RoutePage page)
+        public async void InitRoot(RoutePage page)
         {
             _tabBar = page.TabBarBlockRef;
             _content = page.ContentBlockRef;
@@ -53,10 +56,14 @@ namespace CrazyPoleMobile.MVVM.ViewModels
 
             //if (data.Status == HttpStatusCode.OK)
             //{
+            //    await _store.Save(SKeys.USER_EMAIL, data.Data.Email);
+            //    await _store.Save(SKeys.USER_ID, data.Data.Id);
                 await LoadHome();
+            //    ContentLoaded = true;
             //    return;
             //}
             //await LoadLogInPage();
+            ContentLoaded = true;
         }
 
 

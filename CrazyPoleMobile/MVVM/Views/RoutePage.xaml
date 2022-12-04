@@ -6,7 +6,9 @@
              xmlns:vm="clr-namespace:CrazyPoleMobile.MVVM.ViewModels"
              xmlns:b="clr-namespace:CrazyPoleMobile.Behaviors"
              xmlns:mct="clr-namespace:CommunityToolkit.Maui.Behaviors;assembly=CommunityToolkit.Maui"
+             xmlns:converters="clr-namespace:CrazyPoleMobile.Converters"
              x:Name="this"
+             x:DataType="vm:RoutePageViewModel"
              x:Class="CrazyPoleMobile.MVVM.Views.RoutePage">
 
 
@@ -19,6 +21,7 @@
     </ContentPage.Behaviors>
 
     <ContentPage.Resources>
+        <converters:InverseBooleanConverter x:Key="Invers" />
         <ResourceDictionary>
             <Style x:Key="CrazyTabButtonStyleDefault" TargetType="cc:TabBarButton" >
                 <Setter Property="PaddingImage" Value="7" />
@@ -43,12 +46,21 @@
                 AbsoluteLayout.LayoutFlags="All"
                 RowDefinitions="*">
             <Grid RowDefinitions="*,*">
-
+                
             </Grid>
-
         </Grid>
 
-
+        <Frame AbsoluteLayout.LayoutFlags="All"
+               AbsoluteLayout.LayoutBounds="0,0,1,1"
+               BackgroundColor="Transparent"
+               IsVisible="{Binding ContentLoaded, Converter={StaticResource Invers}}">
+            <ActivityIndicator VerticalOptions="Center"
+                               HorizontalOptions="Center"
+                               HeightRequest="80"
+                               IsRunning="True"
+                               WidthRequest="80"
+                               Color="{StaticResource Secondary}" />
+        </Frame>
 
         <Border x:Name="TabBarBlock"
                 AbsoluteLayout.LayoutFlags="WidthProportional"
