@@ -9,15 +9,15 @@ namespace CrazyPoleMobile.MVVM.Models
 {
     public class CalendarDay : IEquatable<CalendarDay>
     {
-        private DateTime _date;
+        public DateTime Date { get; }
         
-        public CalendarDay(DateTime date) => _date = date;
+        public CalendarDay(DateTime date) => Date = date;
 
         public string DayOfWeek
         {
             get
             {
-                switch(_date.DayOfWeek)
+                switch(Date.DayOfWeek)
                 {
                     case System.DayOfWeek.Sunday:
                         return "Вс";
@@ -38,10 +38,10 @@ namespace CrazyPoleMobile.MVVM.Models
 
             }
         }
-        public int Day => _date.Day;
-        public int Month => _date.Month;
+        public int Day => Date.Day;
+        public int Month => Date.Month;
 
-        public int Year => _date.Year;
+        public int Year => Date.Year;
 
         public bool IsCurrentDay
         {
@@ -54,12 +54,10 @@ namespace CrazyPoleMobile.MVVM.Models
 
         public bool Equals(CalendarDay other)
         {
-            return _date == other._date;
-        }
+            if (other == null)
+                return false;
 
-        public override string ToString()
-        {
-            return Day.ToString();
+            return Date == other.Date;
         }
     }
 }

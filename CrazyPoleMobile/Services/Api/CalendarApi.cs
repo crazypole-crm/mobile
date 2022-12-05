@@ -96,8 +96,12 @@ namespace CrazyPoleMobile.Services.Api
 
         public async Task<List<ApiUserData>> GetUsersDataByIds(List<string> UsersId)
         {
-            HttpResponseMessage response = new();
             List<ApiUserData> usersData = new();
+            
+            if(UsersId.Count == 0)
+                return usersData;
+
+            HttpResponseMessage response = new();
             try
             {
                 response = await HostConfiguration.Client.PostAsJsonAsync<UsersData>(

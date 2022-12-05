@@ -6,14 +6,18 @@
              xmlns:viewmodel="clr-namespace:CrazyPoleMobile.MVVM.ViewModels"
              xmlns:model="clr-namespace:CrazyPoleMobile.MVVM.Models"
              xmlns:behavior="clr-namespace:CrazyPoleMobile.Behaviors"
+             xmlns:converter="clr-namespace:CrazyPoleMobile.Converters"
              x:Class="CrazyPoleMobile.MVVM.Views.CalendarPage"
              x:DataType="viewmodel:CalendarPageViewModel"
              x:Name="CalendarPageRoot"
              >
-    
+    <ContentPage.Resources>
+        <converter:DateTimeToCalendarDayConverter x:Key="ToCalendarDay" />
+    </ContentPage.Resources>
+
     <Grid ColumnDefinitions="*"
           ColumnSpacing="5"
-          RowDefinitions="40,0,75,*"
+          RowDefinitions="40,50,75,*"
           RowSpacing="0"
           Padding="19, 0" IsClippedToBounds="False">
         
@@ -23,26 +27,44 @@
                Style="{StaticResource HeaderText}"
                Text="Расписание"
                />
+        <HorizontalStackLayout Grid.Column="1" 
+                               Grid.Row="1" >
+            <Border Style="{StaticResource BorderedFrame}" 
+                    HeightRequest="30" 
+                    WidthRequest="90" 
+                    HorizontalOptions="EndAndExpand">
+                <DatePicker TextColor="Transparent">
+                    <DatePicker.Behaviors>
+                        <behavior:DatePickerSelectedDateBehaviour
+                            Command="{Binding DatePickerSelectDayCommand}" 
+                            Converter="{StaticResource ToCalendarDay}" />
+                    </DatePicker.Behaviors>
+                </DatePicker>
+            </Border>
+            
+        </HorizontalStackLayout>
 
         <CollectionView x:Name="DayCollection"
                         Grid.Column="1" 
                         Grid.Row="2" 
                         ItemsLayout="HorizontalList"  
-                        ItemsSource="{Binding Dates}" 
-                        SelectionMode="None">
-            <CollectionView.ItemTemplate  >
-                <DataTemplate x:DataType="viewmodel:DaysCollection">
-                    <components:CalendarDayFrame Selector="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:CalendarPageViewModel}}, Path=SelectedDate}"
+                        ItemsSource="{Binding TrainingDays}" 
+                        SelectionMode="None"
+                        RemainingItemsThreshold="1"
+                        RemainingItemsThresholdReachedCommand="{Binding ExpandDaysCommand}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:CalendarDay">
+                    <components:CalendarDayFrame Selector="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:CalendarPageViewModel}}, Path=SelectedDay}"
                                                  SelectionMoveDownX="10"
                                                  SelectionMoveTime="150"
-                                                 Day="{Binding Date.Day}"
-                                                 DayOfWeek="{Binding Date.DayOfWeek}"
-                                                 IsCircleVisible="{Binding Date.IsCurrentDay}"
+                                                 Day="{Binding Day}"
+                                                 DayOfWeek="{Binding DayOfWeek}"
+                                                 IsCircleVisible="{Binding IsCurrentDay}"
                                                  VerticalOptions="Start">
                         <components:CalendarDayFrame.GestureRecognizers>
                             <TapGestureRecognizer 
                                   Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:CalendarPageViewModel}}, Path=SelectDayCommand}"
-                                  CommandParameter="{Binding Date}"/>
+                                  CommandParameter="{Binding .}"/>
                         </components:CalendarDayFrame.GestureRecognizers>
                         <!--<components:CalendarDayFrame.Behaviors>
                             <behavior:CalendarDayFrameBehavior Txt="{Binding SelectedDate, Source={x:Reference Name=CalendarPageRoot}}" />
@@ -50,6 +72,9 @@
                     </components:CalendarDayFrame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
+            <CollectionView.Behaviors>
+                <behavior:ScrollCollectionToItemBehaviour ScrollToItem="{Binding SelectedDay}" Association="{Binding Source={x:Reference DayCollection}}" />
+            </CollectionView.Behaviors>
         </CollectionView>
         <CollectionView  Grid.Column="1" 
                          Grid.Row="3"
@@ -58,8 +83,8 @@
                          Margin="0,10,0,0">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:TrainingData">
-                    <components:TrainingInformationFrame TimeStart="{Binding TimeStart}"
-                                                         TimeEnd="{Binding TimeEnd}"/>
+                    <components:TrainingInformationFrame TimeStart="{Binding DateStart}"
+                                                         TimeEnd="{Binding DateEnd}"/>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

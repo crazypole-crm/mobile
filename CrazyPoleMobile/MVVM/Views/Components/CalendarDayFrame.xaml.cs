@@ -67,18 +67,17 @@ public partial class CalendarDayFrame : ContentView
     {
         var frame = bindable as VisualElement;
         
-        var day = (frame.BindingContext as DaysCollection).Date;
+        var day = frame.BindingContext as CalendarDay;
         if (frame == null || day == null)
             return;
 
-        
-        if (day == oldValue as CalendarDay)
+        if (day.Equals(oldValue as CalendarDay))
         {
             var selectionMoveDownSpeed = (uint)frame.GetValue(SelectionMoveDownTimeProperty);
             frame.TranslateTo(0, 0, selectionMoveDownSpeed, Easing.CubicInOut);
         }
 
-        if (day == newValue as CalendarDay)
+        if (day.Equals(newValue as CalendarDay))
         {
             var selectionMoveDown = (int)frame.GetValue(SelectionMoveDownXProperty);
             var selectionMoveDownSpeed = (uint)frame.GetValue(SelectionMoveDownTimeProperty);
