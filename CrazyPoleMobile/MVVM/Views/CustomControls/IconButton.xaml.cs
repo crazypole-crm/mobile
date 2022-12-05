@@ -1,5 +1,5 @@
 using System.Reflection;
-using System.Xml;
+using System.Windows.Input;
 
 namespace CrazyPoleMobile.MVVM.Views.CustomControls;
 
@@ -26,6 +26,15 @@ public partial class IconButton : ContentView
     {
         get => (String)GetValue(SourceProperty);
         set => SetValue(SourceProperty, value);
+    }
+
+    public static readonly BindableProperty CommandProperty =
+        BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(IconButton));
+
+    public ICommand Command
+    {
+        get => (ICommand)GetValue(CommandProperty);
+        set => SetValue(CommandProperty, value);
     }
 
 }

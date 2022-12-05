@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CrazyPoleMobile.Extensions;
 using CrazyPoleMobile.MVVM.Views.Popups;
 using CrazyPoleMobile.Services;
 using CrazyPoleMobile.Services.Api;
@@ -80,20 +81,36 @@ namespace CrazyPoleMobile.MVVM.ViewModels
 
             var status = await _auth.Registration(_email, _password);
 
-            if (status == HttpStatusCode.OK)
+            if (status != HttpStatusCode.OK)
             {
-                await _route.LoadHome();
-
+                this.SendErrorMessage(status.ToString());
                 NotRegistrationProcess = true;
-                //await _store.Save(SKeys.USER_EMAIL_KEY, _email);
-                //await _store.Save(SKeys.USER_PASSWORD_KEY, _password);
                 return;
             }
 
-            NotRegistrationProcess = true;
+            status = await _auth.LogIn(_email, _password);
 
-            await App.Current.MainPage.ShowPopupAsync(
-                    new ErrorPopup(status.ToString()));
+            if (status != HttpStatusCode.OK)
+            {
+                this.SendErrorMessage(status.ToString());
+                NotRegistrationProcess = true;
+                return;
+            }
+
+            var data = await _auth.CurrentUser();
+
+            if (data.Status != HttpStatusCode.OK)
+            {
+                this.SendErrorMessage(data.Status.ToString());
+                NotRegistrationProcess = true;
+                return;
+            }
+
+            await _store.Save(SKeys.USER_ID, data.Data.Id);
+            await _store.Save(SKeys.USER_EMAIL, _email);
+            await _route.LoadHome();
+
+            NotRegistrationProcess = true;
         }
     }
 }

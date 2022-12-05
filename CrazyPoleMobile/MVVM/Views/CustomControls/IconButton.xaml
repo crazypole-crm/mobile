@@ -12,11 +12,12 @@
             BackgroundColor="{AppThemeBinding Light={ StaticResource White },
                                               Dark={ StaticResource ClarifiedBlack}}">
         <Border.StrokeShape>
-            <RoundRectangle CornerRadius="15" />
+            <RoundRectangle CornerRadius="10" />
         </Border.StrokeShape>
 
         <ImageButton Source="{Binding Source}"
-                     Padding="15">
+                     Padding="5"
+                     Command="{Binding Command}">
         </ImageButton>
     </Border>
 </ContentView>

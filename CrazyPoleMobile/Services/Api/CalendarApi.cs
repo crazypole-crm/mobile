@@ -35,7 +35,7 @@ namespace CrazyPoleMobile.Services.Api
             try
             {
                 response = await HostConfiguration.Client.PostAsync(
-                    $"{HostConfiguration.HOST_NAME}{HostConfiguration.GetDirectionsRoute}", 
+                    $"{HostConfiguration.HOST_NAME}{HostConfiguration.GET_DIRECTION_ROUTE}", 
                     null);
 
                 var inputJson = await response.Content.ReadAsStreamAsync();
@@ -56,7 +56,7 @@ namespace CrazyPoleMobile.Services.Api
             try
             {
                 response = await HostConfiguration.Client.PostAsync(
-                    $"{HostConfiguration.HOST_NAME}{HostConfiguration.GetHallsRoute}", null);
+                    $"{HostConfiguration.HOST_NAME}{HostConfiguration.GET_HALLS_ROUTE}", null);
 
                 var inputJson = await response.Content.ReadAsStreamAsync();
                 directionData = await JsonSerializer.DeserializeAsync<List<ApiHallData>>(inputJson, _jsonOptions);
@@ -76,7 +76,7 @@ namespace CrazyPoleMobile.Services.Api
             try
             {
                 response = await HostConfiguration.Client.PostAsJsonAsync<Period>(
-                    $"{HostConfiguration.HOST_NAME}{HostConfiguration.GetTrainingsRoute}",
+                    $"{HostConfiguration.HOST_NAME}{HostConfiguration.GET_TRAININGS_ROUTE}",
                     new()
                     {
                         StartDate = ((DateTimeOffset)start).ToUnixTimeMilliseconds(),
@@ -105,7 +105,7 @@ namespace CrazyPoleMobile.Services.Api
             try
             {
                 response = await HostConfiguration.Client.PostAsJsonAsync<UsersData>(
-                $"{HostConfiguration.HOST_NAME}{HostConfiguration.GetUserDataRoute}", 
+                $"{HostConfiguration.HOST_NAME}{HostConfiguration.GET_USER_DATA_ROUTE}", 
                 new()
                 {
                     Ids = UsersId

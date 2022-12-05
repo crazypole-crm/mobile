@@ -1,14 +1,11 @@
-using CommunityToolkit.Maui.Views;
 using CrazyPoleMobile.MVVM.ViewModels;
 using CrazyPoleMobile.MVVM.Views.CustomControls;
-using CrazyPoleMobile.Services;
-using System.Collections;
 
 namespace CrazyPoleMobile.MVVM.Views;
 
 public partial class RoutePage : ContentPage
 {
-	private double _tabBarHeight = 100;
+	private double _tabBarHeight = 75;
 	private double _contentHeight;
 	public Grid ContentBlockRef => ContentBlock;
 	public Border TabBarBlockRef => TabBarBlock;
@@ -27,7 +24,7 @@ public partial class RoutePage : ContentPage
 	private async void InitVm(RoutePageViewModel vm)
 	{
 		await Task.Delay(100);
-		await vm.InitRoot(this);
+		vm.InitRoot(this);
 	}
 
 	protected override void OnSizeAllocated(double width, double height)

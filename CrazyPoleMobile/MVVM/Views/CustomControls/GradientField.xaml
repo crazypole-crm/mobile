@@ -48,9 +48,12 @@
 
     <StackLayout BindingContext="{x:Reference this}">
         <Border x:Name="Framing"
-                Style="{StaticResource GradientEntryBorder}">
-            <Entry x:Name="TextEntry" Style="{DynamicResource GradientEntry}" 
+                Style="{StaticResource GradientEntryBorder}"
+                Padding="10,0">
+            <Entry x:Name="TextEntry" Style="{DynamicResource GradientEntry}"
                    Focused="OnFocus"
+                   Keyboard="{Binding InputType}"
+                   HeightRequest="50"
                    Unfocused="OnUnfocus"/>
         </Border>
         <Label Style="{StaticResource FontBaseStyle}" 

@@ -37,11 +37,10 @@
                 <b:ButtonAnimationBehavior />
             </Button.Behaviors>
         </Button>
-        <sf:SfBusyIndicator IsRunning="{Binding PlayLoadAnimation}"
-                            AnimationType="CircularMaterial"
-                            WidthRequest="100"
-                            IndicatorColor="{StaticResource Secondary}"
-                            HorizontalOptions="Start" />
+        <ActivityIndicator IsRunning="{Binding PlayLoadAnimation}"
+                           WidthRequest="100"
+                           Color="{StaticResource Secondary}"
+                           HorizontalOptions="Start" />
     </Grid>
     
 

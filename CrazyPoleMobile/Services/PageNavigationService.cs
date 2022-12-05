@@ -3,6 +3,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.ComponentModel.__Internals;
 using CrazyPoleMobile.MVVM.ViewModels;
+using System.Runtime.CompilerServices;
 
 namespace CrazyPoleMobile.Services
 {
@@ -49,8 +50,8 @@ namespace CrazyPoleMobile.Services
                 return;
 
             var page = await PopPage() as ContentPage;
-            _routController.GetContentBlock.Children.Clear();
-            _routController.GetContentBlock.Children.Add(page.Content);
+            //_routController.GetContentBlock.Children.Clear();
+            //_routController.GetContentBlock.Children.Add(page.Content);
         }
 
         public void InitRootPage(IRouteController router)
@@ -67,14 +68,13 @@ namespace CrazyPoleMobile.Services
             var content = page.Content;
             content.BindingContext = GetViewModel<ViewModel>();
 
-            await Task.Run(() =>
-            {
-                _routController.GetContentBlock.Children.Clear();
-            });
-            _routController.GetContentBlock.Children.Add(page.Content);
             if (pushStak)
                 await PushPage(page);
-
+            else
+            {
+                _routController.GetContentBlock.Children.Clear();
+                _routController.GetContentBlock.Children.Add(page.Content);
+            }
         }
 
         public async Task<Page> PopPage() => await Navigation.PopAsync();

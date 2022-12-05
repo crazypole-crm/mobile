@@ -18,7 +18,16 @@
     <MauiXaml Update="MVVM\Views\CalendarPage.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
+    <MauiXaml Update="MVVM\Views\ChangePasswordPage.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
     <MauiXaml Update="MVVM\Views\Components\CalendarDayFrame.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
+    <MauiXaml Update="MVVM\Views\Components\DirectionFrame.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
+    <MauiXaml Update="MVVM\Views\Components\FavouritesFrame.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
     <MauiXaml Update="MVVM\Views\Components\NotificationFrame.xaml">
@@ -46,6 +55,9 @@
       <SubType>Designer</SubType>
     </MauiXaml>
     <MauiXaml Update="MVVM\Views\SignUpPage.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
+    <MauiXaml Update="MVVM\Views\UserInfoUpdatePage.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
   </ItemGroup>

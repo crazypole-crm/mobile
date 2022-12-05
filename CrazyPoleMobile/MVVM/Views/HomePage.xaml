@@ -2,58 +2,84 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:cc="clr-namespace:CrazyPoleMobile.MVVM.Views.CustomControls"
+             xmlns:components="clr-namespace:CrazyPoleMobile.MVVM.Views.Components"
              xmlns:vm="clr-namespace:CrazyPoleMobile.MVVM.ViewModels"
+             xmlns:model="clr-namespace:CrazyPoleMobile.MVVM.Models"
+             xmlns:converters="clr-namespace:CrazyPoleMobile.Converters"
              x:DataType="vm:HomePageViewModel"
              x:Class="CrazyPoleMobile.MVVM.Views.HomePage">
-
+    <ContentPage.Resources>
+        <converters:InverseBooleanConverter x:Key="Invers" />
+    </ContentPage.Resources>
+    
+    
     <Grid ColumnDefinitions="*"
           ColumnSpacing="5"
           RowDefinitions="60,*"
           RowSpacing="30">
 
-        <VerticalStackLayout Grid.Row="1"
-                             Padding="25"
-                             Spacing="25">
-            <HorizontalStackLayout Spacing="10">
+        <Grid Grid.Row="1"
+              RowDefinitions="50,70,50,*"
+              Padding="10">
+            <HorizontalStackLayout Spacing="10"
+                                   Margin="10, 0"
+                                   Grid.Row="0">
                 <Label Text="Избранное"
                        Style="{StaticResource FontBaseStyle}"
-                       FontSize="28"/>
+                       FontSize="28"
+                       VerticalTextAlignment="Center"
+                       Margin="0, 0"/>
                 <Image Source="star.png" 
                        HeightRequest="30"
                        WidthRequest="30"/>
             </HorizontalStackLayout>
-            <CollectionView BackgroundColor="Red"
-                            HeightRequest="100"
-                            ItemsLayout="HorizontalList">
+            <CollectionView HeightRequest="70"
+                            ItemsSource="{Binding Favourites}"
+                            ItemsLayout="HorizontalList"
+                            Margin="5, 0"
+                            Grid.Row="1">
                 <CollectionView.ItemTemplate>
-                    <DataTemplate >
-                        <Border>
-                            <Label Style="{StaticResource FontBaseStyle}"
-                                   Text="hello"/>
-                        </Border>
+                    <DataTemplate x:DataType="model:MockFavouriteData">
+                        <components:FavouritesFrame />
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
             <Label Text="Направления"
-                       Style="{StaticResource FontBaseStyle}"
-                       FontSize="28"/>
+                   Style="{StaticResource FontBaseStyle}"
+                   FontSize="28"
+                   VerticalTextAlignment="Center"
+                   Margin="10, 0"
+                   Grid.Row="2"/>
 
-            <CollectionView BackgroundColor="Green"
-                            HeightRequest="100">
+            <ScrollView VerticalScrollBarVisibility="Never"
+                        Grid.Row="3"
+                        Padding="0, 0, 0, 75">
+                <Grid>
+                    <ActivityIndicator IsRunning="{Binding LoadDirectionsProcess}"
+                                       HeightRequest="75"
+                                       Color="{StaticResource Secondary}"
+                                       WidthRequest="75"></ActivityIndicator>
+                    <CollectionView ItemsSource="{Binding Directions}"
+                                    Margin="5, 0">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="model:MockDirectionsData">
+                                <components:DirectionFrame HeaderText="{Binding Direction}"/>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
 
-            </CollectionView>
+                    </CollectionView>
+                </Grid>
+            </ScrollView>
 
-
-        </VerticalStackLayout>
-
+        </Grid>
 
         <Label HorizontalOptions="Center" 
-                   VerticalOptions="Center"
-                   Style="{StaticResource HeaderText}" 
-                   Text="Направления" />
+               VerticalOptions="Center"
+               Style="{StaticResource HeaderText}" 
+               Text="Направления" />
         <Grid RowDefinitions="*,40"
               Grid.Row="1"
-              Padding="0, 0, 0, 105">
+              Padding="0, 0, 0, 75">
             
         </Grid>
     </Grid>

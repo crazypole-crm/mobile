@@ -1,4 +1,5 @@
 ﻿using CrazyPoleMobile.MVVM.Models;
+using System.Text.Json;
 using System.Net;
 using System.Net.Http.Json;
 using HC = CrazyPoleMobile.Services.Api.HostConfiguration;
@@ -9,7 +10,6 @@ namespace CrazyPoleMobile.Services.Api
     public class AuthenticationApi : IAuthenticationApi
     {
         private readonly HttpClient _client = HC.Client;
-        private readonly CookieContainer _cookies = HC.Cookies;
 
         public async Task<HttpStatusCode> LogIn(string email, string password)
         {
@@ -24,10 +24,8 @@ namespace CrazyPoleMobile.Services.Api
                             Password = password
                         });
             }
-            catch
-            {
-                response.StatusCode = HttpStatusCode.ServiceUnavailable;
-            }
+            catch { }
+
             return response.StatusCode;
         }
 
@@ -39,10 +37,8 @@ namespace CrazyPoleMobile.Services.Api
                 response = await _client.PostAsync(
                     $"{HC.HOST_NAME}{HC.LOGOUT_ROUTE}", null);
             }
-            catch
-            {
-                response.StatusCode = HttpStatusCode.ServiceUnavailable;
-            }
+            catch { }
+
             return response.StatusCode;
         }
 
@@ -59,27 +55,67 @@ namespace CrazyPoleMobile.Services.Api
                             Password = password
                         });
             }
-            catch (Exception /*ex*/)
-            {
-                response.StatusCode = HttpStatusCode.ServiceUnavailable;
-            }
+            catch { }
+
             return response.StatusCode;
         }
 
-        public async Task<HttpStatusCode> CurrentUser()
+        public async Task<HttpData<UserAuthData>> CurrentUser()
         {
             HttpResponseMessage response = new();
+            HttpData<UserAuthData> data = new();
             try
             {
-                //_client.DefaultRequestHeaders.Add(SK.PHPSESSID, await SecureStorage.Default.GetAsync(SK.PHPSESSID));
-                response = await _client.PostAsJsonAsync<UserAuthData>(
-                        $"{HC.HOST_NAME}{HC.CURRENT_USER}", null);
+                response = await _client.PostAsync(
+                        $"{HC.HOST_NAME}{HC.CURRENT_USER_ROUTE}", null);
+
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    var content = await response.Content.ReadFromJsonAsync<UserAuthData>();
+                    data.Data = content;
+                }
             }
-            catch
+            catch { }
+            finally
             {
-                //response.StatusCode = HttpStatusCode.ServiceUnavailable;
+                data.Status = response.StatusCode;
             }
-            return response.StatusCode;
+            return data;
+        }
+
+        public async Task<HttpStatusCode> ChangePassword(ChangePasswordData request)
+        {
+            HttpResponseMessage response = new();
+            HttpStatusCode status;
+            try
+            {
+                response = await _client.PostAsJsonAsync(
+                        $"{HC.HOST_NAME}{HC.CHANGE_PASS_ROUTE}", request);
+            }
+            catch { }
+            finally
+            {
+                status = response.StatusCode;
+            }
+            return status;
+        }
+
+        public async Task<HttpStatusCode> UpdateUserData(UpdateUserData request)
+        {
+            HttpResponseMessage response = new();
+            HttpStatusCode status;
+            try
+            {
+                response = await _client.PostAsJsonAsync(
+                        $"{HC.HOST_NAME}{HC.CHANGE_USER_DATA_ROUTE}",
+                        request);
+            }
+            catch { }
+            finally
+            {
+                status = response.StatusCode;
+            }
+            return status;
         }
     }
 }

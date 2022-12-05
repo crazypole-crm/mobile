@@ -1,10 +1,8 @@
-﻿using CommunityToolkit.Maui.Views;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using CrazyPoleMobile.MVVM.Views.Popups;
+using CrazyPoleMobile.Extensions;
 using CrazyPoleMobile.Services;
 using CrazyPoleMobile.Services.Api;
-using System.ComponentModel.DataAnnotations;
 using System.Net;
 using SKeys = CrazyPoleMobile.Helpers.SecureStorageKeysProviderHelper;
 
@@ -68,20 +66,27 @@ namespace CrazyPoleMobile.MVVM.ViewModels
 
             var status = await _auth.LogIn(_email, _password);
 
-            if (status == HttpStatusCode.OK)
-            { 
-                await _route.LoadHome();
+            if (status != HttpStatusCode.OK)
+            {
+                this.SendErrorMessage(status.ToString());
                 NotLoginProcess = true;
-                //await _store.Save(SKeys.USER_EMAIL_KEY, _email);
-                //await _store.Save(SKeys.USER_PASSWORD_KEY, _password);
-                //await _store.Save(SKeys.SESSION_ID, );
                 return;
             }
 
-            NotLoginProcess = true;
+            var data = await _auth.CurrentUser();
 
-            await App.Current.MainPage.ShowPopupAsync(
-                    new ErrorPopup(status.ToString()));
+            if (data.Status != HttpStatusCode.OK)
+            {
+                this.SendErrorMessage(data.Status.ToString());
+                NotLoginProcess = true;
+                return;
+            }
+
+            await _store.Save(SKeys.USER_ID, data.Data.Id);
+            await _store.Save(SKeys.USER_EMAIL, _email);
+
+            await _route.LoadHome();
+            NotLoginProcess = true;
         }
     }
 }

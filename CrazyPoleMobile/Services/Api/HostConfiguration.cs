@@ -10,14 +10,17 @@ namespace CrazyPoleMobile.Services.Api
         public const string REGISTRATION_ROUTE = "/register";
         public const string LOGIN_ROUTE = "/login";
         public const string LOGOUT_ROUTE = "/logout";
-        public const string CURRENT_USER = "/current/user_data";
-        public static string GetDirectionsRoute { get; } = "/list/courses";
-        public static string GetHallsRoute { get; } = "/list/halls";
-        public static string GetTrainingsRoute { get; } = "/list/trainings";
-        public static string GetUserDataRoute { get; } = "/get/users_data";
+        public const string CURRENT_USER_ROUTE = "/current/user_data";
+        public const string CHANGE_PASS_ROUTE = "/update/password";
+        public const string CHANGE_USER_DATA_ROUTE = "/update/current_user_data";
+        public const string GET_DIRECTION_ROUTE = "/list/courses";
+        public const string GET_HALLS_ROUTE     = "/list/halls";
+        public const string GET_TRAININGS_ROUTE = "/list/trainings";
+        public const string GET_USER_DATA_ROUTE = "/get/users_data";
 
-        private static CookieDataBase _db = ServiceHelper.GetService<CookieDataBase>();
-        private static CookieContainer _cookieContainer = new();
+
+        private static readonly CookieDataBase _db = ServiceHelper.GetService<CookieDataBase>();
+        private static readonly CookieContainer _cookieContainer = new();
         private static HttpClientHandler _clientHandler = new()
         {
             UseCookies = true,

@@ -12,24 +12,66 @@
         <ScrollView Grid.Row="1" Grid.RowSpan="2">
             <VerticalStackLayout Spacing="10" Margin="19,15">
                 <Border HeightRequest="60" Style="{StaticResource BorderedFrame}" >
-                        <Grid Padding="0" 
-                          ColumnDefinitions="30, *, 40"  
-                          Margin="15, 0, 20, 0">
-                            <Image Grid.Column="0" 
+                    <Grid Padding="0" 
+                      ColumnDefinitions="30, *, 40"  
+                      Margin="15, 0, 20, 0">
+                        <Image Grid.Column="0" 
+                           HorizontalOptions="Center" 
+                           Source="{AppThemeBinding 
+                        Light={cc:ImageResource Source=bell_icon_black.png}, 
+                        Dark={cc:ImageResource Source=bell_icon_white.png}}" 
+                           Style="{StaticResource SettingsImage}">
+                        </Image>
+                        <Label Grid.Column="1" 
+                           Margin="10, 0, 0, 0" 
+                           VerticalTextAlignment="Center" 
+                           Style="{StaticResource MainFrameText}" 
+                           Text="Оповещения" />
+                        <Switch Grid.Column="2" IsToggled="{Binding NotificationEnabled}" />
+                    </Grid>
+                </Border>
+
+                <Border HeightRequest="60" Style="{StaticResource BorderedFrame}" >
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ChangePasswordCommand}" />
+                    </Border.GestureRecognizers>
+                    <Grid Padding="0" 
+                      ColumnDefinitions="30, *, 40"  
+                      Margin="15, 0, 20, 0">
+                        <Image Grid.Column="0" 
                                HorizontalOptions="Center" 
+                               Style="{StaticResource SettingsImage}" 
                                Source="{AppThemeBinding 
-                            Light={cc:ImageResource Source=bell_icon_black.png}, 
-                            Dark={cc:ImageResource Source=bell_icon_white.png}}" 
-                               Style="{StaticResource SettingsImage}">
-                            </Image>
-                            <Label Grid.Column="1" 
+                            Light={cc:ImageResource Source=telegram_icon_black.png}, 
+                            Dark={cc:ImageResource Source=telegram_icon_white.png}}" />
+                        <Label Grid.Column="1" 
                                Margin="10, 0, 0, 0" 
                                VerticalTextAlignment="Center" 
-                               Style="{StaticResource MainFrameText}" 
-                               Text="Оповещения" />
-                            <Switch Grid.Column="2" IsToggled="{Binding NotificationEnabled}" />
-                        </Grid>
-                    </Border>
+                               Style="{StaticResource MainFrameText}"  
+                               Text="Сменить пароль" />
+                    </Grid>
+                </Border>
+
+                <Border HeightRequest="60" Style="{StaticResource BorderedFrame}" >
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding UpdateUserInfoCommand}" />
+                    </Border.GestureRecognizers>
+                    <Grid Padding="0" 
+                      ColumnDefinitions="30, *, 40"  
+                      Margin="15, 0, 20, 0">
+                        <Image Grid.Column="0" 
+                               HorizontalOptions="Center" 
+                               Style="{StaticResource SettingsImage}" 
+                               Source="{AppThemeBinding 
+                            Light={cc:ImageResource Source=telegram_icon_black.png}, 
+                            Dark={cc:ImageResource Source=telegram_icon_white.png}}" />
+                        <Label Grid.Column="1" 
+                               Margin="10, 0, 0, 0" 
+                               VerticalTextAlignment="Center" 
+                               Style="{StaticResource MainFrameText}"  
+                               Text="Изменить данные профиля" />
+                    </Grid>
+                </Border>
 
                 <Border HeightRequest="60" Style="{StaticResource BorderedFrame}" >
                     <Border.GestureRecognizers>
@@ -120,7 +162,7 @@
 
         <Grid RowDefinitions="*, 40"
               Grid.Row="1"
-              Padding="0, 0, 0, 105">
+              Padding="0, 0, 0, 80">
 
             <cc:GradientButton Text="Выйти"
                                WidthRequest="100"
