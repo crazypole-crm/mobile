@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CrazyPoleMobile.MVVM.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,12 +8,7 @@ using System.Threading.Tasks;
 
 namespace CrazyPoleMobile.Services.Api.Data
 {
-    public enum UserRole
-    {
-        Admin,
-        Trainer,
-        Client
-    }
+
     public class ApiUserData
     {
         [JsonPropertyName("id")]

@@ -3,6 +3,9 @@ using CommunityToolkit.Mvvm.Collections;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CrazyPoleMobile.MVVM.Models;
+using CrazyPoleMobile.Services;
+using CrazyPoleMobile.Services.Api;
+using CrazyPoleMobile.Services.Api.Data;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,75 +17,81 @@ namespace CrazyPoleMobile.MVVM.ViewModels
 {
     public partial class CalendarPageViewModel : ObservableObject
     {
-        //[ObservableProperty]
-        //[NotifyPropertyChangedFor(nameof(Dates))]
-        //private ObservableGroupedCollection<CalendarDay, TrainingData> _trainings = new();
+
+        private ICalendarService _calendarService = new CalendarService();
 
         [ObservableProperty]
-        private ObservableCollection<DaysCollection> _dates = new();
+        private CalendarDay _selectedDay;
+        public ObservableCollection<CalendarDay> TrainingDays { get; set; } = new();
+        public ObservableCollection<TrainingData> CurrentDayTrainings { get; set; } = new();
 
-        [ObservableProperty]
-        [NotifyPropertyChangedFor(nameof(SelectedDate))]
-        private DaysCollection _currentDayTrainings;
+        public uint DaysLoadCount { get; } = 10;
 
-        public CalendarDay SelectedDate => _currentDayTrainings?.Date;
-
-        //public ObservableCollection<CalendarDay> Dates 
-        //{ 
-        //    get 
-        //    {
-        //        var dates = new ObservableCollection<CalendarDay>();
-        //        foreach (var group in _trainings)
-        //            dates.Add(group.Key);
-
-        //        return dates;
-        //    } 
-        //}
-
-        public CalendarPageViewModel()
+        public CalendarPageViewModel() 
         {
-            List<TrainingData> a = new() 
-            { 
-                new TrainingData(),
-                new TrainingData(),
-                new TrainingData(),
-                new TrainingData(),
-                new TrainingData(),
-                new TrainingData(),
-                new TrainingData(),
-                new TrainingData(),
-                new TrainingData(),
-                new TrainingData(),
-                new TrainingData(),
-                new TrainingData(),
-                new TrainingData(),
-                new TrainingData(),
-                new TrainingData(),
-                new TrainingData(),
-                new TrainingData(),
-                new TrainingData(),
-            };
-            //var group = new ObservableGroup<CalendarDay, TrainingData>(new(new DateTime(2022, 11, 18)), a);
-            //_trainings.Add(group);
+            Initialize();
+        }
 
-            //_trainings.Add(new(new CalendarDay(new DateTime(2022, 11, 19))));
-            //_currentDayTrainings = new ObservableCollection<TrainingData>() { new TrainingData(), new TrainingData() };
-            var group = new DaysCollection(new(new DateTime(2022, 11, 18)), new(a));
-            var group2 = new DaysCollection(new(new DateTime(2022, 11, 26 )), new());
-            _dates = new() { group, group2 };
-            _currentDayTrainings = group2;
+        [RelayCommand]
+        private async Task Initialize()
+        {
+            var today = DateTime.Now.Date;
+            await DatePickerSelectDay(new CalendarDay(today));
+        }
+
+
+        [RelayCommand]
+        private async Task DatePickerSelectDay(object sender)
+        {
+            var selectedDay = sender as CalendarDay;
+            
+            if(selectedDay == null) 
+                return;
+
+            TrainingDays.Clear();
+
+            await SetDays(selectedDay.Date, DaysLoadCount, DaysLoadCount);
+
+            await Task.Delay(100);
+
+            await SelectDay(selectedDay);
+        }
+
+        [RelayCommand]
+        private async Task ExpandDays()
+        {
+            if (TrainingDays.Count == 0)
+                return;
+
+            var lastDay = TrainingDays.Last();
+
+            await SetDays(lastDay.Date, 0, DaysLoadCount);
+
         }
 
         [RelayCommand]
         private async Task SelectDay(object sender)
         {
-            var currentDay = (CalendarDay)sender;
-            if (currentDay == null)
+            var selectedDay = (CalendarDay)sender;
+            if (selectedDay == null || selectedDay.Equals(_selectedDay))
                 return;
 
-            await Task.Delay(200);
-            await Task.Run( () => { CurrentDayTrainings = _dates.Where(day => day.Date == currentDay).FirstOrDefault(); });
+            SelectedDay = selectedDay;
+            CurrentDayTrainings.Clear();
+            await Task.Delay(100);
 
+            foreach(var item in await _calendarService.GetTrainingForDay(selectedDay.Date))
+                CurrentDayTrainings.Add(item);
+
+        }
+
+        private async Task SetDays(DateTime day, uint daysBefore, uint daysAfter)
+        {
+            var trainingDays = 
+                await _calendarService.GetTrainingDays(day, daysBefore, daysAfter);
+
+            foreach (var item in trainingDays)
+                TrainingDays.Add(item);
         }
     }
 }
