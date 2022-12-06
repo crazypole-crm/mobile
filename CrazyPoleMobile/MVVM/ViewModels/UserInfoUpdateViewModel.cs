@@ -4,7 +4,6 @@ using CrazyPoleMobile.Extensions;
 using CrazyPoleMobile.MVVM.Models;
 using CrazyPoleMobile.Services;
 using CrazyPoleMobile.Services.Api;
-using System.Security.Cryptography.X509Certificates;
 using System.Text.RegularExpressions;
 using SKeys = CrazyPoleMobile.Helpers.SecureStorageKeysProviderHelper;
 

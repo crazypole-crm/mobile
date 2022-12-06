@@ -25,16 +25,16 @@ namespace CrazyPoleMobile.MVVM.ViewModels
 
         [ObservableProperty]
         private ObservableCollection<NotificationData> _notifications = new();
-        private List<ICommand> _notificationsRef = new();
 
         private async void LoadMessage(NotificationData[] dataArray)
         {
+            _notifications.Clear();
             foreach (var data in dataArray)
-            { 
-                _notifications.Add(data);
-                await Task.Delay(50);
-                _notificationsRef.Add(data.RemoveThis);
-                await Task.Delay(50);
+            {
+                await Task.Run(() => 
+                {
+                    _notifications.Add(data);
+                });
             }
             UpadateBackgroundVisible();
         }
@@ -42,21 +42,18 @@ namespace CrazyPoleMobile.MVVM.ViewModels
         private void DeleteAllMessage()
         {
             _notifications.Clear();
-            _notificationsRef.Clear();
             UpadateBackgroundVisible();
         }
 
         private void DeleteNotification(NotificationData data)
         {
             _notifications.Remove(data);
-            _notificationsRef.Remove(data.RemoveThis);
             UpadateBackgroundVisible();
         }
 
         private void AddNotification(NotificationData data)
         {
             _notifications.Add(data);
-            _notificationsRef.Add(data.RemoveThis);
             UpadateBackgroundVisible();
         }
 
@@ -71,11 +68,11 @@ namespace CrazyPoleMobile.MVVM.ViewModels
         [RelayCommand]
         private async void CloseAll()
         {
-            while (_notificationsRef.Count != 0)
+            await Task.Run(() =>
             {
-                _notificationsRef[0].Execute(this);
-                await Task.Delay(50);
-            }
+                while (_notifications.Count != 0)
+                        _notifications[0].RemoveThis.Execute(this);
+            });
             UpadateBackgroundVisible();
         }
 

@@ -5,6 +5,7 @@ using CrazyPoleMobile.Services;
 using CrazyPoleMobile.Services.Api;
 using Syncfusion.Maui.Core.Hosting;
 using CrazyPoleMobile.Data.Cookies;
+using CrazyPoleMobile.Data.Notifications;
 
 namespace CrazyPoleMobile;
 
@@ -56,6 +57,7 @@ public static class MauiProgram
 		builder.Services.AddSingleton<UserInfoUpdateViewModel>();
 
         builder.Services.AddSingleton<IPageNavigationService, PageNavigationService>();
+		builder.Services.AddSingleton<NotificationDataBase>();
 		builder.Services.AddSingleton<CookieDataBase>();
 
         return builder.Build();
