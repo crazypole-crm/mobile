@@ -17,7 +17,7 @@
 
     <Grid ColumnDefinitions="*"
           ColumnSpacing="5"
-          RowDefinitions="40,50,75,*"
+          RowDefinitions="50,50,75,*"
           RowSpacing="0"
           Padding="19, 0" IsClippedToBounds="False">
         
@@ -28,18 +28,26 @@
                Text="Расписание"
                />
         <HorizontalStackLayout Grid.Column="1" 
-                               Grid.Row="1" >
+                               Grid.Row="1" 
+                               HorizontalOptions="End">
             <Border Style="{StaticResource BorderedFrame}" 
-                    HeightRequest="30" 
-                    WidthRequest="90" 
-                    HorizontalOptions="EndAndExpand">
-                <DatePicker TextColor="Transparent">
-                    <DatePicker.Behaviors>
-                        <behavior:DatePickerSelectedDateBehaviour
-                            Command="{Binding DatePickerSelectDayCommand}" 
-                            Converter="{StaticResource ToCalendarDay}" />
-                    </DatePicker.Behaviors>
-                </DatePicker>
+                    HeightRequest="35" 
+                    WidthRequest="100" 
+                    Padding="-4">
+                <Grid ColumnDefinitions="*, 20" RowDefinitions="*" Margin="15, 4">
+
+                    <DatePicker Grid.Column="0" TextColor="Transparent">
+                        <DatePicker.Behaviors>
+                            <behavior:DatePickerSelectedDateBehaviour
+                                Command="{Binding DatePickerSelectDayCommand}" 
+                                Converter="{StaticResource ToCalendarDay}" />
+                        </DatePicker.Behaviors>
+                    </DatePicker>
+                    <Label Grid.Column="0" 
+                           Style="{StaticResource MainFrameText}" 
+                           VerticalTextAlignment="Center" Text="{Binding SelectedDay.Date, StringFormat='{0:MM.yyyy}'}" />
+                    
+                </Grid>
             </Border>
             
         </HorizontalStackLayout>
@@ -84,7 +92,11 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:TrainingData">
                     <components:TrainingInformationFrame TimeStart="{Binding DateStart}"
-                                                         TimeEnd="{Binding DateEnd}"/>
+                                                         Duration="{Binding Duration}"
+                                                         TrainingName="{Binding Direction.Name}"
+                                                         TrainerChanged="{Binding IsTrainerChanged}"
+                                                         TrainerFirstName="{Binding Trainer.FirstName}"
+                                                         TrainerLastName="{Binding Trainer.LastName}"/>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

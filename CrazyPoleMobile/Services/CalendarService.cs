@@ -77,7 +77,7 @@ namespace CrazyPoleMobile.Services
 
             ClearTrainings();
 
-            var endOfDay = day.Date.Add(TimeSpan.FromDays(1) - TimeSpan.FromMilliseconds(1));
+            var endOfDay = day.Date.Add(TimeSpan.FromDays(1)/* - TimeSpan.FromMilliseconds(1)*/);
             currentDayTrainings = await GetTrainingsForPeriod(day.Date, endOfDay);
             
             foreach(var training in currentDayTrainings)
@@ -136,10 +136,16 @@ namespace CrazyPoleMobile.Services
 
         public async Task<List<UserData>> GetTrainersByIds(List<string> trainersId)
         {
-            var newIds = new List<string>(); 
-            foreach(var trainerId in trainersId)
-                if(!_trainersId.Add(trainerId))
-                    newIds.Add(trainerId);
+            List<string> newIds;
+            if (_trainersId.Count != 0)
+            {
+                newIds = new();
+                foreach (var trainerId in trainersId)
+                    if (!_trainersId.Add(trainerId))
+                        newIds.Add(trainerId);
+            }
+            else 
+                newIds = trainersId;
 
             if(newIds.Count == 0)
                 return _trainers.ToList();

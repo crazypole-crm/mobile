@@ -44,7 +44,7 @@
 
     <Style x:Key="LineSeparator" TargetType="Line">
         <Setter Property="Stroke" Value="{AppThemeBinding Light={StaticResource BorderColorLightMode}, Dark={StaticResource BorderColorDarkMode}}" />
-        <Setter Property="WidthRequest" Value="2" />
+        <Setter Property="StrokeThickness" Value="2" />
     </Style>
 
     <Style x:Key="FontBaseStyle" TargetType="Label">
