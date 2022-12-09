@@ -19,6 +19,10 @@ namespace CrazyPoleMobile.MVVM.Models
         public HallData Hall { get; }
         public DateTime DateStart { get; }
         public DateTime DateEnd { get; }
+        public TimeSpan Duration
+        {
+            get => DateEnd.TimeOfDay - DateStart.TimeOfDay;
+        }
         public string Description { get; }
         public bool IsCanceled { get; set; }
         public bool IsMoved { get; set; }

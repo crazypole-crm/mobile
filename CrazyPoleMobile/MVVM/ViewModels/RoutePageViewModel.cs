@@ -51,18 +51,18 @@ namespace CrazyPoleMobile.MVVM.ViewModels
             _router.InitRootPage(this);
             _contentContext = this;
 
-            //await HostConfiguration.LoadClientCookies();
-            //var data = await _auth.CurrentUser();
+            await HostConfiguration.LoadClientCookies();
+            var data = await _auth.CurrentUser();
 
-            //if (data.Status == HttpStatusCode.OK)
-            //{
-            //    await _store.Save(SKeys.USER_EMAIL, data.Data.Email);
-            //    await _store.Save(SKeys.USER_ID, data.Data.Id);
+            if (data.Status == HttpStatusCode.OK)
+            {
+                await _store.Save(SKeys.USER_EMAIL, data.Data.Email);
+                await _store.Save(SKeys.USER_ID, data.Data.Id);
                 await LoadHome();
-            //    ContentLoaded = true;
-            //    return;
-            //}
-            //await LoadLogInPage();
+                ContentLoaded = true;
+                return;
+            }
+            await LoadLogInPage();
             ContentLoaded = true;
         }
 

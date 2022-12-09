@@ -2,7 +2,11 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CrazyPoleMobile.MVVM.Views.Components.TrainingInformationFrame">
-
+    <ContentView.Resources>
+        
+    </ContentView.Resources>
+    
+    
     <ContentView.ControlTemplate>
         <ControlTemplate>
             <Border HeightRequest="60" Style="{StaticResource BorderedFrame}" >
@@ -11,15 +15,26 @@
                                                  Grid.Column="0"
                                                  Padding="11,0">
                         <Label Style="{StaticResource MainFrameText}" Text="{TemplateBinding TimeStart, StringFormat='{0:hh\:mm}'}"  />
-                        <Label Style="{StaticResource SideFrameText}" Text="{TemplateBinding TimeEnd, StringFormat='{0:mm} мин'}" />
+                        <Label Style="{StaticResource SideFrameText}" Text="{TemplateBinding Duration.TotalMinutes, StringFormat='{0:F0} мин'}" />
                     </VerticalStackLayout>
-                    <Line Grid.Column="1" Style="{StaticResource LineSeparator}" HeightRequest="40"  />
+                    <Line Grid.Column="1"  Style="{StaticResource LineSeparator}"  Y1="0"  Y2="40"  HeightRequest="40" />
                     <VerticalStackLayout VerticalOptions="Center"
                                                  Grid.Column="2"
                                                  Padding="10,0">
-                        <Label Style="{StaticResource MainFrameText}" Text="Pole dance начинающие" />
-                        <Label Style="{StaticResource SideFrameText}" Text="занято 2 места" />
-                        <Label Style="{StaticResource AttentionText}" Text="Замена Амосова А." />
+                        <Label Style="{StaticResource MainFrameText}" Text="{TemplateBinding TrainingName}" />
+                        <Label Style="{StaticResource SideFrameText}" Text="занято 2 места" IsVisible="false" />
+                        <Label Style="{StaticResource SideFrameText}" >
+                            <Label.Triggers>
+                                <DataTrigger TargetType="Label" Binding="{TemplateBinding TrainerChanged}" Value="False">
+                                    <Setter Property="Text" Value="Original Trainer" />
+                                </DataTrigger>
+                                <DataTrigger TargetType="Label" Binding="{TemplateBinding TrainerChanged}" Value="True">
+                                    <Setter Property="Text" Value="Changed Trainer" />
+                                    <Setter Property="TextColor" Value="{StaticResource AttentionFontColor}" />
+                                </DataTrigger>
+                            </Label.Triggers>
+                        </Label>
+                        
                     </VerticalStackLayout>
                 </Grid>
             </Border>
