@@ -22,23 +22,47 @@ namespace CrazyPoleMobile.MVVM.ViewModels
 
         [ObservableProperty]
         private CalendarDay _selectedDay;
-        public ObservableCollection<CalendarDay> TrainingDays { get; set; } = new();
-        public ObservableCollection<TrainingData> CurrentDayTrainings { get; set; } = new();
 
-        public uint DaysLoadCount { get; } = 10;
+        [ObservableProperty]
+        private bool _isPageRefreshing = false;
+        
+        [ObservableProperty]
+        private bool _isPageLoading = false;
+
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(IsListOfTrainingsEmpty))]
+        private ObservableCollection<TrainingData> _currentDayTrainings = new();
+        
+        public ObservableCollection<CalendarDay> TrainingDays { get; set; } = new();
+        public bool IsListOfTrainingsEmpty => CurrentDayTrainings.Count == 0;
+        public uint DaysLoadCount => 10;
 
         public CalendarPageViewModel() 
         {
-            Initialize();
+            InitializeAsync();
+        }
+
+        private async void InitializeAsync()
+        {
+            await Initialize();
+        }
+
+        [RelayCommand]
+        private async Task Refresh()
+        {
+            _calendarService.ResetСache();
+            await Initialize();
         }
 
         [RelayCommand]
         private async Task Initialize()
         {
+            IsPageLoading = true;
             var today = DateTime.Now.Date;
             await DatePickerSelectDay(new CalendarDay(today));
+            IsPageLoading = false;
+            IsPageRefreshing = false;
         }
-
 
         [RelayCommand]
         private async Task DatePickerSelectDay(object sender)
@@ -51,8 +75,6 @@ namespace CrazyPoleMobile.MVVM.ViewModels
             TrainingDays.Clear();
 
             await SetDays(selectedDay.Date, DaysLoadCount, DaysLoadCount);
-
-            await Task.Delay(100);
 
             await SelectDay(selectedDay);
         }
@@ -75,10 +97,9 @@ namespace CrazyPoleMobile.MVVM.ViewModels
             var selectedDay = (CalendarDay)sender;
             if (selectedDay == null || selectedDay.Equals(_selectedDay))
                 return;
-
+            
             SelectedDay = selectedDay;
             CurrentDayTrainings.Clear();
-            await Task.Delay(100);
 
             foreach(var item in await _calendarService.GetTrainingForDay(selectedDay.Date))
                 CurrentDayTrainings.Add(item);

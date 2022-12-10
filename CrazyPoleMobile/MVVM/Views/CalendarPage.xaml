@@ -17,7 +17,7 @@
 
     <Grid ColumnDefinitions="*"
           ColumnSpacing="5"
-          RowDefinitions="50,50,75,*"
+          RowDefinitions="50, *"
           RowSpacing="0"
           Padding="19, 0" IsClippedToBounds="False">
         
@@ -25,80 +25,105 @@
                Grid.Row="0" 
                HorizontalOptions="Center"
                Style="{StaticResource HeaderText}"
-               Text="Расписание"
-               />
-        <HorizontalStackLayout Grid.Column="1" 
-                               Grid.Row="1" 
-                               HorizontalOptions="End">
-            <Border Style="{StaticResource BorderedFrame}" 
+               Text="Расписание"/>
+
+        <RefreshView Grid.Row="1"
+                     Grid.Column="0"
+                     IsRefreshing="{Binding IsPageRefreshing}"
+                     Command="{Binding RefreshCommand}">
+            <Grid ColumnDefinitions="*"
+                      RowDefinitions="50,75,*" >
+
+                <HorizontalStackLayout Grid.Column="0" 
+                                       Grid.Row="0" 
+                                       HorizontalOptions="End"
+                                       IsVisible="{Binding IsPageLoading, Converter={converter:InverseBooleanConverter}}">
+                    <Border Style="{StaticResource BorderedFrame}" 
                     HeightRequest="35" 
                     WidthRequest="100" 
                     Padding="-4">
-                <Grid ColumnDefinitions="*, 20" RowDefinitions="*" Margin="15, 4">
+                        <Grid ColumnDefinitions="*, 20" RowDefinitions="*" Margin="15, 4">
 
-                    <DatePicker Grid.Column="0" TextColor="Transparent">
-                        <DatePicker.Behaviors>
-                            <behavior:DatePickerSelectedDateBehaviour
+                            <DatePicker Grid.Column="0" TextColor="Transparent">
+                                <DatePicker.Behaviors>
+                                    <behavior:DatePickerSelectedDateBehaviour
                                 Command="{Binding DatePickerSelectDayCommand}" 
                                 Converter="{StaticResource ToCalendarDay}" />
-                        </DatePicker.Behaviors>
-                    </DatePicker>
-                    <Label Grid.Column="0" 
-                           Style="{StaticResource MainFrameText}" 
-                           VerticalTextAlignment="Center" Text="{Binding SelectedDay.Date, StringFormat='{0:MM.yyyy}'}" />
-                    
-                </Grid>
-            </Border>
-            
-        </HorizontalStackLayout>
+                                </DatePicker.Behaviors>
+                            </DatePicker>
+                            <Label Grid.Column="0" 
+                            Style="{StaticResource MainFrameText}" 
+                            VerticalTextAlignment="Center" Text="{Binding SelectedDay.Date, StringFormat='{0:MM.yyyy}'}" />
 
-        <CollectionView x:Name="DayCollection"
-                        Grid.Column="1" 
-                        Grid.Row="2" 
-                        ItemsLayout="HorizontalList"  
-                        ItemsSource="{Binding TrainingDays}" 
-                        SelectionMode="None"
-                        RemainingItemsThreshold="1"
-                        RemainingItemsThresholdReachedCommand="{Binding ExpandDaysCommand}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="model:CalendarDay">
-                    <components:CalendarDayFrame Selector="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:CalendarPageViewModel}}, Path=SelectedDay}"
-                                                 SelectionMoveDownX="10"
-                                                 SelectionMoveTime="150"
-                                                 Day="{Binding Day}"
-                                                 DayOfWeek="{Binding DayOfWeek}"
-                                                 IsCircleVisible="{Binding IsCurrentDay}"
-                                                 VerticalOptions="Start">
-                        <components:CalendarDayFrame.GestureRecognizers>
-                            <TapGestureRecognizer 
-                                  Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:CalendarPageViewModel}}, Path=SelectDayCommand}"
-                                  CommandParameter="{Binding .}"/>
-                        </components:CalendarDayFrame.GestureRecognizers>
-                        <!--<components:CalendarDayFrame.Behaviors>
-                            <behavior:CalendarDayFrameBehavior Txt="{Binding SelectedDate, Source={x:Reference Name=CalendarPageRoot}}" />
-                        </components:CalendarDayFrame.Behaviors>-->
-                    </components:CalendarDayFrame>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-            <CollectionView.Behaviors>
-                <behavior:ScrollCollectionToItemBehaviour ScrollToItem="{Binding SelectedDay}" Association="{Binding Source={x:Reference DayCollection}}" />
-            </CollectionView.Behaviors>
-        </CollectionView>
-        <CollectionView  Grid.Column="1" 
-                         Grid.Row="3"
-                         ItemsSource="{Binding CurrentDayTrainings}"
-                         SelectionMode="None"
-                         Margin="0,10,0,0">
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="model:TrainingData">
-                    <components:TrainingInformationFrame TimeStart="{Binding DateStart}"
-                                                         Duration="{Binding Duration}"
-                                                         TrainingName="{Binding Direction.Name}"
-                                                         TrainerChanged="{Binding IsTrainerChanged}"
-                                                         TrainerFirstName="{Binding Trainer.FirstName}"
-                                                         TrainerLastName="{Binding Trainer.LastName}"/>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+                        </Grid>
+                    </Border>
+                </HorizontalStackLayout>
+
+                <CollectionView x:Name="DayCollection"
+                                Grid.Column="0" 
+                                Grid.Row="1" 
+                                ItemsLayout="HorizontalList"  
+                                ItemsSource="{Binding TrainingDays}" 
+                                SelectionMode="None"
+                                RemainingItemsThreshold="1"
+                                RemainingItemsThresholdReachedCommand="{Binding ExpandDaysCommand}"
+                                IsVisible="{Binding IsPageLoading, Converter={converter:InverseBooleanConverter}}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:CalendarDay">
+                            <components:CalendarDayFrame Selector="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:CalendarPageViewModel}}, Path=SelectedDay}"
+                                                        SelectionMoveDownX="10"
+                                                        SelectionMoveTime="150"
+                                                        Day="{Binding Day}"
+                                                        DayOfWeek="{Binding DayOfWeek}"
+                                                        IsCircleVisible="{Binding IsCurrentDay}"
+                                                        VerticalOptions="Start">
+                                <components:CalendarDayFrame.GestureRecognizers>
+                                    <TapGestureRecognizer 
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:CalendarPageViewModel}}, Path=SelectDayCommand}"
+                                        CommandParameter="{Binding .}"/>
+                                </components:CalendarDayFrame.GestureRecognizers>
+                                <!--<components:CalendarDayFrame.Behaviors>
+                                <behavior:CalendarDayFrameBehavior Txt="{Binding SelectedDate, Source={x:Reference Name=CalendarPageRoot}}" />
+                            </components:CalendarDayFrame.Behaviors>-->
+                            </components:CalendarDayFrame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                    <!--<CollectionView.Behaviors>
+                        <behavior:ScrollCollectionToItemBehaviour ScrollToItem="{Binding SelectedDay}" Association="{Binding Source={x:Reference DayCollection}}" />
+                    </CollectionView.Behaviors>-->
+                </CollectionView>
+
+                <CollectionView  Grid.Column="0" 
+                                 Grid.Row="2"
+                                 ItemsSource="{Binding CurrentDayTrainings}"
+                                 SelectionMode="None"
+                                 Margin="0,10,0,0"
+                                 IsVisible="{Binding IsPageLoading, Converter={converter:InverseBooleanConverter}}">
+                    <CollectionView.EmptyView>
+                        <ContentView Padding="0, 0, 0, 90">
+                            <StackLayout VerticalOptions="Center">
+                                <Label Style="{StaticResource BackgroundFontStyle}"
+                                        HorizontalOptions="Center"
+                                        Text="Занятий пока нет" />
+                            </StackLayout>
+                        </ContentView>
+                    </CollectionView.EmptyView>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:TrainingData">
+                            <components:TrainingInformationFrame TimeStart="{Binding DateStart}"
+                                                                 Duration="{Binding Duration}"
+                                                                 TrainingName="{Binding Direction.Name}"
+                                                                 TrainerChanged="{Binding IsTrainerChanged}"
+                                                                 TrainerFirstName="{Binding Trainer.FirstName}"
+                                                                 TrainerLastName="{Binding Trainer.LastName}"/>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <ActivityIndicator IsRunning="{Binding IsPageLoading}"
+                                   WidthRequest="75"
+                                   Color="{StaticResource Secondary}"
+                                   Grid.RowSpan="3"/>
+            </Grid>
+        </RefreshView>
     </Grid>
 </ContentPage>
