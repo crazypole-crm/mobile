@@ -10,7 +10,8 @@ namespace CrazyPoleMobile.Services
 {
     public class TrainingFilterService : IFilterService<TrainingData>
     {
-        private List<IFilterElement<TrainingData>> _filters;
+        private List<IFilterElement<TrainingData>> _filters = new();
+        public List<IFilterElement<TrainingData>> Filters => _filters;
 
         public IEnumerable<TrainingData> Filtrate(IEnumerable<TrainingData> collection)
         {

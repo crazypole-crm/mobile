@@ -166,5 +166,14 @@ namespace CrazyPoleMobile.Services
 
             return _trainers.ToList();
         }
+
+        public void ResetСache()
+        {
+            _directions.Clear();
+            _halls.Clear();
+            _trainers.Clear();
+            _trainersId.Clear();
+            _trainings.Clear();
+        }
     }
 }

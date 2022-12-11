@@ -16,6 +16,11 @@ namespace CrazyPoleMobile.Services.Filters
             Direction = direction;
         }
 
+        public DirectionFilter()
+        {
+            Direction = string.Empty;
+        }
+
         public bool Match(TrainingData element)
         {
             return element.Direction.Name.ToLower() == Direction.ToLower();
