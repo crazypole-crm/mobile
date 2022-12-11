@@ -62,7 +62,7 @@ namespace CrazyPoleMobile.Services.Api
 
         public async Task<HttpData<UserAuthData>> CurrentUser()
         {
-            HttpResponseMessage response = new();
+            HttpResponseMessage response = null;
             HttpData<UserAuthData> data = new();
             try
             {
@@ -74,13 +74,16 @@ namespace CrazyPoleMobile.Services.Api
                     var content = await response.Content.ReadFromJsonAsync<UserAuthData>();
                     data.Data = content;
                 }
+                data.Status = response.StatusCode;
+                return data;
             }
-            catch { }
-            finally
+            catch (Exception ex) 
             {
                 data.Status = response.StatusCode;
+                return data;
             }
-            return data;
+
+            throw new Exception("No response received");
         }
 
         public async Task<HttpStatusCode> ChangePassword(ChangePasswordData request)

@@ -1,17 +1,8 @@
-﻿using CommunityToolkit.Maui.Core.Extensions;
-using CommunityToolkit.Mvvm.Collections;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CrazyPoleMobile.MVVM.Models;
 using CrazyPoleMobile.Services;
-using CrazyPoleMobile.Services.Api;
-using CrazyPoleMobile.Services.Api.Data;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CrazyPoleMobile.MVVM.ViewModels
 {
@@ -33,7 +24,7 @@ namespace CrazyPoleMobile.MVVM.ViewModels
         }
 
         [RelayCommand]
-        private async Task Initialize()
+        private async void Initialize()
         {
             var today = DateTime.Now.Date;
             await DatePickerSelectDay(new CalendarDay(today));
@@ -51,9 +42,6 @@ namespace CrazyPoleMobile.MVVM.ViewModels
             TrainingDays.Clear();
 
             await SetDays(selectedDay.Date, DaysLoadCount, DaysLoadCount);
-
-            await Task.Delay(100);
-
             await SelectDay(selectedDay);
         }
 
