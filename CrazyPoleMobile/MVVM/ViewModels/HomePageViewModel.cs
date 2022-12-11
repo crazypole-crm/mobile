@@ -1,7 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CrazyPoleMobile.MVVM.Models;
+using CrazyPoleMobile.Services;
 using CrazyPoleMobile.Services.Api;
 using CrazyPoleMobile.Services.Api.Data;
+using CrazyPoleMobile.Services.Filters;
 using System.Collections.ObjectModel;
 
 namespace CrazyPoleMobile.MVVM.ViewModels
@@ -9,12 +11,15 @@ namespace CrazyPoleMobile.MVVM.ViewModels
     public partial class HomePageViewModel : ObservableObject
     {
         private CalendarApi _calendarApi;
+        private IFilterService<TrainingData> _filterService = new TrainingFilterService();
+        private RoutePageViewModel _route;
 
         [ObservableProperty] private bool _loadDirectionsProcess = true;
 
-        public HomePageViewModel(CalendarApi calendarApi)
+        public HomePageViewModel(CalendarApi calendarApi, RoutePageViewModel route)
         {
             _calendarApi = calendarApi;
+            _route = route;
             InitAsync();
         }
 
@@ -40,7 +45,16 @@ namespace CrazyPoleMobile.MVVM.ViewModels
         {
             await Task.Run(() => 
             {
-                _directions.Add(new() { Direction = direction.Name });
+                _directions.Add(new() 
+                { 
+                    Direction = direction.Name,
+                    GoToCalendar = new Command(async () => 
+                    {
+                        _filterService.ClearFilters();
+                        _filterService.AddFilter(new DirectionFilter(direction.Name));
+                        await _route.LoadCalendar();
+                    })
+                });
             });
         }
 
@@ -54,11 +68,6 @@ namespace CrazyPoleMobile.MVVM.ViewModels
         };
 
         [ObservableProperty]
-        private ObservableCollection<MockDirectionsData> _directions = new() 
-        {
-            //new() { Direction = "Pole Dance", Description = "Desc" },
-            //new() { Direction = "Pole Exotic", Description = "Desc" },
-            //new() { Direction = "Йога", Description = "Desc" }
-        };
+        private ObservableCollection<HomeDirectionData> _directions = new();
     }
 }

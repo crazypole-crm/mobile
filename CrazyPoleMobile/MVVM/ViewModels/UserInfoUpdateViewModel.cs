@@ -68,7 +68,7 @@ namespace CrazyPoleMobile.MVVM.ViewModels
                     LastName = data.Data.LastName ?? string.Empty;
                     if (long.TryParse(data.Data.birthday, out long ms))
                     {
-                        BirthDay = MinDate + new TimeSpan(ms);
+                        BirthDay = MinDate + TimeSpan.FromMilliseconds(ms);
                     }
                     else
                     {
