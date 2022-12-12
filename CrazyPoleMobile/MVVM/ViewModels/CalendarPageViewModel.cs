@@ -12,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CrazyPoleMobile.Extensions;
 
 namespace CrazyPoleMobile.MVVM.ViewModels
 {
@@ -19,6 +20,8 @@ namespace CrazyPoleMobile.MVVM.ViewModels
     {
 
         private ICalendarService _calendarService = new CalendarService();
+        private TrainingFilterService _filterService = new();
+        private List<TrainingData> _currentDayAllTrainings = new();
 
         [ObservableProperty]
         private CalendarDay _selectedDay;
@@ -52,6 +55,15 @@ namespace CrazyPoleMobile.MVVM.ViewModels
         {
             _calendarService.ResetСache();
             await Initialize();
+        }
+
+        [RelayCommand]
+        private async void ShowFilterPopup()
+        {
+            this.ShowFilterPopup(_filterService,
+                                 await _calendarService.GetHalls(),
+                                 await _calendarService.GetDirections(),
+                                 ApplyFiltersCommand);
         }
 
         [RelayCommand]
@@ -99,11 +111,21 @@ namespace CrazyPoleMobile.MVVM.ViewModels
                 return;
             
             SelectedDay = selectedDay;
+
+            _currentDayAllTrainings = await _calendarService.GetTrainingForDay(selectedDay.Date);
+            await ApplyFilters();
+
+        }
+
+        [RelayCommand]
+        private async Task ApplyFilters()
+        {
             CurrentDayTrainings.Clear();
-
-            foreach(var item in await _calendarService.GetTrainingForDay(selectedDay.Date))
-                CurrentDayTrainings.Add(item);
-
+            await Task.Run(() =>
+            {
+                foreach (var item in _filterService.Filtrate(_currentDayAllTrainings))
+                    CurrentDayTrainings.Add(item);
+            });
         }
 
         private async Task SetDays(DateTime day, uint daysBefore, uint daysAfter)

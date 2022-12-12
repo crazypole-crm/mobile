@@ -1,6 +1,9 @@
 ﻿using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CrazyPoleMobile.MVVM.Models;
 using CrazyPoleMobile.MVVM.Views.Popups;
+using CrazyPoleMobile.Services;
+using System.Windows.Input;
 
 namespace CrazyPoleMobile.Extensions
 {
@@ -22,6 +25,18 @@ namespace CrazyPoleMobile.Extensions
         {
             await App.Current.MainPage.ShowPopupAsync(
                     new InfoPopup(message));
+        }
+
+        public static async void ShowFilterPopup(this ObservableObject obj,
+                                                 TrainingFilterService filterService,
+                                                 List<HallData> halls,
+                                                 List<DirectionData> directions,
+                                                 ICommand OnApplyCommand)
+        {
+            await App.Current.MainPage.ShowPopupAsync(new FilterPopup(filterService,
+                                                                      halls,
+                                                                      directions,
+                                                                      OnApplyCommand));
         }
     }
 }

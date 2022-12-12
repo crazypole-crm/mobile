@@ -18,6 +18,10 @@
         <Setter Property="StrokeThickness" Value="2" />
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource FrameFillColorLightMode}, Dark={StaticResource FrameFillColorDarkMode}}" />
     </Style>
+
+    <Style x:Key="BorderedField" TargetType="Border" BasedOn="{StaticResource BorderedFrame}">
+        <Setter Property="Background" Value="{AppThemeBinding Dark={StaticResource ClarifiedBlack}, Light={StaticResource White}}" />
+    </Style>
     
     <Style x:Key="SmallButton" TargetType="Border" >
         <Setter Property="WidthRequest" Value="110" />
@@ -72,6 +76,10 @@
     <Style x:Key="MainFrameText" TargetType="Label" BasedOn="{StaticResource FontBaseStyle}">
         <Setter Property="FontSize" Value="13" />
         <Setter Property="FontAttributes" Value="Bold" />
+    </Style>
+
+    <Style x:Key="TitleFieldText" TargetType="Label" BasedOn="{StaticResource MainFrameText}">
+        <Setter Property="FontSize" Value="16" />
     </Style>
 
     <Style x:Key="SideFrameText" TargetType="Label" BasedOn="{StaticResource FontBaseStyle}">

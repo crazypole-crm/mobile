@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ct:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+          xmlns:ct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+          x:Name="this"
+          CanBeDismissedByTappingOutsideOfPopup="False"
+          Color="Transparent"
+          xmlns:cc="clr-namespace:CrazyPoleMobile.MVVM.Views.CustomControls"
+          x:Class="CrazyPoleMobile.MVVM.Views.Popups.FilterPopup">
+    <Border BindingContext="{x:Reference this}" 
+            Style="{StaticResource BorderedFrame}"
+            HeightRequest="370"
+            Padding="20">
+        <Grid RowDefinitions="320*, 50*">
+
+            <Grid RowDefinitions="*,*,*" Padding="0" RowSpacing="5">
+                <VerticalStackLayout Grid.Row="0" Spacing="5">
+                    <Label Style="{StaticResource TitleFieldText}" Text="Направление" Padding="5, 0" />
+                    <Border Style="{StaticResource BorderedField}" 
+                            WidthRequest="250"
+                            Padding="10, 0">
+                        <AbsoluteLayout>
+
+                            <Picker x:Name="DirectionPicker" ItemsSource="{Binding Directions}" 
+                                    ItemDisplayBinding="{Binding Name}" 
+                                    SelectedItem="{Binding SelectedDirection}"
+                                    AbsoluteLayout.LayoutBounds="0, 0.5, 0.9, 50"
+                                    AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional"
+                                    VerticalOptions="Center"
+                                    Title="Выберите направление"/>
+                            <ImageButton Style="{StaticResource CloseImageButton}"
+                                         AbsoluteLayout.LayoutBounds="1, 0.5"
+                                         AbsoluteLayout.LayoutFlags="PositionProportional"
+                                         Command="{Binding ClearPickerCommand}"
+                                         CommandParameter="{x:Reference DirectionPicker}"/>
+                        </AbsoluteLayout>
+                    </Border>
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Row="1" Spacing="5">
+                    <Label Style="{StaticResource TitleFieldText}" Text="Зал" Padding="5, 0" />
+                    <Border Style="{StaticResource BorderedField}" 
+                            WidthRequest="250"
+                            Padding="10, 0">
+                        <AbsoluteLayout>
+
+                            <Picker ItemsSource="{Binding Halls}" 
+                                    ItemDisplayBinding="{Binding Name}" 
+                                    SelectedItem="{Binding SelectedHall}"
+                                    AbsoluteLayout.LayoutBounds="0, 0.5, 0.9, 50"
+                                    AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional"
+                                    VerticalOptions="Center"
+                                    Title="Выберите зал"/>
+                            <ImageButton Style="{StaticResource CloseImageButton}"
+                                         AbsoluteLayout.LayoutBounds="1, 0.5"
+                                         AbsoluteLayout.LayoutFlags="PositionProportional" 
+                                         Command="{Binding ClearTrainerField}"/>
+                        </AbsoluteLayout>
+                    </Border>
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Row="2" Spacing="5">
+                    <Label Style="{StaticResource TitleFieldText}" Text="Тренер" Padding="5, 0" />
+                    <cc:GradientField VerticalOptions="StartAndExpand"
+                                      WidthRequest="250"
+                                      Text="{Binding TrainerName}"
+                                      Placeholder="Введите имя тренера"/>
+                </VerticalStackLayout>
+
+
+            </Grid>
+
+            <ct:DockLayout Grid.Row="1">
+                
+                <cc:GradientButton ct:DockLayout.DockPosition="Bottom"
+                                   CornerRadius="15"
+                                   Text="Применить"
+                                   OnClickCommand="{Binding CloseCommand}" />
+            </ct:DockLayout>
+            
+        </Grid>
+    </Border>
+</ct:Popup>

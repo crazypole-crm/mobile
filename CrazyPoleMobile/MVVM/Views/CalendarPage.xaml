@@ -34,14 +34,13 @@
             <Grid ColumnDefinitions="*"
                       RowDefinitions="50,75,*" >
 
-                <HorizontalStackLayout Grid.Column="0" 
+                <AbsoluteLayout Grid.Column="0" 
                                        Grid.Row="0" 
-                                       HorizontalOptions="End"
                                        IsVisible="{Binding IsPageLoading, Converter={converter:InverseBooleanConverter}}">
                     <Border Style="{StaticResource BorderedFrame}" 
-                    HeightRequest="35" 
-                    WidthRequest="100" 
-                    Padding="-4">
+                            AbsoluteLayout.LayoutBounds="1, 0.5, 100, 35"
+                            AbsoluteLayout.LayoutFlags="PositionProportional"
+                            Padding="-4">
                         <Grid ColumnDefinitions="*, 20" RowDefinitions="*" Margin="15, 4">
 
                             <DatePicker Grid.Column="0" TextColor="Transparent">
@@ -57,7 +56,13 @@
 
                         </Grid>
                     </Border>
-                </HorizontalStackLayout>
+                    <cc:GradientButton AbsoluteLayout.LayoutBounds="0, 0.5, 100, 35"
+                                       AbsoluteLayout.LayoutFlags="PositionProportional"
+                                       CornerRadius="15"
+                                       Text="Фильтры"
+                                       OnClickCommand="{Binding ShowFilterPopupCommand}" />
+
+                </AbsoluteLayout>
 
                 <CollectionView x:Name="DayCollection"
                                 Grid.Column="0" 
