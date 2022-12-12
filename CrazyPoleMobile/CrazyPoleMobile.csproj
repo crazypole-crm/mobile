@@ -73,6 +73,7 @@
 
 	<ItemGroup>
 	  <None Remove="Platforms\Android\google-services.json" />
+	  <None Remove="Resources\Images\dropdown_icon_white.svg" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -42,8 +42,8 @@
                                HorizontalOptions="Center" 
                                Style="{StaticResource SettingsImage}" 
                                Source="{AppThemeBinding 
-                            Light={cc:ImageResource Source=telegram_icon_black.png}, 
-                            Dark={cc:ImageResource Source=telegram_icon_white.png}}" />
+                            Light={cc:ImageResource Source=password_icon_black}, 
+                            Dark={cc:ImageResource Source=password_icon_white}}" />
                         <Label Grid.Column="1" 
                                Margin="10, 0, 0, 0" 
                                VerticalTextAlignment="Center" 
@@ -63,8 +63,8 @@
                                HorizontalOptions="Center" 
                                Style="{StaticResource SettingsImage}" 
                                Source="{AppThemeBinding 
-                            Light={cc:ImageResource Source=telegram_icon_black.png}, 
-                            Dark={cc:ImageResource Source=telegram_icon_white.png}}" />
+                            Light={cc:ImageResource Source=user_icon_black}, 
+                            Dark={cc:ImageResource Source=user_icon_white}}" />
                         <Label Grid.Column="1" 
                                Margin="10, 0, 0, 0" 
                                VerticalTextAlignment="Center" 
