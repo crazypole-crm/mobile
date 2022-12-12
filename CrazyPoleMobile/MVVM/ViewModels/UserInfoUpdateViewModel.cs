@@ -4,7 +4,6 @@ using CrazyPoleMobile.Extensions;
 using CrazyPoleMobile.MVVM.Models;
 using CrazyPoleMobile.Services;
 using CrazyPoleMobile.Services.Api;
-using System.Security.Cryptography.X509Certificates;
 using System.Text.RegularExpressions;
 using SKeys = CrazyPoleMobile.Helpers.SecureStorageKeysProviderHelper;
 
@@ -39,6 +38,8 @@ namespace CrazyPoleMobile.MVVM.ViewModels
         [NotifyCanExecuteChangedFor(nameof(UpdateDataCommand))]
         private bool _notUpdateDataProcess = true;
 
+        private DateTime MinDate { get; } = new DateTime(1970, 1, 1); 
+
         public UserInfoUpdateViewModel(
             IPageNavigationService router,
             AuthenticationApi auth,
@@ -65,9 +66,9 @@ namespace CrazyPoleMobile.MVVM.ViewModels
                     FirstName = data.Data.FirstName ?? string.Empty;
                     MiddleName = data.Data.MiddleName ?? string.Empty;
                     LastName = data.Data.LastName ?? string.Empty;
-                    if (DateTime.TryParse(data.Data.birthday, out DateTime date))
+                    if (long.TryParse(data.Data.birthday, out long ms))
                     {
-                        BirthDay = date;
+                        BirthDay = MinDate + TimeSpan.FromMilliseconds(ms);
                     }
                     else
                     {
@@ -120,7 +121,7 @@ namespace CrazyPoleMobile.MVVM.ViewModels
 
             if (BirthDay != DateTime.Today)
             {
-                data.BirthDay = BirthDay.ToString("d");
+                data.BirthDay = (BirthDay - MinDate).TotalMilliseconds.ToString();
                 await _store.Save(SKeys.USER_BIRTHDAY, data.BirthDay);
             }    
 

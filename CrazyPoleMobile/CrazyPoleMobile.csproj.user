@@ -3,37 +3,12 @@
   <PropertyGroup>
     <ActiveDebugFramework>net6.0-android</ActiveDebugFramework>
     <IsFirstTimeProjectOpen>False</IsFirstTimeProjectOpen>
-    <ActiveDebugProfile>Xiaomi M2012K11AG (Android 12.0 — API 31)</ActiveDebugProfile>
-    <SelectedPlatformGroup>PhysicalDevice</SelectedPlatformGroup>
-    <DefaultDevice>pixel_5_-_api_31</DefaultDevice>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-android|AnyCPU'">
-    <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(TargetPlatformIdentifier)'=='iOS'">
-    <RuntimeIdentifier>ios-arm64</RuntimeIdentifier>
-    <PlatformTarget>arm64</PlatformTarget>
+    <ActiveDebugProfile>Pixel 5 API 31 (Android 12.0 — API 31)</ActiveDebugProfile>
+    <SelectedPlatformGroup>Emulator</SelectedPlatformGroup>
+    <DefaultDevice>Pixel_5_API_31</DefaultDevice>
   </PropertyGroup>
   <ItemGroup>
     <MauiXaml Update="MVVM\Views\CalendarPage.xaml">
-      <SubType>Designer</SubType>
-    </MauiXaml>
-    <MauiXaml Update="MVVM\Views\ChangePasswordPage.xaml">
-      <SubType>Designer</SubType>
-    </MauiXaml>
-    <MauiXaml Update="MVVM\Views\Components\CalendarDayFrame.xaml">
-      <SubType>Designer</SubType>
-    </MauiXaml>
-    <MauiXaml Update="MVVM\Views\Components\DirectionFrame.xaml">
-      <SubType>Designer</SubType>
-    </MauiXaml>
-    <MauiXaml Update="MVVM\Views\Components\FavouritesFrame.xaml">
-      <SubType>Designer</SubType>
-    </MauiXaml>
-    <MauiXaml Update="MVVM\Views\Components\NotificationFrame.xaml">
-      <SubType>Designer</SubType>
-    </MauiXaml>
-    <MauiXaml Update="MVVM\Views\Components\TrainingInformationFrame.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
     <MauiXaml Update="MVVM\Views\CustomControls\GradientButton.xaml">
@@ -55,9 +30,6 @@
       <SubType>Designer</SubType>
     </MauiXaml>
     <MauiXaml Update="MVVM\Views\SignUpPage.xaml">
-      <SubType>Designer</SubType>
-    </MauiXaml>
-    <MauiXaml Update="MVVM\Views\UserInfoUpdatePage.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
   </ItemGroup>

@@ -28,10 +28,10 @@
             <CollectionView ItemsSource="{Binding Notifications}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:NotificationData">
-                        <components:NotificationFrame Title="{Binding Title}"
-                                                          Subtitle="{Binding Subtitle}"
-                                                          Description="{Binding Description}"
-                                                          Command="{Binding RemoveThis}"/>
+                        <components:NotificationFrame Title="{Binding Data.Title}"
+                                                      Subtitle="{Binding Data.Subtitle}"
+                                                      Description="{Binding Data.Description}"
+                                                      Command="{Binding RemoveThis}"/>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

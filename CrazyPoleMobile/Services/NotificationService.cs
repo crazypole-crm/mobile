@@ -1,5 +1,6 @@
-﻿using CrazyPoleMobile.MVVM.Models;
-using System.Text.Json;
+﻿using CrazyPoleMobile.Data.Notifications;
+using CrazyPoleMobile.Helpers;
+using CrazyPoleMobile.MVVM.Models;
 
 namespace CrazyPoleMobile.Services
 {
@@ -10,9 +11,8 @@ namespace CrazyPoleMobile.Services
 
     public class NotificationService
     {
+        private NotificationDataBase _db = ServiceHelper.GetService<NotificationDataBase>();
         private List<NotificationData> _notifications = new();
-        private string _localStoragePath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-        private const string DATA_FILE_NAME = "NotificationData.dat";
 
         private OnMessageReceived _messageReceived;
         private OnMessageDelete _messageDelete;
@@ -47,19 +47,27 @@ namespace CrazyPoleMobile.Services
         {
         }
 
-        public void OnMessageReceived(string title, string subtitle, string desc)
+        public async void OnMessageReceived(string title, string subtitle, string desc)
         {
             var notification = new NotificationData()
             {
-                Title = title,
-                Subtitle = subtitle,
-                Description = desc
+                Data = new() 
+                {
+                    Title = title,
+                    Subtitle = subtitle,
+                    Description = desc
+                }
             };
-            notification.RemoveThis = new Command(() =>
+
+            notification.Data.Id = await _db.SaveItemAsync(notification.Data);
+
+            notification.RemoveThis = new Command(async () =>
             {
                 _messageDelete?.Invoke(notification);
+                await _db.DeleteItemByIdAsync(notification.Data.Id);
                 _notifications.Remove(notification);
             });
+
             _notifications.Add(notification);
             _messageReceived?.Invoke(notification);
         }
@@ -72,28 +80,29 @@ namespace CrazyPoleMobile.Services
 
         public async void SaveAllNotifications()
         {
-            using (FileStream fs = new($"{_localStoragePath}/{DATA_FILE_NAME}", FileMode.OpenOrCreate))
-            {
-                await JsonSerializer.SerializeAsync(fs, _notifications.ToArray());
-            }
+            foreach (var notification in _notifications)
+                await _db.SaveItemAsync(notification.Data);
         }
 
         public async void LoadAllNotifications()
         {
-            if (!File.Exists($"{_localStoragePath}/{DATA_FILE_NAME}")) return;
-            using (FileStream fs = new($"{_localStoragePath}/{DATA_FILE_NAME}", FileMode.OpenOrCreate))
-            {
-                var arrayData = await JsonSerializer.DeserializeAsync<NotificationData[]>(fs);
-                DeleteAllNotifications();
-                foreach (var data in arrayData)
-                    data.RemoveThis = new Command(() =>
+            var dbItems = await _db.GetItemsAsync();
+            _notifications.Clear();
+            foreach (var item in dbItems)
+                await Task.Run(() => 
+                {
+                    _notifications.Add(new NotificationData()
                     {
-                        _messageDelete?.Invoke(data);
-                        _notifications.Remove(data);
+                        Data = item
                     });
-                
-                _notifications.AddRange(arrayData);
-            }
+                    var notification = _notifications.Last();
+                    notification.RemoveThis = new Command(async () => 
+                    {
+                        _messageDelete?.Invoke(notification);
+                        await _db.DeleteItemByIdAsync(notification.Data.Id);
+                        _notifications.Remove(notification);
+                    });
+                });
             _loadMessages?.Invoke(_notifications.ToArray());
         }
 

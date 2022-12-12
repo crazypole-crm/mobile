@@ -62,8 +62,9 @@
                     <CollectionView ItemsSource="{Binding Directions}"
                                     Margin="5, 0">
                         <CollectionView.ItemTemplate>
-                            <DataTemplate x:DataType="model:MockDirectionsData">
-                                <components:DirectionFrame HeaderText="{Binding Direction}"/>
+                            <DataTemplate x:DataType="model:HomeDirectionData">
+                                <components:DirectionFrame HeaderText="{Binding Direction}"
+                                                           OpenCommand="{Binding GoToCalendar}"/>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
 
