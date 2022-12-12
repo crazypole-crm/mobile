@@ -23,7 +23,8 @@ namespace CrazyPoleMobile.Services.Filters
 
         public bool Match(TrainingData element)
         {
-            return element.Direction.Name.ToLower().Contains(Trainer.ToLower());
+            var trainerFullName = $"{element.Trainer.LastName} {element.Trainer.FirstName} {element.Trainer.MiddleName}";
+            return trainerFullName.ToLower().Contains(Trainer.ToLower());
         }
     }
 }

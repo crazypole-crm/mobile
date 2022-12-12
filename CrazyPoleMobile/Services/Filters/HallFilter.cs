@@ -23,7 +23,7 @@ namespace CrazyPoleMobile.Services.Filters
 
         public bool Match(TrainingData element)
         {
-            return element.Direction.Name.ToLower() == Hall.ToLower();
+            return element.Hall.Name.ToLower() == Hall.ToLower();
         }
     }
 }
