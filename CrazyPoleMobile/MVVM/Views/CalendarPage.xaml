@@ -52,9 +52,16 @@
                                 </DatePicker.Behaviors>
                             </DatePicker>
                             <Label Grid.Column="0" 
-                            Style="{StaticResource MainFrameText}" 
-                            VerticalTextAlignment="Center" Text="{Binding SelectedDay.Date, StringFormat='{0:MM.yyyy}'}" />
-
+                                   Style="{StaticResource MainFrameText}" 
+                                   VerticalTextAlignment="Center" Text="{Binding SelectedDay.Date, StringFormat='{0:MM.yyyy}'}" />
+                            <Image HeightRequest="15"
+                                   WidthRequest="15"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Center"
+                                   Grid.Column="1" 
+                                   Source="{AppThemeBinding 
+                                Dark={cc:ImageResource Source=dropdown_icon_white}, 
+                                Light={cc:ImageResource Source=dropdown_icon_black}}"/>
                         </Grid>
                     </Border>
                 </HorizontalStackLayout>
