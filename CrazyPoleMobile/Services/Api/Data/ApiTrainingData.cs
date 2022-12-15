@@ -37,5 +37,7 @@ namespace CrazyPoleMobile.Services.Api.Data
         public bool IsMoved { get; set; }
         [JsonPropertyName("isTrainerChanged")]
         public bool IsTrainerChanged { get; set; }
+        [JsonPropertyName("availableRegistrationsCount")]
+        public int AvailableRegistrationsCount { get; set; }
     }
 }

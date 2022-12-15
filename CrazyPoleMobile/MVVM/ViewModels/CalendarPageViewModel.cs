@@ -50,6 +50,7 @@ namespace CrazyPoleMobile.MVVM.ViewModels
         private async Task Refresh()
         {
             _calendarService.ResetСache();
+            _selectedDay = null;
             await Initialize();
         }
 

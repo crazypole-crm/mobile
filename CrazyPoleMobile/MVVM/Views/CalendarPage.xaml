@@ -105,15 +105,9 @@
                                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:CalendarPageViewModel}}, Path=SelectDayCommand}"
                                         CommandParameter="{Binding .}"/>
                                 </components:CalendarDayFrame.GestureRecognizers>
-                                <!--<components:CalendarDayFrame.Behaviors>
-                                <behavior:CalendarDayFrameBehavior Txt="{Binding SelectedDate, Source={x:Reference Name=CalendarPageRoot}}" />
-                            </components:CalendarDayFrame.Behaviors>-->
                             </components:CalendarDayFrame>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
-                    <!--<CollectionView.Behaviors>
-                        <behavior:ScrollCollectionToItemBehaviour ScrollToItem="{Binding SelectedDay}" Association="{Binding Source={x:Reference DayCollection}}" />
-                    </CollectionView.Behaviors>-->
                 </CollectionView>
 
                 <CollectionView  Grid.Column="0" 
@@ -138,7 +132,8 @@
                                                                  Duration="{Binding Duration}"
                                                                  TrainingName="{Binding Direction.Name}"
                                                                  TrainerChanged="{Binding IsTrainerChanged}"
-                                                                 TrainerName="{Binding Trainer.FullName}"/>
+                                                                 TrainerName="{Binding Trainer.FullName}"
+                                                                 AvailableRegistrationsCount="{Binding AvailableRegistrationsCount}"/>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>

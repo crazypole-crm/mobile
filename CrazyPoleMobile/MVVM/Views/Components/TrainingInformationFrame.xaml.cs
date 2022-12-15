@@ -46,4 +46,12 @@ public partial class TrainingInformationFrame : ContentView
         get => (bool)GetValue(TrainerChangedProperty);
         set => SetValue(TrainerChangedProperty, value);
     }
+
+    public static readonly BindableProperty AvailableRegistrationsCountProperty =
+            BindableProperty.Create(nameof(AvailableRegistrationsCount), typeof(int), typeof(CalendarDayFrame), -1);
+    public int AvailableRegistrationsCount
+    {
+        get => (int)GetValue(AvailableRegistrationsCountProperty);
+        set => SetValue(AvailableRegistrationsCountProperty, value);
+    }
 }
