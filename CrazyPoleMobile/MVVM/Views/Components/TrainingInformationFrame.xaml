@@ -22,7 +22,7 @@
                                                  Grid.Column="2"
                                                  Padding="10,0">
                         <Label Style="{StaticResource MainFrameText}" Text="{TemplateBinding TrainingName}" />
-                        <Label Style="{StaticResource SideFrameText}" Text="{TemplateBinding AvailableRegistrationsCount, StringFormat='Свободно {0} места'} " />
+                        <Label Style="{StaticResource SideFrameText}" Text="{TemplateBinding AvailableRegistrationsCount, StringFormat='Свободно {0} мест(а)'} " />
                         <Label Style="{StaticResource SideFrameText}" >
                             <Label.Triggers>
                                 <DataTrigger TargetType="Label" Binding="{TemplateBinding TrainerChanged}" Value="False">

@@ -139,7 +139,7 @@ namespace CrazyPoleMobile.Services
                                   startDate,
                                   endDate,
                                   apiTraining.Description,
-                                  3,
+                                  apiTraining.AvailableRegistrationsCount,
                                   apiTraining.IsCanceled,
                                   apiTraining.IsMoved,
                                   apiTraining.IsTrainerChanged));
