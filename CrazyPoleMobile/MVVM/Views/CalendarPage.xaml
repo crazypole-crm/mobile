@@ -127,7 +127,11 @@
                                                                  TrainingName="{Binding Direction.Name}"
                                                                  TrainerChanged="{Binding IsTrainerChanged}"
                                                                  TrainerFirstName="{Binding Trainer.FirstName}"
-                                                                 TrainerLastName="{Binding Trainer.LastName}"/>
+                                                                 TrainerLastName="{Binding Trainer.LastName}">
+                                <components:TrainingInformationFrame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding OpenRegistrationPopup}" />
+                                </components:TrainingInformationFrame.GestureRecognizers>
+                            </components:TrainingInformationFrame>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>

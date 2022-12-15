@@ -34,6 +34,5 @@ public partial class RoutePage : ContentPage
 		BarLayout.SetLayoutBounds(ContentBlock, new Rect(0, 0, 1, 1));
 		BarLayout.SetLayoutBounds(TabBarBlock, new Rect(0, _contentHeight + _tabBarHeight + 5, 1, _tabBarHeight));
 		base.OnSizeAllocated(width, height);
-
 	}
 }

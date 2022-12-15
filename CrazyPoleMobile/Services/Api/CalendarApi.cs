@@ -29,7 +29,7 @@ namespace CrazyPoleMobile.Services.Api
 
         public async Task<List<ApiDirectionData>> GetDirections()
         {
-            HttpResponseMessage response = new();
+            HttpResponseMessage response = null;
             List<ApiDirectionData> directionData = new();
             Retry:
             try
@@ -57,7 +57,7 @@ namespace CrazyPoleMobile.Services.Api
 
         public async Task<List<ApiHallData>> GetHalls()
         {
-            HttpResponseMessage response = new();
+            HttpResponseMessage response = null;
             List<ApiHallData> directionData = new();
             Retry:
             try
@@ -84,7 +84,7 @@ namespace CrazyPoleMobile.Services.Api
 
         public async Task<List<ApiTrainingData>> GetTrainingsForPeriod(DateTime start, DateTime end)
         {
-            HttpResponseMessage response = new();
+            HttpResponseMessage response = null;
             List<ApiTrainingData> trainingData = new();
             Retry:
             try
@@ -121,7 +121,7 @@ namespace CrazyPoleMobile.Services.Api
             if(UsersId.Count == 0)
                 return usersData;
 
-            HttpResponseMessage response = new();
+            HttpResponseMessage response = null;
             Retry:
             try
             {

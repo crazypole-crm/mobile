@@ -102,6 +102,9 @@
 	  <Compile Update="MVVM\Views\LogInPage.xaml.cs">
 	    <DependentUpon>LogInPage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="MVVM\Views\Popups\RegistrationForTraining.xaml.cs">
+	    <DependentUpon>RegistrationForTraining.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="MVVM\Views\RoutePage.xaml.cs">
 	    <DependentUpon>RoutePage.xaml</DependentUpon>
 	  </Compile>

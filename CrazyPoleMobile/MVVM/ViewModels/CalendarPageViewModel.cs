@@ -124,8 +124,23 @@ namespace CrazyPoleMobile.MVVM.ViewModels
             await Task.Run(() =>
             {
                 foreach (var item in _filterService.Filtrate(_currentDayAllTrainings))
+                {
+                    item.OpenRegistrationPopup = new Command(() => 
+                    {
+                        OpenRegistrationPopup(item);
+                    });
                     CurrentDayTrainings.Add(item);
+                }
             });
+        }
+
+        private void OpenRegistrationPopup(TrainingData trainingData)
+        {
+            this.OpenRegistrationForLesson(
+                ok: new Command(() => { }),
+                cancel: new Command(() => { }),
+                data: trainingData
+                );
         }
 
         private async Task SetDays(DateTime day, uint daysBefore, uint daysAfter)
