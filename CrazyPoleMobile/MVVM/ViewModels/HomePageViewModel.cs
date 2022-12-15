@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CrazyPoleMobile.MVVM.Models;
 using CrazyPoleMobile.Services;
+using CrazyPoleMobile.Helpers;
 using CrazyPoleMobile.Services.Api;
 using CrazyPoleMobile.Services.Api.Data;
 using CrazyPoleMobile.Services.Filters;
@@ -13,25 +14,33 @@ namespace CrazyPoleMobile.MVVM.ViewModels
         private CalendarApi _calendarApi;
         private IFilterService<TrainingData> _filterService = new TrainingFilterService();
         private RoutePageViewModel _route;
+        private FavouritesService _favouritesService;
 
         [ObservableProperty] private bool _loadDirectionsProcess = true;
+        [ObservableProperty] private bool _loadFavoritesProcess = true;
 
         public HomePageViewModel(CalendarApi calendarApi,
                                  RoutePageViewModel route,
-                                 IFilterService<TrainingData> filterService)
+                                 IFilterService<TrainingData> filterService,
+                                 FavouritesService favouritesService)
         {
             _calendarApi = calendarApi;
             _filterService = filterService;
             _route = route;
+            _favouritesService = favouritesService;
             InitAsync();
         }
 
         private async void InitAsync()
         {
-             await InitDirections();
+            await Task.Run(() => 
+            {
+                InitDirections();
+                InitFavourites();
+            });
         }
 
-        private async Task InitDirections()
+        private async void InitDirections()
         {
             LoadDirectionsProcess = true;
             var directions = await _calendarApi.GetDirections();
@@ -42,6 +51,26 @@ namespace CrazyPoleMobile.MVVM.ViewModels
                     LoadDirectionsProcess = false;
             }
             LoadDirectionsProcess = false;
+        }
+
+        public async void InitFavourites()
+        {
+            LoadFavoritesProcess = true;
+            _favourites.Clear();
+            var favorites = await _favouritesService.LoadFavorites();
+
+            foreach (var item in favorites)
+            {
+                item.ApplyFilterCommand = new Command(async () =>
+                {
+                    _filterService.ClearFilters();
+                    _filterService.AddFilter(new DirectionFilter(item.Direction));
+                    await _route.LoadCalendar();
+                    ServiceHelper.GetService<CalendarPageViewModel>().RefreshCommand.Execute(null);
+                });
+
+                _favourites.Add(item);
+            }
         }
 
         private async Task AddDirection(ApiDirectionData direction)
@@ -56,6 +85,7 @@ namespace CrazyPoleMobile.MVVM.ViewModels
                         _filterService.ClearFilters();
                         _filterService.AddFilter(new DirectionFilter(direction.Name));
                         await _route.LoadCalendar();
+                        ServiceHelper.GetService<CalendarPageViewModel>().RefreshCommand.Execute(null);
                     })
                 });
             });
@@ -63,12 +93,7 @@ namespace CrazyPoleMobile.MVVM.ViewModels
 
 
         [ObservableProperty]
-        private ObservableCollection<MockFavouriteData> _favourites = new() 
-        {
-            new() { Direction = "Pole Dance" },
-            new() { Direction = "Pole Exotic" },
-            new() { Direction = "Йога" }
-        };
+        private ObservableCollection<FavouriteData> _favourites = new();
 
         [ObservableProperty]
         private ObservableCollection<HomeDirectionData> _directions = new();

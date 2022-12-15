@@ -1,10 +1,14 @@
 ﻿using SQLite;
 
-namespace CrazyPoleMobile.Data.Notifications
+namespace CrazyPoleMobile.Data.Favourites
 {
-    public class NotificationDataBase
+    public class FavouritesDataBase
     {
         SQLiteAsyncConnection Database;
+
+        public FavouritesDataBase()
+        {
+        }
 
         async Task Init()
         {
@@ -12,21 +16,21 @@ namespace CrazyPoleMobile.Data.Notifications
                 return;
 
             Database = new SQLiteAsyncConnection(DbConstants.DatabasePath, DbConstants.Flags);
-            await Database.CreateTableAsync<NotificationItem>();
+            await Database.CreateTableAsync<FavouritesItem>();
         }
-        public async Task<List<NotificationItem>> GetItemsAsync()
+        public async Task<List<FavouritesItem>> GetItemsAsync()
         {
             await Init();
-            return await Database.Table<NotificationItem>().ToListAsync();
+            return await Database.Table<FavouritesItem>().ToListAsync();
         }
 
-        public async Task<NotificationItem> GetItemById(int id)
+        public async Task<FavouritesItem> GetItemById(int id)
         {
             await Init();
-            return await Database.Table<NotificationItem>().Where(item => item.Id == id).FirstOrDefaultAsync();
+            return await Database.Table<FavouritesItem>().Where(item => item.Id == id).FirstOrDefaultAsync();
         }
 
-        public async Task<int> SaveItemAsync(NotificationItem item)
+        public async Task<int> SaveItemAsync(FavouritesItem item)
         {
             await Init();
             var currentItem = await GetItemById(item.Id);
@@ -40,14 +44,14 @@ namespace CrazyPoleMobile.Data.Notifications
         public async Task<int> DeleteItemByIdAsync(int id)
         {
             await Init();
-            return await Database.DeleteAsync<NotificationItem>(id);
+            return await Database.DeleteAsync<FavouritesItem>(id);
         }
+
         public async Task<int> DeleteAll()
         {
             await Init();
-            return await Database.DeleteAllAsync<NotificationItem>();
+            return await Database.DeleteAllAsync<FavouritesItem>();
         }
 
     }
-
 }

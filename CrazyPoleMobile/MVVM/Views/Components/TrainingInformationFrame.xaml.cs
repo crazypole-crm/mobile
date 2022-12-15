@@ -1,3 +1,5 @@
+using System.Windows.Input;
+
 namespace CrazyPoleMobile.MVVM.Views.Components;
 
 public partial class TrainingInformationFrame : ContentView
@@ -53,5 +55,29 @@ public partial class TrainingInformationFrame : ContentView
     {
         get => (int)GetValue(AvailableRegistrationsCountProperty);
         set => SetValue(AvailableRegistrationsCountProperty, value);
+    }
+
+    public static readonly BindableProperty IsFavouriteProperty =
+            BindableProperty.Create(nameof(IsFavourite), typeof(bool), typeof(CalendarDayFrame), false);
+    public bool IsFavourite
+    {
+        get => (bool)GetValue(IsFavouriteProperty);
+        set => SetValue(IsFavouriteProperty, value);
+    }
+
+    public static readonly BindableProperty AddFavouriteProperty =
+            BindableProperty.Create(nameof(AddFavourite), typeof(ICommand), typeof(CalendarDayFrame));
+    public ICommand AddFavourite
+    {
+        get => (ICommand)GetValue(AddFavouriteProperty);
+        set => SetValue(AddFavouriteProperty, value);
+    }
+
+    public static readonly BindableProperty RemoveFavouriteProperty =
+            BindableProperty.Create(nameof(RemoveFavourite), typeof(ICommand), typeof(CalendarDayFrame));
+    public ICommand RemoveFavourite
+    {
+        get => (ICommand)GetValue(RemoveFavouriteProperty);
+        set => SetValue(RemoveFavouriteProperty, value);
     }
 }

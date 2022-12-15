@@ -32,6 +32,11 @@ namespace CrazyPoleMobile.MVVM.Models
 
         [JsonIgnore]
         public ICommand OpenRegistrationPopup { get; set; }
+        [JsonIgnore]
+        public ICommand AddFavourireCommand { get; set; }
+        [JsonIgnore]
+        public ICommand RemoveFavouriteCommand { get; set; }
+        public bool IsFavourite { get; set; } = false;
 
         public TrainingData()
         { }

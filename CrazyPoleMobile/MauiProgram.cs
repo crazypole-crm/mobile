@@ -7,6 +7,7 @@ using Syncfusion.Maui.Core.Hosting;
 using CrazyPoleMobile.Data.Cookies;
 using CrazyPoleMobile.Data.Notifications;
 using CrazyPoleMobile.MVVM.Models;
+using CrazyPoleMobile.Data.Favourites;
 
 namespace CrazyPoleMobile;
 
@@ -62,6 +63,8 @@ public static class MauiProgram
 		builder.Services.AddSingleton<CalendarService>();
 		builder.Services.AddSingleton<NotificationDataBase>();
 		builder.Services.AddSingleton<CookieDataBase>();
+		builder.Services.AddSingleton<FavouritesDataBase>();
+		builder.Services.AddSingleton<FavouritesService>();
 		
 		builder.Services.AddTransient<FilterPopupViewModel>();
 
