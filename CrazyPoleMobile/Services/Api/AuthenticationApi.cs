@@ -1,9 +1,7 @@
 ﻿using CrazyPoleMobile.MVVM.Models;
-using System.Text.Json;
 using System.Net;
 using System.Net.Http.Json;
 using HC = CrazyPoleMobile.Services.Api.HostConfiguration;
-using SK = CrazyPoleMobile.Helpers.SecureStorageKeysProviderHelper;
 
 namespace CrazyPoleMobile.Services.Api
 {
@@ -13,7 +11,8 @@ namespace CrazyPoleMobile.Services.Api
 
         public async Task<HttpStatusCode> LogIn(string email, string password)
         {
-            HttpResponseMessage response = new();
+            HttpResponseMessage response = null;
+            Retry:
             try
             {
                 response = await _client.PostAsJsonAsync<UserAuthData>(
@@ -24,27 +23,43 @@ namespace CrazyPoleMobile.Services.Api
                             Password = password
                         });
             }
-            catch { }
+            catch 
+            {
+                if (response == null)
+                {
+                    await Task.Delay(3000);
+                    goto Retry;
+                }
+            }
 
             return response.StatusCode;
         }
 
         public async Task<HttpStatusCode> LogOut()
         {
-            HttpResponseMessage response = new();
+            HttpResponseMessage response = null;
+            Retry:
             try
             {
                 response = await _client.PostAsync(
                     $"{HC.HOST_NAME}{HC.LOGOUT_ROUTE}", null);
             }
-            catch { }
+            catch 
+            {
+                if (response == null)
+                {
+                    await Task.Delay(3000);
+                    goto Retry;
+                }
+            }
 
             return response.StatusCode;
         }
 
         public async Task<HttpStatusCode> Registration(string email, string password)
         {
-            HttpResponseMessage response = new();
+            HttpResponseMessage response = null;
+            Retry:
             try
             {
                 response = await _client.PostAsJsonAsync<UserAuthData>(
@@ -55,7 +70,14 @@ namespace CrazyPoleMobile.Services.Api
                             Password = password
                         });
             }
-            catch { }
+            catch 
+            {
+                if (response == null)
+                {
+                    await Task.Delay(3000);
+                    goto Retry;
+                }
+            }
 
             return response.StatusCode;
         }
@@ -64,6 +86,7 @@ namespace CrazyPoleMobile.Services.Api
         {
             HttpResponseMessage response = null;
             HttpData<UserAuthData> data = new();
+            Retry:
             try
             {
                 response = await _client.PostAsync(
@@ -77,8 +100,14 @@ namespace CrazyPoleMobile.Services.Api
                 data.Status = response.StatusCode;
                 return data;
             }
-            catch (Exception ex) 
+            catch 
             {
+                if (response == null)
+                {
+                    await Task.Delay(3000);
+                    goto Retry;
+                }
+
                 data.Status = response.StatusCode;
                 return data;
             }
@@ -88,37 +117,45 @@ namespace CrazyPoleMobile.Services.Api
 
         public async Task<HttpStatusCode> ChangePassword(ChangePasswordData request)
         {
-            HttpResponseMessage response = new();
-            HttpStatusCode status;
+            HttpResponseMessage response = null;
+            Retry:
             try
             {
                 response = await _client.PostAsJsonAsync(
                         $"{HC.HOST_NAME}{HC.CHANGE_PASS_ROUTE}", request);
             }
-            catch { }
-            finally
+            catch 
             {
-                status = response.StatusCode;
+                if (response == null)
+                {
+                    await Task.Delay(3000);
+                    goto Retry;
+                }
             }
-            return status;
+           
+            return response.StatusCode;
         }
 
         public async Task<HttpStatusCode> UpdateUserData(UpdateUserData request)
         {
             HttpResponseMessage response = new();
-            HttpStatusCode status;
+            Retry:
             try
             {
                 response = await _client.PostAsJsonAsync(
                         $"{HC.HOST_NAME}{HC.CHANGE_USER_DATA_ROUTE}",
                         request);
             }
-            catch { }
-            finally
+            catch 
             {
-                status = response.StatusCode;
+                if (response == null)
+                {
+                    await Task.Delay(3000);
+                    goto Retry;
+                }
             }
-            return status;
+
+            return response.StatusCode;
         }
     }
 }

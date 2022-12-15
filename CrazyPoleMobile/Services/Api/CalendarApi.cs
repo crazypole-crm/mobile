@@ -1,5 +1,4 @@
-﻿using CrazyPoleMobile.MVVM.Models;
-using CrazyPoleMobile.Services.Api.Data;
+﻿using CrazyPoleMobile.Services.Api.Data;
 using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json;
@@ -32,6 +31,7 @@ namespace CrazyPoleMobile.Services.Api
         {
             HttpResponseMessage response = new();
             List<ApiDirectionData> directionData = new();
+            Retry:
             try
             {
                 response = await HostConfiguration.Client.PostAsync(
@@ -43,6 +43,12 @@ namespace CrazyPoleMobile.Services.Api
             }
             catch
             {
+                if (response == null)
+                {
+                    await Task.Delay(3000);
+                    goto Retry;
+                }
+
                 response.StatusCode = HttpStatusCode.ServiceUnavailable;
             }
 
@@ -53,6 +59,7 @@ namespace CrazyPoleMobile.Services.Api
         {
             HttpResponseMessage response = new();
             List<ApiHallData> directionData = new();
+            Retry:
             try
             {
                 response = await HostConfiguration.Client.PostAsync(
@@ -63,6 +70,12 @@ namespace CrazyPoleMobile.Services.Api
             }
             catch
             {
+                if (response == null)
+                {
+                    await Task.Delay(3000);
+                    goto Retry;
+                }
+
                 response.StatusCode = HttpStatusCode.ServiceUnavailable;
             }
 
@@ -73,6 +86,7 @@ namespace CrazyPoleMobile.Services.Api
         {
             HttpResponseMessage response = new();
             List<ApiTrainingData> trainingData = new();
+            Retry:
             try
             {
                 response = await HostConfiguration.Client.PostAsJsonAsync<Period>(
@@ -88,6 +102,12 @@ namespace CrazyPoleMobile.Services.Api
         }
             catch
             {
+                if (response == null)
+                {
+                    await Task.Delay(3000);
+                    goto Retry;
+                }
+
                 response.StatusCode = HttpStatusCode.ServiceUnavailable;
             }
 
@@ -102,6 +122,7 @@ namespace CrazyPoleMobile.Services.Api
                 return usersData;
 
             HttpResponseMessage response = new();
+            Retry:
             try
             {
                 response = await HostConfiguration.Client.PostAsJsonAsync<UsersData>(
@@ -116,6 +137,12 @@ namespace CrazyPoleMobile.Services.Api
             }
             catch
             {
+                if (response == null)
+                {
+                    await Task.Delay(3000);
+                    goto Retry;
+                }
+
                 response.StatusCode = HttpStatusCode.ServiceUnavailable;
             }
 

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ct:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:cc="clr-namespace:CrazyPoleMobile.MVVM.Views.CustomControls"
+             x:Name="this"
+             x:Class="CrazyPoleMobile.MVVM.Views.Popups.SignUpForLesson">
+    <Border BindingContext="{x:Reference this}" 
+            Style="{StaticResource BorderedFrame}"
+            HeightRequest="300"
+            Padding="20">
+
+        <VerticalStackLayout>
+            <Label Style="{StaticResource FontBaseStyle}" 
+                   Text="Pole dance начинающие" />
+            <BoxView BackgroundColor="Red" 
+                     WidthRequest="100"
+                     HeightRequest="10"/>
+            <Label Style="{StaticResource FontBaseStyle}"
+                   Text="Среда 9:20 - 10:20"/>
+            <Label Style="{StaticResource FontBaseStyle}"
+                   Text="Большой зал"/>
+            <Label Style="{StaticResource FontBaseStyle}"
+                   Text="Свободно 2 мест"/>
+            <Label Style="{StaticResource FontBaseStyle}"
+                   Text="Среда 9:20 - 10:20"/>
+            <cc:GradientButton Text="Записаться на занятие" />
+
+        </VerticalStackLayout>
+    </Border>
+</ct:Popup>
