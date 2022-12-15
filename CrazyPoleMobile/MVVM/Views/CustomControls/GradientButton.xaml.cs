@@ -39,6 +39,18 @@ public partial class GradientButton : ContentView
         }
     }
 
+    public static readonly BindableProperty OnClickCommandParamenterProperty =
+    BindableProperty.Create(nameof(OnClickCommandParamenter), typeof(object), typeof(GradientButton));
+
+    public object OnClickCommandParamenter
+    {
+        get => GetValue(OnClickCommandParamenterProperty);
+        set
+        {
+            SetValue(OnClickCommandParamenterProperty, value);
+        }
+    }
+
     public static readonly BindableProperty IsInteractableProperty =
         BindableProperty.Create(nameof(IsInteractable), typeof(bool), typeof(GradientButton));
 

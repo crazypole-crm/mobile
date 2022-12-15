@@ -16,9 +16,12 @@ namespace CrazyPoleMobile.MVVM.ViewModels
 
         [ObservableProperty] private bool _loadDirectionsProcess = true;
 
-        public HomePageViewModel(CalendarApi calendarApi, RoutePageViewModel route)
+        public HomePageViewModel(CalendarApi calendarApi,
+                                 RoutePageViewModel route,
+                                 IFilterService<TrainingData> filterService)
         {
             _calendarApi = calendarApi;
+            _filterService = filterService;
             _route = route;
             InitAsync();
         }

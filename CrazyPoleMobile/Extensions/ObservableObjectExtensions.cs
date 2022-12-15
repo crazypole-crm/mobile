@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CrazyPoleMobile.MVVM.Models;
 using CrazyPoleMobile.MVVM.Views.Popups;
+using CrazyPoleMobile.MVVM.ViewModels;
 using CrazyPoleMobile.Services;
 using System.Windows.Input;
 
@@ -42,12 +43,12 @@ namespace CrazyPoleMobile.Extensions
                                                  TrainingFilterService filterService,
                                                  List<HallData> halls,
                                                  List<DirectionData> directions,
-                                                 ICommand OnApplyCommand)
+                                                 List<UserData> trainers,
+                                                 ICommand onApplyCommand)
         {
-            await App.Current.MainPage.ShowPopupAsync(new FilterPopup(filterService,
-                                                                      halls,
-                                                                      directions,
-                                                                      OnApplyCommand));
+            await App.Current.MainPage.ShowPopupAsync(new FilterPopup(new FilterPopupViewModel(filterService, halls,
+                                                                                               directions, trainers,
+                                                                                               onApplyCommand)));
         }
     }
 }

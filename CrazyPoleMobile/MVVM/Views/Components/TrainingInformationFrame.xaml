@@ -22,14 +22,14 @@
                                                  Grid.Column="2"
                                                  Padding="10,0">
                         <Label Style="{StaticResource MainFrameText}" Text="{TemplateBinding TrainingName}" />
-                        <Label Style="{StaticResource SideFrameText}" Text="занято 2 места" IsVisible="false" />
+                        <Label Style="{StaticResource SideFrameText}" Text="{TemplateBinding AvailableRegistrationsCount, StringFormat='Свободно {0} мест(а)'} " />
                         <Label Style="{StaticResource SideFrameText}" >
                             <Label.Triggers>
                                 <DataTrigger TargetType="Label" Binding="{TemplateBinding TrainerChanged}" Value="False">
-                                    <Setter Property="Text" Value="Original Trainer" />
+                                    <Setter Property="Text" Value="{TemplateBinding TrainerName}" />
                                 </DataTrigger>
                                 <DataTrigger TargetType="Label" Binding="{TemplateBinding TrainerChanged}" Value="True">
-                                    <Setter Property="Text" Value="Changed Trainer" />
+                                    <Setter Property="Text" Value="{TemplateBinding TrainerName, StringFormat='Замена {0}'}" />
                                     <Setter Property="TextColor" Value="{StaticResource AttentionFontColor}" />
                                 </DataTrigger>
                             </Label.Triggers>

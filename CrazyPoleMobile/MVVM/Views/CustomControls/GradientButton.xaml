@@ -12,6 +12,7 @@
             <Setter Property="Text" Value="{Binding Text}" />
             <Setter Property="CornerRadius" Value="{Binding CornerRadius}" />
             <Setter Property="Command" Value="{Binding OnClickCommand}" />
+            <Setter Property="CommandParameter" Value="{Binding OnClickCommandParamenter}" />
             <Setter Property="Background" Value="{StaticResource DefaultGradient}" />
             <Setter Property="VisualStateManager.VisualStateGroups">
                 <VisualStateGroupList>
@@ -32,7 +33,8 @@
     <Grid BindingContext="{x:Reference this}" ColumnDefinitions="*, *">
         <Button x:Name="Btn"
                 Style="{DynamicResource GradientButton}"
-                Grid.ColumnSpan="2">
+                Grid.ColumnSpan="2"
+                >
             <Button.Behaviors>
                 <b:ButtonAnimationBehavior />
             </Button.Behaviors>

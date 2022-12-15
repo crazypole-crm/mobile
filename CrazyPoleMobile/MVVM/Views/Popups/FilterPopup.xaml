@@ -2,50 +2,82 @@
 <ct:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
           xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
           xmlns:ct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+          xmlns:cc="clr-namespace:CrazyPoleMobile.MVVM.Views.CustomControls"
+          xmlns:viewmodel="clr-namespace:CrazyPoleMobile.MVVM.ViewModels"
+          xmlns:converter="clr-namespace:CrazyPoleMobile.Converters"
           x:Name="this"
           CanBeDismissedByTappingOutsideOfPopup="False"
           Color="Transparent"
-          xmlns:cc="clr-namespace:CrazyPoleMobile.MVVM.Views.CustomControls"
-          x:Class="CrazyPoleMobile.MVVM.Views.Popups.FilterPopup">
-    <Border BindingContext="{x:Reference this}" 
-            Style="{StaticResource BorderedFrame}"
-            HeightRequest="370"
-            Padding="20">
-        <Grid RowDefinitions="320*, 50*">
+          x:Class="CrazyPoleMobile.MVVM.Views.Popups.FilterPopup"
+          >
 
-            <Grid RowDefinitions="*,*,*" Padding="0" RowSpacing="5">
+    <Border Style="{StaticResource BorderedFrame}"
+            HeightRequest="400"
+            Padding="20, 10, 20, 20">
+        <Grid RowDefinitions="30*, 300*, 50*"
+              RowSpacing="10">
+            <AbsoluteLayout >
+                <VerticalStackLayout AbsoluteLayout.LayoutBounds="0.5, 0"
+                                     AbsoluteLayout.LayoutFlags="PositionProportional">
+                    <Label Style="{StaticResource TitleFieldText}" Text="Фильтры" HorizontalTextAlignment="Center" />
+                    <Line Grid.Column="1"  Style="{StaticResource LineSeparator}"  X1="0"  X2="150" />
+                </VerticalStackLayout>
+                <ImageButton Style="{StaticResource CloseImageButton}"
+                             AbsoluteLayout.LayoutBounds="1, 0.5"
+                             AbsoluteLayout.LayoutFlags="PositionProportional" 
+                             Command="{Binding CloseCommand}"
+                             CommandParameter="{x:Reference this}"/>
+            </AbsoluteLayout>
+            <Grid RowDefinitions="*,*,*" Padding="0" RowSpacing="5" Grid.Row="1" >
+                
                 <VerticalStackLayout Grid.Row="0" Spacing="5">
                     <Label Style="{StaticResource TitleFieldText}" Text="Направление" Padding="5, 0" />
                     <Border Style="{StaticResource BorderedField}" 
                             WidthRequest="250"
                             Padding="10, 0">
                         <AbsoluteLayout>
-
-                            <Picker x:Name="DirectionPicker" ItemsSource="{Binding Directions}" 
+                            <Image Style="{StaticResource DropDownImage}"
+                                   HeightRequest="15"
+                                   WidthRequest="15"
+                                   AbsoluteLayout.LayoutBounds="1, 0.5"
+                                   AbsoluteLayout.LayoutFlags="PositionProportional" 
+                                   Grid.Column="1" 
+                                   IsVisible="{Binding IsDirectionSelected, Converter={converter:InverseBooleanConverter}}"/>
+                            <Picker x:Name="DirectionPicker" 
+                                    ItemsSource="{Binding Directions}" 
                                     ItemDisplayBinding="{Binding Name}" 
-                                    SelectedItem="{Binding SelectedDirection}"
+                                    SelectedIndex="{Binding SelectedDirectionIndex}"
                                     AbsoluteLayout.LayoutBounds="0, 0.5, 0.9, 50"
                                     AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional"
                                     VerticalOptions="Center"
                                     Title="Выберите направление"/>
                             <ImageButton Style="{StaticResource CloseImageButton}"
                                          AbsoluteLayout.LayoutBounds="1, 0.5"
-                                         AbsoluteLayout.LayoutFlags="PositionProportional"
+                                         AbsoluteLayout.LayoutFlags="PositionProportional" 
                                          Command="{Binding ClearPickerCommand}"
-                                         CommandParameter="{x:Reference DirectionPicker}"/>
+                                         CommandParameter="{x:Reference DirectionPicker}"
+                                         IsVisible="{Binding IsDirectionSelected}"/>
                         </AbsoluteLayout>
                     </Border>
                 </VerticalStackLayout>
+                
                 <VerticalStackLayout Grid.Row="1" Spacing="5">
                     <Label Style="{StaticResource TitleFieldText}" Text="Зал" Padding="5, 0" />
                     <Border Style="{StaticResource BorderedField}" 
                             WidthRequest="250"
                             Padding="10, 0">
                         <AbsoluteLayout>
-
-                            <Picker ItemsSource="{Binding Halls}" 
+                            <Image Style="{StaticResource DropDownImage}"
+                                   HeightRequest="15"
+                                   WidthRequest="15"
+                                   AbsoluteLayout.LayoutBounds="1, 0.5"
+                                   AbsoluteLayout.LayoutFlags="PositionProportional" 
+                                   Grid.Column="1" 
+                                   IsVisible="{Binding IsHallSelected, Converter={converter:InverseBooleanConverter}}"/>
+                            <Picker x:Name="HallPicker"
+                                    ItemsSource="{Binding Halls}" 
                                     ItemDisplayBinding="{Binding Name}" 
-                                    SelectedItem="{Binding SelectedHall}"
+                                    SelectedIndex="{Binding SelectedHallIndex}"
                                     AbsoluteLayout.LayoutBounds="0, 0.5, 0.9, 50"
                                     AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional"
                                     VerticalOptions="Center"
@@ -53,27 +85,53 @@
                             <ImageButton Style="{StaticResource CloseImageButton}"
                                          AbsoluteLayout.LayoutBounds="1, 0.5"
                                          AbsoluteLayout.LayoutFlags="PositionProportional" 
-                                         Command="{Binding ClearTrainerField}"/>
+                                         Command="{Binding ClearPickerCommand}"
+                                         CommandParameter="{x:Reference HallPicker}"
+                                         IsVisible="{Binding IsHallSelected}"/>
                         </AbsoluteLayout>
                     </Border>
                 </VerticalStackLayout>
+                
                 <VerticalStackLayout Grid.Row="2" Spacing="5">
-                    <Label Style="{StaticResource TitleFieldText}" Text="Тренер" Padding="5, 0" />
-                    <cc:GradientField VerticalOptions="StartAndExpand"
-                                      WidthRequest="250"
-                                      Text="{Binding TrainerName}"
-                                      Placeholder="Введите имя тренера"/>
+                    <Label Style="{StaticResource TitleFieldText}" Text="Преподователь" Padding="5, 0" />
+                    <Border Style="{StaticResource BorderedField}" 
+                            WidthRequest="250"
+                            Padding="10, 0">
+                        <AbsoluteLayout>
+                            <Image Style="{StaticResource DropDownImage}"
+                                   HeightRequest="15"
+                                   WidthRequest="15"
+                                   AbsoluteLayout.LayoutBounds="1, 0.5"
+                                   AbsoluteLayout.LayoutFlags="PositionProportional" 
+                                   Grid.Column="1" 
+                                   IsVisible="{Binding IsTrainerSelected, Converter={converter:InverseBooleanConverter}}"/>
+                            <Picker x:Name="TrainerPicker" 
+                                    ItemsSource="{Binding Trainers}" 
+                                    ItemDisplayBinding="{Binding FullName}" 
+                                    SelectedIndex="{Binding SelectedTrainerIndex}"
+                                    AbsoluteLayout.LayoutBounds="0, 0.5, 0.9, 50"
+                                    AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional"
+                                    VerticalOptions="Center"
+                                    Title="Выберите преподователя"/>
+                            <ImageButton Style="{StaticResource CloseImageButton}"
+                                         AbsoluteLayout.LayoutBounds="1, 0.5"
+                                         AbsoluteLayout.LayoutFlags="PositionProportional" 
+                                         Command="{Binding ClearPickerCommand}"
+                                         CommandParameter="{x:Reference TrainerPicker}"
+                                         IsVisible="{Binding IsTrainerSelected}"/>
+                        </AbsoluteLayout>
+                    </Border>
                 </VerticalStackLayout>
-
-
+                
             </Grid>
 
-            <ct:DockLayout Grid.Row="1">
+            <ct:DockLayout Grid.Row="2">
                 
                 <cc:GradientButton ct:DockLayout.DockPosition="Bottom"
                                    CornerRadius="15"
                                    Text="Применить"
-                                   OnClickCommand="{Binding CloseCommand}" />
+                                   OnClickCommand="{Binding SaveAndCloseCommand}"
+                                   OnClickCommandParamenter="{x:Reference this}"/>
             </ct:DockLayout>
             
         </Grid>

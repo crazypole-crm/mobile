@@ -9,6 +9,10 @@
     <Style TargetType="ImageButton" x:Key="CloseImageButton">
         <Setter Property="Source" Value="{AppThemeBinding Light={cc:ImageResource Source=close_icon_black.svg}, Dark={cc:ImageResource Source=close_icon_white.svg}}"/>
     </Style>
+
+    <Style TargetType="Image" x:Key="DropDownImage">
+        <Setter Property="Source" Value="{AppThemeBinding Dark={cc:ImageResource Source=dropdown_icon_white}, Light={cc:ImageResource Source=dropdown_icon_black}}" />
+    </Style>
     
     <Style x:Key="BorderedFrame" TargetType="Border">
         <Setter Property="Stroke" Value="{AppThemeBinding Light={StaticResource BorderColorLightMode}, Dark={StaticResource BorderColorDarkMode}}" />

@@ -31,17 +31,13 @@ namespace CrazyPoleMobile.MVVM.ViewModels
         
         [ObservableProperty]
         private bool _isPageLoading = false;
-
-        [ObservableProperty]
-        [NotifyPropertyChangedFor(nameof(IsListOfTrainingsEmpty))]
-        private ObservableCollection<TrainingData> _currentDayTrainings = new();
-        
+        public ObservableCollection<TrainingData> CurrentDayTrainings { get; set; } = new();
         public ObservableCollection<CalendarDay> TrainingDays { get; set; } = new();
-        public bool IsListOfTrainingsEmpty => CurrentDayTrainings.Count == 0;
         public uint DaysLoadCount => 10;
 
-        public CalendarPageViewModel() 
+        public CalendarPageViewModel(IFilterService<TrainingData> filterService) 
         {
+            _filterService = (TrainingFilterService)filterService ?? new();
             InitializeAsync();
         }
 
@@ -54,6 +50,7 @@ namespace CrazyPoleMobile.MVVM.ViewModels
         private async Task Refresh()
         {
             _calendarService.ResetСache();
+            _selectedDay = null;
             await Initialize();
         }
 
@@ -63,6 +60,7 @@ namespace CrazyPoleMobile.MVVM.ViewModels
             this.ShowFilterPopup(_filterService,
                                  await _calendarService.GetHalls(),
                                  await _calendarService.GetDirections(),
+                                 await _calendarService.GetTrainers(),
                                  ApplyFiltersCommand);
         }
 
@@ -123,9 +121,9 @@ namespace CrazyPoleMobile.MVVM.ViewModels
             CurrentDayTrainings.Clear();
             await Task.Run(() =>
             {
-                foreach (var item in _filterService.Filtrate(_currentDayAllTrainings))
+                foreach (var item in _filterService.Filtrate(_currentDayAllTrainings).Reverse())
                 {
-                    item.OpenRegistrationPopup = new Command(() => 
+                    item.OpenRegistrationPopup = new Command(() =>
                     {
                         OpenRegistrationPopup(item);
                     });

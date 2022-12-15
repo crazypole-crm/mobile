@@ -25,6 +25,7 @@ namespace CrazyPoleMobile.MVVM.Models
             get => DateEnd.TimeOfDay - DateStart.TimeOfDay;
         }
         public string Description { get; }
+        public int AvailableRegistrationsCount { get; }
         public bool IsCanceled { get; set; }
         public bool IsMoved { get; set; }
         public bool IsTrainerChanged { get; set; }
@@ -43,6 +44,7 @@ namespace CrazyPoleMobile.MVVM.Models
                             DateTime dateStart,
                             DateTime dateEnd,
                             string description,
+                            int availableRegistrationsCount,
                             bool isCanceled,
                             bool isMoved,
                             bool isTrainerChanged)
@@ -57,6 +59,7 @@ namespace CrazyPoleMobile.MVVM.Models
             Description = description;
             IsCanceled = isCanceled;
             IsMoved = isMoved;
+            AvailableRegistrationsCount = availableRegistrationsCount;
             IsTrainerChanged = isTrainerChanged;
         }
 

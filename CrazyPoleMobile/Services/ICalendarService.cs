@@ -15,6 +15,7 @@ namespace CrazyPoleMobile.Services
         public Task<List<HallData>> GetHalls();
         public Task<List<DirectionData>> GetDirections();
         public Task<List<UserData>> GetTrainersByIds(List<string> TrainerId);
+        public Task<List<UserData>> GetTrainers();
         public void ResetСache();
     }
 }
