@@ -67,6 +67,29 @@ namespace CrazyPoleMobile.Services
             return _halls.ToList();
         }
 
+        public async Task<List<UserData>> GetTrainers()
+        {
+            if (_trainers.Count > 0)
+                return _trainers.ToList();
+            await Task.Delay(100);
+
+            var apiTrainers = await _calendarApi.GetTrainers();
+
+            foreach (var apiTrainer in apiTrainers)
+                _trainers.Add(new(apiTrainer.Id,
+                                  apiTrainer.Email,
+                                  apiTrainer.AvatarUrl,
+                                  apiTrainer.Phone,
+                                  apiTrainer.FirstName,
+                                  apiTrainer.LastName,
+                                  apiTrainer.MiddleName,
+                                  apiTrainer.Role,
+                                  apiTrainer.Birthday,
+                                  apiTrainer.LastVisit));
+                
+            return _trainers.ToList();
+        }
+
         public async Task<List<TrainingData>> GetTrainingForDay(DateTime day)
         {
             var currentDayTrainings = _trainings.Where(
@@ -77,7 +100,7 @@ namespace CrazyPoleMobile.Services
 
             ClearTrainings();
 
-            var endOfDay = day.Date.Add(TimeSpan.FromDays(1)/* - TimeSpan.FromMilliseconds(1)*/);
+            var endOfDay = day.Date.Add(TimeSpan.FromDays(1));
             currentDayTrainings = await GetTrainingsForPeriod(day.Date, endOfDay);
             
             foreach(var training in currentDayTrainings)
@@ -105,8 +128,8 @@ namespace CrazyPoleMobile.Services
                 var hall = halls.Where((hall) => { return apiTraining.HallId == hall.Id; }).FirstOrDefault();
                 var direction = directions.Where((direction) => { return apiTraining.CourseId == direction.Id; }).FirstOrDefault();
                 var trainer = trainers.Where((trainer) => { return apiTraining.TrainerId == trainer.Id; }).FirstOrDefault();
-                var startDate = DateTimeOffset.FromUnixTimeSeconds(apiTraining.StartDate).DateTime;
-                var endDate = DateTimeOffset.FromUnixTimeSeconds(apiTraining.EndDate).DateTime;
+                var startDate = DateTimeOffset.FromUnixTimeSeconds(apiTraining.StartDate).DateTime.ToLocalTime();
+                var endDate = DateTimeOffset.FromUnixTimeSeconds(apiTraining.EndDate).DateTime.ToLocalTime();
 
                 trainings.Add(new(apiTraining.BaseTrainingId,
                                   apiTraining.TrainingId,

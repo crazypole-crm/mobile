@@ -8,10 +8,10 @@ public partial class TrainingInformationFrame : ContentView
 	}
 
     public static readonly BindableProperty TimeStartProperty =
-            BindableProperty.Create(nameof(TimeStart), typeof(TimeOnly), typeof(CalendarDayFrame), null);
-    public TimeOnly TimeStart
+            BindableProperty.Create(nameof(TimeStart), typeof(DateTime), typeof(CalendarDayFrame), null);
+    public DateTime TimeStart
     {
-        get => (TimeOnly)GetValue(TimeStartProperty);
+        get => (DateTime)GetValue(TimeStartProperty);
         set => SetValue(TimeStartProperty, value);
     }
 
@@ -31,20 +31,12 @@ public partial class TrainingInformationFrame : ContentView
         set => SetValue(TrainingNameProperty, value);
     }
 
-    public static readonly BindableProperty TrainerFirstNameProperty =
-            BindableProperty.Create(nameof(TrainerFirstName), typeof(string), typeof(CalendarDayFrame), "");
-    public string TrainerFirstName
+    public static readonly BindableProperty TrainerNameProperty =
+            BindableProperty.Create(nameof(TrainerName), typeof(string), typeof(CalendarDayFrame), "");
+    public string TrainerName
     {
-        get => (string)GetValue(TrainerFirstNameProperty);
-        set => SetValue(TrainerFirstNameProperty, value);
-    }
-
-    public static readonly BindableProperty TrainerLastNameProperty =
-            BindableProperty.Create(nameof(TrainerLastName), typeof(string), typeof(CalendarDayFrame), "");
-    public string TrainerLastName
-    {
-        get => (string)GetValue(TrainerLastNameProperty);
-        set => SetValue(TrainerLastNameProperty, value);
+        get => (string)GetValue(TrainerNameProperty);
+        set => SetValue(TrainerNameProperty, value);
     }
 
     public static readonly BindableProperty TrainerChangedProperty =
@@ -53,13 +45,5 @@ public partial class TrainingInformationFrame : ContentView
     {
         get => (bool)GetValue(TrainerChangedProperty);
         set => SetValue(TrainerChangedProperty, value);
-    }
-
-    public string TrainerFirstLastName
-    {
-        get 
-        {
-            return TrainerLastName;
-        }
     }
 }

@@ -23,6 +23,7 @@ namespace CrazyPoleMobile.MVVM.Models
         public string FirstName { get; }
         public string LastName { get; }
         public string MiddleName { get; }
+        public string FullName { get => $"{LastName} {FirstName} {MiddleName}"; }
         public UserRole Role { get; }
         public string Birthday { get; }
         public string LastVisit { get; }

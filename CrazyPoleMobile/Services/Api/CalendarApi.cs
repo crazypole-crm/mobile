@@ -121,5 +121,40 @@ namespace CrazyPoleMobile.Services.Api
 
             return usersData;
         }
+
+        public async Task<List<ApiUserData>> GetTrainers()
+        {
+            HttpResponseMessage response = new();
+            List<ApiUserData> TrainersData = new();
+            try
+            {
+                //response = await HostConfiguration.Client.PostAsync(
+                //    $"{HostConfiguration.HOST_NAME}{HostConfiguration.GET_HALLS_ROUTE}", null);
+
+                //var inputJson = await response.Content.ReadAsStreamAsync();
+                //directionData = await JsonSerializer.DeserializeAsync<List<ApiHallData>>(inputJson, _jsonOptions);
+                await Task.Delay(100);
+                var mockTrainer = new ApiUserData() 
+                { 
+                    Id = "asdada",
+                    AvatarUrl = "",
+                    Birthday = "8/12/2000",
+                    Email = "asd@mail.com",
+                    FirstName = "Loh",
+                    LastName = "Ne",
+                    MiddleName = "Lohovich",
+                    LastVisit = "",
+                    Phone = "88005553535",
+                    Role = UserRole.Trainer
+                };
+                TrainersData.Add(mockTrainer);
+            }
+            catch
+            {
+                response.StatusCode = HttpStatusCode.ServiceUnavailable;
+            }
+
+            return TrainersData;
+        }
     }
 }

@@ -37,6 +37,21 @@
                 <AbsoluteLayout Grid.Column="0" 
                                        Grid.Row="0" 
                                        IsVisible="{Binding IsPageLoading, Converter={converter:InverseBooleanConverter}}">
+                    <Border AbsoluteLayout.LayoutBounds="0, 0.5, 100, 35"
+                            AbsoluteLayout.LayoutFlags="PositionProportional"
+                            Style="{StaticResource BorderedField}"
+                            Stroke="{StaticResource DefaultGradient}"
+                            Background="{StaticResource DefaultGradient}">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ShowFilterPopupCommand}" />
+                        </Border.GestureRecognizers>
+                        
+                        <Label Style="{StaticResource MainFrameText}" 
+                               VerticalTextAlignment="Center"
+                               HorizontalTextAlignment="Center"
+                               Text="Фильтры"/>
+
+                    </Border>
                     <Border Style="{StaticResource BorderedFrame}" 
                             AbsoluteLayout.LayoutBounds="1, 0.5, 100, 35"
                             AbsoluteLayout.LayoutFlags="PositionProportional"
@@ -63,11 +78,7 @@
                                 Light={cc:ImageResource Source=dropdown_icon_black}}"/>
                         </Grid>
                     </Border>
-                    <cc:GradientButton AbsoluteLayout.LayoutBounds="0, 0.5, 100, 35"
-                                       AbsoluteLayout.LayoutFlags="PositionProportional"
-                                       CornerRadius="15"
-                                       Text="Фильтры"
-                                       OnClickCommand="{Binding ShowFilterPopupCommand}" />
+
 
                 </AbsoluteLayout>
 
@@ -110,7 +121,8 @@
                                  ItemsSource="{Binding CurrentDayTrainings}"
                                  SelectionMode="None"
                                  Margin="0,10,0,0"
-                                 IsVisible="{Binding IsPageLoading, Converter={converter:InverseBooleanConverter}}">
+                                 IsVisible="{Binding IsPageLoading, Converter={converter:InverseBooleanConverter}}"
+                                 >
                     <CollectionView.EmptyView>
                         <ContentView Padding="0, 0, 0, 90">
                             <StackLayout VerticalOptions="Center">
@@ -126,8 +138,7 @@
                                                                  Duration="{Binding Duration}"
                                                                  TrainingName="{Binding Direction.Name}"
                                                                  TrainerChanged="{Binding IsTrainerChanged}"
-                                                                 TrainerFirstName="{Binding Trainer.FirstName}"
-                                                                 TrainerLastName="{Binding Trainer.LastName}"/>
+                                                                 TrainerName="{Binding Trainer.FullName}"/>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>

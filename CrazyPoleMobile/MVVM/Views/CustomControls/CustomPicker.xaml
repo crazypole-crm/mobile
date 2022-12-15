@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CrazyPoleMobile.MVVM.Views.CustomControls.CustomPicker"
+             xmlns:converter="clr-namespace:CrazyPoleMobile.Converters">
+    <ContentView.ControlTemplate>
+        <ControlTemplate>
+            <Border Style="{StaticResource BorderedField}" 
+                            Padding="10, 0">
+                <AbsoluteLayout>
+                    <Image Style="{StaticResource DropDownImage}"
+                                   HeightRequest="15"
+                                   WidthRequest="15"
+                                   AbsoluteLayout.LayoutBounds="1, 0.5"
+                                   AbsoluteLayout.LayoutFlags="PositionProportional" 
+                                   Grid.Column="1" 
+                                   IsVisible="{TemplateBinding IsSelected, Converter={converter:InverseBooleanConverter}}"/>
+                    <Picker x:Name="TemplatePicker" 
+                                    ItemsSource="{TemplateBinding ItemsSource}" 
+                                    ItemDisplayBinding="{TemplateBinding ItemDisplayBinding}" 
+                                    SelectedIndex="{TemplateBinding SelectedIndex}"
+                                    AbsoluteLayout.LayoutBounds="0, 0.5, 0.9, 50"
+                                    AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional"
+                                    VerticalOptions="Center"
+                                    Title="{TemplateBinding Title}"/>
+                    <ImageButton Style="{StaticResource CloseImageButton}"
+                                         AbsoluteLayout.LayoutBounds="1, 0.5"
+                                         AbsoluteLayout.LayoutFlags="PositionProportional" 
+                                         Command="{TemplateBinding ClearCommand}"
+                                         CommandParameter="{x:Reference TemplatePicker}"
+                                         IsVisible="{TemplateBinding IsSelected}"/>
+                </AbsoluteLayout>
+            </Border>
+        </ControlTemplate>
+    </ContentView.ControlTemplate>
+</ContentView>
