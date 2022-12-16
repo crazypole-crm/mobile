@@ -38,7 +38,7 @@ namespace CrazyPoleMobile.MVVM.ViewModels
         [NotifyCanExecuteChangedFor(nameof(UpdateDataCommand))]
         private bool _notUpdateDataProcess = true;
 
-        private DateTime MinDate { get; } = new DateTime(1970, 1, 1); 
+        private DateTime MinDate { get; } = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc); 
 
         public UserInfoUpdateViewModel(
             IPageNavigationService router,
