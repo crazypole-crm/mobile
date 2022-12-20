@@ -2,15 +2,18 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:model="clr-namespace:CrazyPoleMobile.MVVM.Models"
+             xmlns:components="clr-namespace:CrazyPoleMobile.MVVM.Views.Components"
+             x:DataType="components:FavouritesFrame"
              x:Class="CrazyPoleMobile.MVVM.Views.Components.FavouritesFrame"
              x:Name="FavorFrameComponent">
     <Border Style="{StaticResource BorderedFrame}"
             VerticalOptions="Fill"
             HorizontalOptions="Fill"
-            Padding="20, 0">
+            Padding="20, 0"
+            BindingContext="{x:Reference FavorFrameComponent}">
         <Label Style="{StaticResource MainFrameText}"
                FontSize="24"
-               Text="Some Text"
+               Text="{Binding DirectionText}"
                VerticalOptions="Center"
                HorizontalOptions="Center"/>
     </Border>

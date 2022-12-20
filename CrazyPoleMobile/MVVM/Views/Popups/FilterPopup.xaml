@@ -20,7 +20,7 @@
                 <VerticalStackLayout AbsoluteLayout.LayoutBounds="0.5, 0"
                                      AbsoluteLayout.LayoutFlags="PositionProportional">
                     <Label Style="{StaticResource TitleFieldText}" Text="Фильтры" HorizontalTextAlignment="Center" />
-                    <Line Grid.Column="1"  Style="{StaticResource LineSeparator}"  X1="0"  X2="150" />
+                    <Line Grid.Column="1" Style="{StaticResource LineSeparator}"  X1="0"  X2="150" />
                 </VerticalStackLayout>
                 <ImageButton Style="{StaticResource CloseImageButton}"
                              AbsoluteLayout.LayoutBounds="1, 0.5"

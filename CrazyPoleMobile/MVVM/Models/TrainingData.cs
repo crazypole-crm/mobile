@@ -1,6 +1,7 @@
 ﻿
 using CrazyPoleMobile.Services.Api.Data;
 using System.Text.Json.Serialization;
+using System.Windows.Input;
 
 namespace CrazyPoleMobile.MVVM.Models
 {
@@ -28,6 +29,14 @@ namespace CrazyPoleMobile.MVVM.Models
         public bool IsCanceled { get; set; }
         public bool IsMoved { get; set; }
         public bool IsTrainerChanged { get; set; }
+
+        [JsonIgnore]
+        public ICommand OpenRegistrationPopup { get; set; }
+        [JsonIgnore]
+        public ICommand AddFavourireCommand { get; set; }
+        [JsonIgnore]
+        public ICommand RemoveFavouriteCommand { get; set; }
+        public bool IsFavourite { get; set; } = false;
 
         public TrainingData()
         { }

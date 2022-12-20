@@ -38,9 +38,19 @@
                             ItemsLayout="HorizontalList"
                             Margin="5, 0"
                             Grid.Row="1">
+                <CollectionView.EmptyView>
+                    <Label Style="{StaticResource BackgroundFontStyle}" 
+                           Text="Избранных пока нет"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center"/>
+                </CollectionView.EmptyView>
                 <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="model:MockFavouriteData">
-                        <components:FavouritesFrame />
+                    <DataTemplate x:DataType="model:FavouriteData">
+                        <components:FavouritesFrame DirectionText="{Binding Direction}">
+                            <components:FavouritesFrame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ApplyFilterCommand}"/>
+                            </components:FavouritesFrame.GestureRecognizers>
+                        </components:FavouritesFrame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

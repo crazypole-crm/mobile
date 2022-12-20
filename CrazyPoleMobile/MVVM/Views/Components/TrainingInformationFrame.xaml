@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:conv="clr-namespace:CrazyPoleMobile.Converters"
+             xmlns:components="clr-namespace:CrazyPoleMobile.MVVM.Views.Components"
              x:Class="CrazyPoleMobile.MVVM.Views.Components.TrainingInformationFrame">
     <ContentView.Resources>
-        
+        <conv:InverseBooleanConverter x:Key="Inv" />
     </ContentView.Resources>
-    
     
     <ContentView.ControlTemplate>
         <ControlTemplate>
-            <Border HeightRequest="60" Style="{StaticResource BorderedFrame}" >
-                <Grid Padding="0" ColumnDefinitions="auto,2,*">
+            <Border HeightRequest="60" Style="{StaticResource BorderedFrame}">
+                <Grid Padding="0" ColumnDefinitions="auto,2,*,40">
                     <VerticalStackLayout VerticalOptions="Center"
                                                  Grid.Column="0"
                                                  Padding="11,0">
@@ -36,6 +37,18 @@
                         </Label>
                         
                     </VerticalStackLayout>
+                    <ImageButton Source="gray_star" 
+                                 Grid.Column="3" 
+                                 HeightRequest="20"
+                                 WidthRequest="20"
+                                 Command="{TemplateBinding AddFavourite}"
+                                 IsVisible="{TemplateBinding IsFavourite, Converter={StaticResource Inv}}"/>
+                    <ImageButton Source="star" 
+                                 Grid.Column="3"
+                                 HeightRequest="20"
+                                 WidthRequest="20"
+                                 Command="{TemplateBinding RemoveFavourite}"
+                                 IsVisible="{TemplateBinding IsFavourite}"/>
                 </Grid>
             </Border>
         </ControlTemplate>

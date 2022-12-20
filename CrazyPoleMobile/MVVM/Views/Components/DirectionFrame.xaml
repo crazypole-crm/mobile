@@ -23,9 +23,10 @@
                                    HorizontalOptions="Start"
                                    VerticalTextAlignment="Center"/>
                         </Frame>
-                        <cc:GradientButton Text="Записаться" 
+                        <cc:GradientButton Text="Записаться"
                                            Grid.Column="1"
-                                           HeightRequest="50"
+                                           HeightRequest="40"
+                                           WidthRequest="120"
                                            VerticalOptions="Center"
                                            HorizontalOptions="End"
                                            CornerRadius="30"

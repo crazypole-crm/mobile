@@ -42,6 +42,12 @@ namespace CrazyPoleMobile.Data.Notifications
             await Init();
             return await Database.DeleteAsync<NotificationItem>(id);
         }
+        public async Task<int> DeleteAll()
+        {
+            await Init();
+            return await Database.DeleteAllAsync<NotificationItem>();
+        }
+
     }
 
 }

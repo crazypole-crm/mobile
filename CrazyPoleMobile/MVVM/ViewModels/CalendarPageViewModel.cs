@@ -1,18 +1,11 @@
-﻿using CommunityToolkit.Maui.Core.Extensions;
-using CommunityToolkit.Mvvm.Collections;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CrazyPoleMobile.MVVM.Models;
 using CrazyPoleMobile.Services;
-using CrazyPoleMobile.Services.Api;
-using CrazyPoleMobile.Services.Api.Data;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using CrazyPoleMobile.Extensions;
+using CrazyPoleMobile.Helpers;
+using CrazyPoleMobile.Data.Favourites;
 
 namespace CrazyPoleMobile.MVVM.ViewModels
 {
@@ -130,15 +123,70 @@ namespace CrazyPoleMobile.MVVM.ViewModels
         private async Task ApplyFilters()
         {
             CurrentDayTrainings.Clear();
-            await Task.Run(() =>
+
+            var favorService = ServiceHelper.GetService<FavouritesService>();
+            var homePageVm = ServiceHelper.GetService<HomePageViewModel>();
+            var secureStorage = ServiceHelper.GetService<ISecureStorageService>();
+            var favors = await favorService.LoadFavorites();
+
+            await Task.Run(async () =>
             {
                 foreach (var item in _filterService.Filtrate(_currentDayAllTrainings).Reverse())
+                {
+                    item.OpenRegistrationPopup = new Command(() =>
+                    {
+                        OpenRegistrationPopup(item);
+                    });
+
+                    var favorItem = favors.FirstOrDefault(x => x.Direction == item.Direction.Name);
+
+                    item.IsFavourite = favorItem != null;
+
+                    if (favorItem == null)
+                        favorItem = new FavouriteData()
+                        {
+                            Direction = item.Direction.Name,
+                            Uid = await secureStorage.Get(SecureStorageKeysProviderHelper.USER_ID) ?? ""
+                        };
+
+                    item.AddFavourireCommand = new Command(async () => 
+                    {
+                        await Task.Run(() => 
+                        {
+                            favorService.AddFavorites(favorItem);
+                            item.IsFavourite = true;
+                        });
+                        homePageVm.InitFavourites();
+                        await ApplyFilters();
+                    });
+
+                    item.RemoveFavouriteCommand = new Command(async () => 
+                    {
+                        await Task.Run(() =>
+                        {
+                            favorService.DeleteFavorite(favorItem);
+                            item.IsFavourite = false;
+                        });
+                        homePageVm.InitFavourites();
+                        await ApplyFilters();
+                    });
+
                     CurrentDayTrainings.Add(item);
-                UpdateTrainingListEmpty();
+                    UpdateTrainingListEmpty()
+                }
             });
         }
 
         private void UpdateTrainingListEmpty() => IsTrainingListEmpty = CurrentDayTrainings.Count == 0;
+
+        private void OpenRegistrationPopup(TrainingData trainingData)
+        {
+            this.OpenRegistrationForLesson(
+                ok: new Command(() => { }),
+                cancel: new Command(() => { }),
+                data: trainingData
+                );
+        }
 
         private async Task SetDays(DateTime day, uint daysBefore, uint daysAfter)
         {

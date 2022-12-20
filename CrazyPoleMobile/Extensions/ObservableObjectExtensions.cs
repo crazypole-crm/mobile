@@ -28,6 +28,17 @@ namespace CrazyPoleMobile.Extensions
                     new InfoPopup(message));
         }
 
+        public static async void OpenRegistrationForLesson(
+            this ObservableObject obj,
+            ICommand ok,
+            ICommand cancel,
+            TrainingData data
+            )
+        {
+            await App.Current.MainPage.ShowPopupAsync(
+                    new RegistrationForTraining(ok, cancel, data));
+        }
+
         public static async void ShowFilterPopup(this ObservableObject obj,
                                                  TrainingFilterService filterService,
                                                  List<HallData> halls,

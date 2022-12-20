@@ -34,7 +34,7 @@
         <Button x:Name="Btn"
                 Style="{DynamicResource GradientButton}"
                 Grid.ColumnSpan="2"
-                >
+                FontAutoScalingEnabled="True">
             <Button.Behaviors>
                 <b:ButtonAnimationBehavior />
             </Button.Behaviors>

@@ -139,7 +139,14 @@
                                                                  TrainingName="{Binding Direction.Name}"
                                                                  TrainerChanged="{Binding IsTrainerChanged}"
                                                                  TrainerName="{Binding Trainer.FullName}"
-                                                                 AvailableRegistrationsCount="{Binding AvailableRegistrationsCount}"/>
+                                                                 AvailableRegistrationsCount="{Binding AvailableRegistrationsCount}"
+                                                                 IsFavourite="{Binding IsFavourite}"
+                                                                 AddFavourite="{Binding AddFavourireCommand}"
+                                                                 RemoveFavourite="{Binding RemoveFavouriteCommand}">
+                                <components:TrainingInformationFrame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding OpenRegistrationPopup}" />
+                                </components:TrainingInformationFrame.GestureRecognizers>
+                            </components:TrainingInformationFrame>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
