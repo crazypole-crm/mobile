@@ -49,6 +49,15 @@ public partial class TrainingInformationFrame : ContentView
         set => SetValue(TrainerChangedProperty, value);
     }
 
+
+    public static readonly BindableProperty CanceledProperty =
+            BindableProperty.Create(nameof(Canceled), typeof(bool), typeof(CalendarDayFrame), false);
+    public bool Canceled
+    {
+        get => (bool)GetValue(CanceledProperty);
+        set => SetValue(CanceledProperty, value);
+    }
+
     public static readonly BindableProperty AvailableRegistrationsCountProperty =
             BindableProperty.Create(nameof(AvailableRegistrationsCount), typeof(int), typeof(CalendarDayFrame), -1);
     public int AvailableRegistrationsCount
