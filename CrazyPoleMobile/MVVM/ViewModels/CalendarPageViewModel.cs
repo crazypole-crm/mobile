@@ -32,9 +32,10 @@ namespace CrazyPoleMobile.MVVM.ViewModels
         public ObservableCollection<CalendarDay> TrainingDays { get; set; } = new();
         public uint DaysLoadCount { get; } = 10;
 
-        public CalendarPageViewModel(IFilterService<TrainingData> filterService) 
+        public CalendarPageViewModel(IFilterService<TrainingData> filterService, CalendarService calendarService) 
         {
             _filterService = (TrainingFilterService)filterService ?? new();
+            _calendarService = calendarService ?? new();
             InitializeAsync();
         }
 
@@ -172,7 +173,7 @@ namespace CrazyPoleMobile.MVVM.ViewModels
                     });
 
                     CurrentDayTrainings.Add(item);
-                    UpdateTrainingListEmpty()
+                    UpdateTrainingListEmpty();
                 }
             });
         }
