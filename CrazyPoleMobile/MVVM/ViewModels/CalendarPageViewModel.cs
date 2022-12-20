@@ -157,6 +157,7 @@ namespace CrazyPoleMobile.MVVM.ViewModels
                             item.IsFavourite = true;
                         });
                         homePageVm.InitFavourites();
+                        ServiceHelper.GetService<HomePageViewModel>().UpdateEmptyView();
                         await ApplyFilters();
                     });
 
@@ -168,6 +169,7 @@ namespace CrazyPoleMobile.MVVM.ViewModels
                             item.IsFavourite = false;
                         });
                         homePageVm.InitFavourites();
+                        ServiceHelper.GetService<HomePageViewModel>().UpdateEmptyView();
                         await ApplyFilters();
                     });
 

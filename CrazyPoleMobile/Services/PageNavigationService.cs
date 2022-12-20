@@ -53,7 +53,7 @@ namespace CrazyPoleMobile.Services
             _routController = router;
         }
 
-        public async Task LoadPage<View, ViewModel>(bool pushStak = false) where View : Page where ViewModel : ObservableObject
+        public async Task<ViewModel> LoadPage<View, ViewModel>(bool pushStak = false) where View : Page where ViewModel : ObservableObject
         {
             ContentPage page = GetPage<View>() as ContentPage;
 
@@ -72,6 +72,7 @@ namespace CrazyPoleMobile.Services
                 //}, CancellationToken.None, );
                 _routController.GetContentBlock.Children.Add(page.Content);
             }
+            return (ViewModel)content.BindingContext;
         }
 
         public async Task<Page> PopPage() => await Navigation.PopAsync();

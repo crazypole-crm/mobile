@@ -81,7 +81,8 @@ namespace CrazyPoleMobile.MVVM.ViewModels
             DeactivateAllButtons();
             _homeButton.IsSelected = true;
             ShowTabBar();
-            await _router.LoadPage<HomePage, HomePageViewModel>();
+            var vm = await _router.LoadPage<HomePage, HomePageViewModel>();
+            vm.InitFavourites();
         }
 
         [RelayCommand]

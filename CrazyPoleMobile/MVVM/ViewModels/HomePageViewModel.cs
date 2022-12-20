@@ -19,6 +19,9 @@ namespace CrazyPoleMobile.MVVM.ViewModels
         [ObservableProperty] private bool _loadDirectionsProcess = true;
         [ObservableProperty] private bool _loadFavoritesProcess = true;
 
+        [ObservableProperty] private bool _favIsEmpty = true;
+        [ObservableProperty] private bool _dirIsEmpty = true;
+
         public HomePageViewModel(CalendarApi calendarApi,
                                  RoutePageViewModel route,
                                  IFilterService<TrainingData> filterService,
@@ -49,6 +52,7 @@ namespace CrazyPoleMobile.MVVM.ViewModels
                 await AddDirection(direction);
                 if (LoadDirectionsProcess)
                     LoadDirectionsProcess = false;
+                UpdateEmptyView();
             }
             LoadDirectionsProcess = false;
         }
@@ -70,6 +74,7 @@ namespace CrazyPoleMobile.MVVM.ViewModels
                 });
 
                 Favourites.Add(item);
+                UpdateEmptyView();
             }
         }
 
@@ -89,6 +94,12 @@ namespace CrazyPoleMobile.MVVM.ViewModels
                     })
                 });
             });
+        }
+
+        public void UpdateEmptyView()
+        {
+            FavIsEmpty = Favourites.Count == 0;
+            DirIsEmpty = Directions.Count == 0;
         }
 
         [ObservableProperty]

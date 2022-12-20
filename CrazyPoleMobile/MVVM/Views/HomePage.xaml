@@ -33,17 +33,16 @@
                        HeightRequest="30"
                        WidthRequest="30"/>
             </HorizontalStackLayout>
+            <Label Style="{StaticResource BackgroundFontStyle}" 
+                   Text="Избранных пока нет"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"
+                   Grid.Row="1" IsVisible="{Binding FavIsEmpty}"/>
             <CollectionView HeightRequest="70"
                             ItemsSource="{Binding Favourites}"
                             ItemsLayout="HorizontalList"
                             Margin="5, 0"
                             Grid.Row="1">
-                <CollectionView.EmptyView>
-                    <Label Style="{StaticResource BackgroundFontStyle}" 
-                           Text="Избранных пока нет"
-                           VerticalOptions="Center"
-                           HorizontalOptions="Center"/>
-                </CollectionView.EmptyView>
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:FavouriteData">
                         <components:FavouritesFrame DirectionText="{Binding Direction}">
