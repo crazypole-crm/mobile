@@ -36,7 +36,7 @@ public partial class RegistrationForTraining : Popup
     {
         get 
         {
-            return $"Свободно {_trainingData.Hall.Capacity} мест";
+            return $"Свободно {_trainingData.AvailableRegistrationsCount} мест";
         }
     }
     public string Description => (_trainingData.Description == string.Empty) 

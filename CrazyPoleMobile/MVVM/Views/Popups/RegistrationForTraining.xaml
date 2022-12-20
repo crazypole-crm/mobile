@@ -18,7 +18,7 @@
                    VerticalTextAlignment="Center"
                    HorizontalTextAlignment="Center"
                    Grid.Row="0"/>
-            <Line Grid.Column="1" Style="{StaticResource LineSeparator}"  X1="0"  X2="150" />
+            <Line Grid.Column="1" Style="{StaticResource LineSeparator}"  X1="0"  X2="150" Margin="10"/>
             <ImageButton Grid.Row="0"
                          Style="{StaticResource CloseImageButton}"
                          HorizontalOptions="End"
