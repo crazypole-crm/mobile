@@ -5,7 +5,6 @@ using CrazyPoleMobile.Services;
 using System.Collections.ObjectModel;
 using CrazyPoleMobile.Extensions;
 using CrazyPoleMobile.Helpers;
-using CrazyPoleMobile.Data.Favourites;
 
 namespace CrazyPoleMobile.MVVM.ViewModels
 {
@@ -21,12 +20,16 @@ namespace CrazyPoleMobile.MVVM.ViewModels
 
         [ObservableProperty]
         private bool _isPageRefreshing = false;
-        
+
         [ObservableProperty]
         private bool _isPageLoading = false;
+
+        [ObservableProperty]
+        public bool _isTrainingListEmpty = true;
+
         public ObservableCollection<TrainingData> CurrentDayTrainings { get; set; } = new();
         public ObservableCollection<CalendarDay> TrainingDays { get; set; } = new();
-        public uint DaysLoadCount => 10;
+        public uint DaysLoadCount { get; } = 10;
 
         public CalendarPageViewModel(IFilterService<TrainingData> filterService) 
         {
@@ -60,11 +63,13 @@ namespace CrazyPoleMobile.MVVM.ViewModels
         [RelayCommand]
         private async Task Initialize()
         {
+            IsTrainingListEmpty = false;
             IsPageLoading = true;
             var today = DateTime.Now.Date;
             await DatePickerSelectDay(new CalendarDay(today));
             IsPageLoading = false;
             IsPageRefreshing = false;
+            UpdateTrainingListEmpty();
         }
 
         [RelayCommand]
@@ -77,7 +82,12 @@ namespace CrazyPoleMobile.MVVM.ViewModels
 
             TrainingDays.Clear();
 
-            await SetDays(selectedDay.Date, DaysLoadCount, DaysLoadCount);
+            var dayOfWeek = (uint)selectedDay.Date.DayOfWeek;
+
+            var daysBefore = dayOfWeek;
+            var daysAfter = 6 - dayOfWeek;
+
+            await SetDays(selectedDay.Date, daysBefore, daysAfter);
 
             await SelectDay(selectedDay);
         }
@@ -162,8 +172,11 @@ namespace CrazyPoleMobile.MVVM.ViewModels
 
                     CurrentDayTrainings.Add(item);
                 }
+                UpdateTrainingListEmpty();
             });
         }
+
+        private void UpdateTrainingListEmpty() => IsTrainingListEmpty = CurrentDayTrainings.Count == 0;
 
         private void OpenRegistrationPopup(TrainingData trainingData)
         {

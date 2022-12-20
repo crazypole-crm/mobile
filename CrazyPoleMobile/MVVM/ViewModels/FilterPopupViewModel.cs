@@ -21,7 +21,7 @@ namespace CrazyPoleMobile.MVVM.ViewModels
         public List<UserData> Trainers { get; set; }
 
         [ObservableProperty]
-        [NotifyPropertyChangedFor(nameof(IsTrainerSelected))]
+        [NotifyPropertyChangedFor(nameof(IsDirectionSelected))]
         private int _selectedDirectionIndex;
 
         [ObservableProperty]

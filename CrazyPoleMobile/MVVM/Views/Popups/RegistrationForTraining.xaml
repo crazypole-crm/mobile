@@ -18,7 +18,13 @@
                    VerticalTextAlignment="Center"
                    HorizontalTextAlignment="Center"
                    Grid.Row="0"/>
-            <Line Grid.Column="1" Style="{StaticResource LineSeparator}"  X1="0"  X2="150" Margin="10"/>
+            <BoxView Grid.Column="1" 
+                     HeightRequest="2" 
+                     WidthRequest="150" 
+                     CornerRadius="2" 
+                     VerticalOptions="End"
+                     HorizontalOptions="Center"
+                     Color="{AppThemeBinding Light={StaticResource BorderColorLightMode}, Dark={StaticResource BorderColorDarkMode}}"/>
             <ImageButton Grid.Row="0"
                          Style="{StaticResource CloseImageButton}"
                          HorizontalOptions="End"
@@ -27,7 +33,8 @@
                 Light={cc:ImageResource Source=close_icon_black}}"
                          Command="{Binding CancelCommand}"></ImageButton>
             <VerticalStackLayout Grid.Row="1"
-                                 VerticalOptions="Center">
+                                 VerticalOptions="Center"
+                                 BackgroundColor="Transparent">
                 <Label Style="{StaticResource FontBaseStyle}"
                        Text="{Binding TimeInterval, StringFormat='Время: {0}'}" />
                 <Label Style="{StaticResource FontBaseStyle}"
