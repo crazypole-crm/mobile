@@ -156,26 +156,12 @@ namespace CrazyPoleMobile.Services.Api
             List<ApiUserData> TrainersData = new();
             try
             {
-                //response = await HostConfiguration.Client.PostAsync(
-                //    $"{HostConfiguration.HOST_NAME}{HostConfiguration.GET_HALLS_ROUTE}", null);
+                response = await HostConfiguration.Client.PostAsync(
+                    $"{HostConfiguration.HOST_NAME}{HostConfiguration.GET_TRAINERS_ROUTE}", null);
 
-                //var inputJson = await response.Content.ReadAsStreamAsync();
-                //directionData = await JsonSerializer.DeserializeAsync<List<ApiHallData>>(inputJson, _jsonOptions);
-                await Task.Delay(100);
-                var mockTrainer = new ApiUserData() 
-                { 
-                    Id = "asdada",
-                    AvatarUrl = "",
-                    Birthday = "8/12/2000",
-                    Email = "asd@mail.com",
-                    FirstName = "Loh",
-                    LastName = "Ne",
-                    MiddleName = "Lohovich",
-                    LastVisit = "",
-                    Phone = "88005553535",
-                    Role = UserRole.Trainer
-                };
-                TrainersData.Add(mockTrainer);
+                var inputJson = await response.Content.ReadAsStreamAsync();
+                var inputJson1 = await response.Content.ReadAsStringAsync();
+                TrainersData = await JsonSerializer.DeserializeAsync<List<ApiUserData>>(inputJson, _jsonOptions);
             }
             catch
             {

@@ -121,7 +121,7 @@ namespace CrazyPoleMobile.Services
             var halls = await GetHalls();
             var directions = await GetDirections();
             var trainersId = GetTrainersId(apiTrainings);
-            var trainers = await GetTrainersByIds(trainersId);
+            var trainers = await GetTrainers();
 
             foreach (var apiTraining in apiTrainings)
             {
