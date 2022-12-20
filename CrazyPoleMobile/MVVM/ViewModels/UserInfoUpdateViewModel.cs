@@ -14,7 +14,7 @@ namespace CrazyPoleMobile.MVVM.ViewModels
         private readonly IPageNavigationService _router;
         private readonly AuthenticationApi _auth;
         private readonly ISecureStorageService _store;
-        private const string PHONE_NUMBER_REGEX = "^\\+?[1-9][0-9]{7,14}$";
+        private const string PHONE_NUMBER_REGEX = @"^(\+7|8)[0-9]{10}$";
         private const string EMAIL_REGEX = @"^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$";
 
         [ObservableProperty] private string _firstName = string.Empty;
@@ -38,7 +38,7 @@ namespace CrazyPoleMobile.MVVM.ViewModels
         [NotifyCanExecuteChangedFor(nameof(UpdateDataCommand))]
         private bool _notUpdateDataProcess = true;
 
-        private DateTime MinDate { get; } = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc); 
+        private DateTime MinDate { get; } = new DateTime(1970, 1, 1, 12, 0, 0, DateTimeKind.Utc); 
 
         public UserInfoUpdateViewModel(
             IPageNavigationService router,
@@ -121,7 +121,7 @@ namespace CrazyPoleMobile.MVVM.ViewModels
 
             if (BirthDay != DateTime.Today)
             {
-                data.BirthDay = (BirthDay - MinDate).TotalMilliseconds.ToString();
+                data.BirthDay = ((BirthDay.Date - MinDate.Date).TotalMilliseconds - 10000000).ToString();
                 await _store.Save(SKeys.USER_BIRTHDAY, data.BirthDay);
             }    
 

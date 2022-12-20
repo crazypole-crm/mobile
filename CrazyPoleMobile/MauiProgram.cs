@@ -55,8 +55,8 @@ public static class MauiProgram
 		builder.Services.AddSingleton<SignUpPageViewModel>();
 		builder.Services.AddSingleton<LogInPageViewModel>();
 		builder.Services.AddSingleton<RoutePageViewModel>();
-        builder.Services.AddSingleton<ChangePasswordViewModel>();
-		builder.Services.AddSingleton<UserInfoUpdateViewModel>();
+        builder.Services.AddTransient<ChangePasswordViewModel>();
+		builder.Services.AddTransient<UserInfoUpdateViewModel>();
 
         builder.Services.AddSingleton<IPageNavigationService, PageNavigationService>();
 		builder.Services.AddSingleton<IFilterService<TrainingData>, TrainingFilterService>();

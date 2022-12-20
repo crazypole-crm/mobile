@@ -33,7 +33,7 @@ namespace CrazyPoleMobile.MVVM.ViewModels
         private int _selectedTrainerIndex;
         public bool IsTrainerSelected => _selectedTrainerIndex != -1;
         public bool IsHallSelected => _selectedHallIndex != -1;
-        public bool IsDirectionSelected => _selectedTrainerIndex != -1;
+        public bool IsDirectionSelected => _selectedDirectionIndex != -1;
         public DirectionFilter TrainingDirectionFilter { get; set; }
         public HallFilter TrainingHallFilter { get; set; }
         public TrainerFilter TrainingTrainerFilter { get; set; }
