@@ -6,6 +6,7 @@ namespace CrazyPoleMobile.Data.Favourites
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
+        public string Uid { get; set; }
         public string Direction { get; set; }
         public string Hall { get; set; }
         public string Trainer { get; set; }

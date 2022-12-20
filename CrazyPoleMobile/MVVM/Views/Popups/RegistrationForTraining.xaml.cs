@@ -21,14 +21,11 @@ public partial class RegistrationForTraining : Popup
         Close();
     });
 
-
-
     public string Direction => _trainingData.Direction.Name;
     public string TimeInterval
     {
         get 
         {
-            //string dayName = _trainingData.DateStart.ToString("dddd");
             string timeStart = _trainingData.DateStart.ToString("hh:mm");
             string timeEnd = _trainingData.DateEnd.ToString("hh:mm");
             return $"{timeStart} - {timeEnd}";

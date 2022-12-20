@@ -115,9 +115,10 @@ namespace CrazyPoleMobile.MVVM.ViewModels
 
             var favorService = ServiceHelper.GetService<FavouritesService>();
             var homePageVm = ServiceHelper.GetService<HomePageViewModel>();
+            var secureStorage = ServiceHelper.GetService<ISecureStorageService>();
             var favors = await favorService.LoadFavorites();
 
-            await Task.Run(() =>
+            await Task.Run(async () =>
             {
                 foreach (var item in _filterService.Filtrate(_currentDayAllTrainings).Reverse())
                 {
@@ -131,9 +132,10 @@ namespace CrazyPoleMobile.MVVM.ViewModels
                     item.IsFavourite = favorItem != null;
 
                     if (favorItem == null)
-                        favorItem = new FavouriteData() 
+                        favorItem = new FavouriteData()
                         {
-                            Direction = item.Direction.Name
+                            Direction = item.Direction.Name,
+                            Uid = await secureStorage.Get(SecureStorageKeysProviderHelper.USER_ID) ?? ""
                         };
 
                     item.AddFavourireCommand = new Command(async () => 

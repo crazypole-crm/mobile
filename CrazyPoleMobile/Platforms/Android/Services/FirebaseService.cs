@@ -20,7 +20,7 @@ namespace CrazyPoleMobile.Platforms.Android.Services
 
         public FirebaseService() 
         {
-            var notificationService = ServiceHelper.GetService<NotificationService>();
+             var notificationService = ServiceHelper.GetService<NotificationService>();
             _onMessageReceived = notificationService.OnMessageReceived;
             _onNewToken = notificationService.OnNewToken;
         }

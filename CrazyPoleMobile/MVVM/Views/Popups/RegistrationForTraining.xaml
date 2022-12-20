@@ -13,19 +13,12 @@
             Padding="20">
         
         <Grid RowDefinitions="25, *, 50">
-            <Label Style="{StaticResource FontBaseStyle}" 
+            <Label Style="{StaticResource TitleFieldText}" 
                    Text="{Binding Direction}" 
                    VerticalTextAlignment="Center"
                    HorizontalTextAlignment="Center"
                    Grid.Row="0"/>
-            <BoxView WidthRequest="100"
-                     HeightRequest="5"
-                     CornerRadius="5"
-                     VerticalOptions="End"
-                     HorizontalOptions="Center"
-                     Color="{StaticResource Gray600}"
-                     Margin="0,5,0,0"
-                     Grid.Row="0"/>
+            <Line Grid.Column="1" Style="{StaticResource LineSeparator}"  X1="0"  X2="150" />
             <ImageButton Grid.Row="0"
                          Style="{StaticResource CloseImageButton}"
                          HorizontalOptions="End"
@@ -52,7 +45,7 @@
             </VerticalStackLayout>
             <cc:GradientButton Text="Записаться на занятие" 
                                OnClickCommand="{Binding OkCommand}"
-                               CornerRadius="100"
+                               CornerRadius="15"
                                Grid.Row="2"/>
         </Grid>
     </Border>

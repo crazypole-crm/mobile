@@ -56,7 +56,7 @@ namespace CrazyPoleMobile.MVVM.ViewModels
         public async void InitFavourites()
         {
             LoadFavoritesProcess = true;
-            _favourites.Clear();
+            Favourites.Clear();
             var favorites = await _favouritesService.LoadFavorites();
 
             foreach (var item in favorites)
@@ -69,7 +69,7 @@ namespace CrazyPoleMobile.MVVM.ViewModels
                     ServiceHelper.GetService<CalendarPageViewModel>().RefreshCommand.Execute(null);
                 });
 
-                _favourites.Add(item);
+                Favourites.Add(item);
             }
         }
 
@@ -77,7 +77,7 @@ namespace CrazyPoleMobile.MVVM.ViewModels
         {
             await Task.Run(() => 
             {
-                _directions.Add(new() 
+                Directions.Add(new() 
                 { 
                     Direction = direction.Name,
                     GoToCalendar = new Command(async () => 
@@ -90,7 +90,6 @@ namespace CrazyPoleMobile.MVVM.ViewModels
                 });
             });
         }
-
 
         [ObservableProperty]
         private ObservableCollection<FavouriteData> _favourites = new();

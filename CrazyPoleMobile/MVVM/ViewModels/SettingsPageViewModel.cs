@@ -1,7 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CrazyPoleMobile.Helpers;
 using CrazyPoleMobile.Services.Api;
 using PK = CrazyPoleMobile.Helpers.PreferencesKeysHelper;
+using CrazyPoleMobile.Services;
 
 namespace CrazyPoleMobile.MVVM.ViewModels
 {
@@ -9,6 +11,7 @@ namespace CrazyPoleMobile.MVVM.ViewModels
     {
         private readonly AuthenticationApi _auth;
         private readonly RoutePageViewModel _route;
+
 
         private bool _notificationEnabled = true;
 
@@ -37,6 +40,8 @@ namespace CrazyPoleMobile.MVVM.ViewModels
         [RelayCommand]
         private async void LogOut()
         {
+            var storage = ServiceHelper.GetService<ISecureStorageService>();
+            storage.RemoveData();
             await _route.LoadLogInPage();
             await _auth.LogOut();
         }

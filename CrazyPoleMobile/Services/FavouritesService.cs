@@ -1,6 +1,7 @@
 ﻿using CrazyPoleMobile.Data.Favourites;
 using CrazyPoleMobile.Helpers;
 using CrazyPoleMobile.MVVM.Models;
+using System.Linq;
 
 namespace CrazyPoleMobile.Services
 {
@@ -18,7 +19,8 @@ namespace CrazyPoleMobile.Services
             {
                 Direction = data.Direction,
                 Hall = data.Hall,
-                Trainer = data.Trainer
+                Trainer = data.Trainer,
+                Uid = data.Uid
             };
 
             item.Id = await _dataBase.SaveItemAsync(item);
@@ -36,7 +38,9 @@ namespace CrazyPoleMobile.Services
 
         public async Task<List<FavouriteData>> LoadFavorites()
         {
-            var items = await _dataBase.GetItemsAsync();
+            var storage = ServiceHelper.GetService<ISecureStorageService>();
+            string uid = (await storage.Get(SecureStorageKeysProviderHelper.USER_ID)) ?? "";
+            var items = (await _dataBase.GetItemsAsync()).Where(x => x.Uid == uid).ToList();
             var result = new List<FavouriteData>();
             await Task.Run(() =>
             {
