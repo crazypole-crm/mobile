@@ -36,6 +36,17 @@ namespace CrazyPoleMobile.MVVM.ViewModels
             _store = store;
         }
 
+        public async void ClearFields()
+        {
+            OldPassword = string.Empty;
+            NewPassword = string.Empty;
+            RepeatPassword = string.Empty;
+
+            OldPasswordAttention = false;
+            NewPasswordAttention = false;
+            RepeatPassAttention = false;
+        }
+
         [RelayCommand]
         public async void Back()
         {

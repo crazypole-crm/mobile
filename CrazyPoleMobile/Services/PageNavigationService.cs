@@ -66,10 +66,10 @@ namespace CrazyPoleMobile.Services
                 await PushPage(page);
             else
             {
-                //await .(() => 
-                //{
+                await Task.Factory.StartNew(() => 
+                {
                     _routController.GetContentBlock.Children.Clear();
-                //}, CancellationToken.None, );
+                }, CancellationToken.None, TaskCreationOptions.None, TaskScheduler.FromCurrentSynchronizationContext());
                 _routController.GetContentBlock.Children.Add(page.Content);
             }
             return (ViewModel)content.BindingContext;

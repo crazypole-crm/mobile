@@ -48,10 +48,10 @@ namespace CrazyPoleMobile.MVVM.ViewModels
             _router = router;
             _auth = auth;
             _store = store;
-            InitAsync();
+            //InitAsync();
         }
 
-        private async void InitAsync()
+        public async void InitAsync()
         {
             var data = await _auth.CurrentUser();
 

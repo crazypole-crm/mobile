@@ -128,12 +128,14 @@ namespace CrazyPoleMobile.MVVM.ViewModels
 
         public async Task LoadChangePassword()
         {
-            await _router.LoadPage<ChangePasswordPage, ChangePasswordViewModel>(true);
+            var vm = await _router.LoadPage<ChangePasswordPage, ChangePasswordViewModel>(true);
+            vm.ClearFields();
         }
 
         public async Task LoadUpdateInfo()
         {
-            await _router.LoadPage<UserInfoUpdatePage, UserInfoUpdateViewModel>(true);
+            var vm = await _router.LoadPage<UserInfoUpdatePage, UserInfoUpdateViewModel>(true);
+            vm.InitAsync();
         }
 
         [RelayCommand]
