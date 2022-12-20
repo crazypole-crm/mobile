@@ -137,9 +137,9 @@
                                                                  IsFavourite="{Binding IsFavourite}"
                                                                  AddFavourite="{Binding AddFavourireCommand}"
                                                                  RemoveFavourite="{Binding RemoveFavouriteCommand}">
-                                <!--<components:TrainingInformationFrame.GestureRecognizers>
+                                <components:TrainingInformationFrame.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding OpenRegistrationPopup}" />
-                                </components:TrainingInformationFrame.GestureRecognizers>-->
+                                </components:TrainingInformationFrame.GestureRecognizers>
                             </components:TrainingInformationFrame>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
