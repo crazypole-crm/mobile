@@ -99,6 +99,7 @@ namespace CrazyPoleMobile.Services.Api
                     });
 
                 var inputJson = await response.Content.ReadAsStreamAsync();
+                var inputJson1 = await response.Content.ReadAsStringAsync();
                 trainingData = await JsonSerializer.DeserializeAsync<List<ApiTrainingData>>(inputJson, _jsonOptions);
         }
             catch

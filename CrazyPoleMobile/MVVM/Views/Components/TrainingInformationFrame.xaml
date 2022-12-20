@@ -26,6 +26,10 @@
                         <Label Style="{StaticResource SideFrameText}" Text="{TemplateBinding AvailableRegistrationsCount, StringFormat='Свободно мест: {0} '} " />
                         <Label Style="{StaticResource SideFrameText}" >
                             <Label.Triggers>
+                                <DataTrigger TargetType="Label" Binding="{TemplateBinding Canceled}" Value="true">
+                                    <Setter Property="Text" Value="Занятие отменено" />
+                                    <Setter Property="TextColor" Value="{StaticResource AttentionFontColor}" />
+                                </DataTrigger>
                                 <DataTrigger TargetType="Label" Binding="{TemplateBinding TrainerChanged}" Value="False">
                                     <Setter Property="Text" Value="{TemplateBinding TrainerName}" />
                                 </DataTrigger>

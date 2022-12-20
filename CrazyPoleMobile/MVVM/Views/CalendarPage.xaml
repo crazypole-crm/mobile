@@ -142,7 +142,8 @@
                                                                  AvailableRegistrationsCount="{Binding AvailableRegistrationsCount}"
                                                                  IsFavourite="{Binding IsFavourite}"
                                                                  AddFavourite="{Binding AddFavourireCommand}"
-                                                                 RemoveFavourite="{Binding RemoveFavouriteCommand}">
+                                                                 RemoveFavourite="{Binding RemoveFavouriteCommand}"
+                                                                 Canceled="{Binding IsCanceled}">
                                 <components:TrainingInformationFrame.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding OpenRegistrationPopup}" />
                                 </components:TrainingInformationFrame.GestureRecognizers>
