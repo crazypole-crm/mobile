@@ -85,8 +85,11 @@ namespace CrazyPoleMobile.MVVM.ViewModels
 
             var dayOfWeek = (uint)selectedDay.Date.DayOfWeek;
 
-            var daysBefore = dayOfWeek;
-            var daysAfter = 6 - dayOfWeek;
+            if (dayOfWeek == 0)
+                dayOfWeek = 7;
+
+            var daysBefore = dayOfWeek - 1;
+            var daysAfter = 7 - dayOfWeek;
 
             await SetDays(selectedDay.Date, daysBefore, daysAfter);
 
