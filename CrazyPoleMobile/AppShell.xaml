@@ -10,7 +10,7 @@
 
     <ShellContent ContentTemplate="{DataTemplate local:MVVM.Views.RoutePage}"
                   Route="RoutPage" />
-    <ShellContent ContentTemplate="{DataTemplate local:MVVM.Views.LogInPage}"
+    <!--<ShellContent ContentTemplate="{DataTemplate local:MVVM.Views.LogInPage}"
                   Route="LogInPage" />
     <ShellContent ContentTemplate="{DataTemplate local:MVVM.Views.SignUpPage}"
                   Route="SignUpPage"    />
@@ -21,5 +21,5 @@
     <ShellContent ContentTemplate="{DataTemplate local:MVVM.Views.CalendarPage}"
                   Route="Caledar"       />
     <ShellContent ContentTemplate="{DataTemplate local:MVVM.Views.SettingsPage}"
-                  Route="Settings"      />
+                  Route="Settings"      />-->
 </Shell>

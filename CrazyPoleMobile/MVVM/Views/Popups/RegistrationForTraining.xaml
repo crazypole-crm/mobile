@@ -9,15 +9,17 @@
           x:Class="CrazyPoleMobile.MVVM.Views.Popups.RegistrationForTraining">
     <Border BindingContext="{x:Reference this}" 
             Style="{StaticResource BorderedFrame}"
+            MaximumWidthRequest="300"
             HeightRequest="300"
             Padding="20">
-        
-        <Grid RowDefinitions="25, *, 50">
+
+        <Grid RowDefinitions="auto, *, 50">
             <Label Style="{StaticResource TitleFieldText}" 
-                   Text="{Binding Direction}" 
+                   Text="{Binding Direction}"
                    VerticalTextAlignment="Center"
                    HorizontalTextAlignment="Center"
-                   Grid.Row="0"/>
+                       WidthRequest="200"
+                   Grid.Row="0" />
             <BoxView Grid.Column="1" 
                      HeightRequest="2" 
                      WidthRequest="150" 
@@ -32,24 +34,25 @@
                 Dark={cc:ImageResource Source=close_icon_white}, 
                 Light={cc:ImageResource Source=close_icon_black}}"
                          Command="{Binding CancelCommand}"></ImageButton>
-            <VerticalStackLayout Grid.Row="1"
-                                 VerticalOptions="Center"
-                                 BackgroundColor="Transparent">
-                <Label Style="{StaticResource FontBaseStyle}"
-                       Text="{Binding TimeInterval, StringFormat='Время: {0}'}" />
-                <Label Style="{StaticResource FontBaseStyle}"
-                       Text="{Binding Hall, StringFormat='Зал: {0}'}" />
-                <Label Style="{StaticResource FontBaseStyle}"
-                       Text="{Binding AvailableSeats, StringFormat='Места: {0}'}" />
-                <Label Style="{StaticResource FontBaseStyle}"
-                       Text="{Binding Trainer, StringFormat='Тренер: {0}'}" />
-                <Frame Padding="0, 5" MaximumWidthRequest="300"
-                       BackgroundColor="Transparent"
-                       BorderColor="Transparent">
+            <Frame Padding="0, 5" MaximumWidthRequest="300"
+                   BackgroundColor="Transparent"
+                   BorderColor="Transparent"
+                   Grid.Row="1">
+                <VerticalStackLayout Grid.Row="1"
+                                     VerticalOptions="Center"
+                                     BackgroundColor="Transparent">
                     <Label Style="{StaticResource FontBaseStyle}"
-                           Text="{Binding Description, StringFormat='Описание: {0}'}" />
-                </Frame>
-            </VerticalStackLayout>
+                           Text="{Binding TimeInterval, StringFormat='Время: {0}'}" />
+                    <Label Style="{StaticResource FontBaseStyle}"
+                           Text="{Binding Hall, StringFormat='Зал: {0}'}" />
+                    <Label Style="{StaticResource FontBaseStyle}"
+                           Text="{Binding AvailableSeats, StringFormat='Места: {0}'}" />
+                    <Label Style="{StaticResource FontBaseStyle}"
+                           Text="{Binding Trainer, StringFormat='Тренер: {0}'}" />
+                        <Label Style="{StaticResource FontBaseStyle}"
+                               Text="{Binding Description, StringFormat='Описание: {0}'}" />
+                </VerticalStackLayout>
+            </Frame>
             <cc:GradientButton Text="Записаться на занятие" 
                                OnClickCommand="{Binding OkCommand}"
                                CornerRadius="15"

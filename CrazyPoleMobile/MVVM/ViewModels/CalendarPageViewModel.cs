@@ -174,8 +174,8 @@ namespace CrazyPoleMobile.MVVM.ViewModels
                     });
 
                     CurrentDayTrainings.Add(item);
-                    UpdateTrainingListEmpty();
                 }
+                UpdateTrainingListEmpty();
             });
         }
 
