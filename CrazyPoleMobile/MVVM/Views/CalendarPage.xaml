@@ -58,7 +58,7 @@
                             Padding="-4">
                         <Grid ColumnDefinitions="*, 20" RowDefinitions="*" Margin="15, 4">
 
-                            <DatePicker Grid.Column="0" TextColor="Transparent" Date="{Binding SelectedDay.Date}">
+                            <DatePicker Grid.ColumnSpan="2" TextColor="Transparent" Date="{Binding SelectedDay.Date}">
                                 <DatePicker.Behaviors>
                                     <behavior:DatePickerSelectedDateBehaviour
                                 Command="{Binding DatePickerSelectDayCommand}" 
