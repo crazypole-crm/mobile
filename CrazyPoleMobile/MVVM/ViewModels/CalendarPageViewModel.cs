@@ -10,6 +10,11 @@ namespace CrazyPoleMobile.MVVM.ViewModels
 {
     public partial class CalendarPageViewModel : ObservableObject
     {
+        private enum SwipeDirection
+        {
+            Left = 1,
+            Right = -1
+        }
 
         private ICalendarService _calendarService = new CalendarService();
         private TrainingFilterService _filterService = new();
@@ -74,6 +79,28 @@ namespace CrazyPoleMobile.MVVM.ViewModels
         }
 
         [RelayCommand]
+        private async Task SwipeLeftDay()
+        {
+            await SwipeDay(SwipeDirection.Left);
+        }
+
+        [RelayCommand]
+        private async Task SwipeRightDay()
+        {
+            await SwipeDay(SwipeDirection.Right);
+        }
+
+        private async Task SwipeDay(SwipeDirection direction)
+        {
+            var day = SelectedDay.Date;
+            var newDay = new CalendarDay(day + TimeSpan.FromDays(1) * (int)direction);
+            if (TrainingDays.Contains(newDay))
+                await SelectDay(newDay);
+            else
+                await DatePickerSelectDay(newDay);
+        }
+
+        [RelayCommand]
         private async Task DatePickerSelectDay(object sender)
         {
             var selectedDay = sender as CalendarDay;
@@ -116,7 +143,7 @@ namespace CrazyPoleMobile.MVVM.ViewModels
                 return;
             
             SelectedDay = selectedDay;
-
+            await Task.Delay(150);
             _currentDayAllTrainings = await _calendarService.GetTrainingForDay(selectedDay.Date);
             await ApplyFilters();
 
