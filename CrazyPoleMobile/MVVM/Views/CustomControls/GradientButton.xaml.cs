@@ -68,4 +68,13 @@ public partial class GradientButton : ContentView
         get => (bool)GetValue(PlayLoadAnimationProperty);
         set => SetValue(PlayLoadAnimationProperty, value);
     }
+
+    public static readonly BindableProperty FontSizeProperty =
+        BindableProperty.Create(nameof(FontSize), typeof(float), typeof(GradientButton), 12.0f);
+
+    public float FontSize
+    {
+        get => (float)GetValue(FontSizeProperty);
+        set => SetValue(FontSizeProperty, value);
+    }
 }

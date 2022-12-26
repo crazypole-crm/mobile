@@ -36,7 +36,7 @@ namespace CrazyPoleMobile.MVVM.ViewModels
             _store = store;
         }
 
-        public async void ClearFields()
+        public void ClearFields()
         {
             OldPassword = string.Empty;
             NewPassword = string.Empty;

@@ -18,9 +18,11 @@ namespace CrazyPoleMobile.MVVM.ViewModels
 
         [ObservableProperty] private bool _loadDirectionsProcess = true;
         [ObservableProperty] private bool _loadFavoritesProcess = true;
+        [ObservableProperty] private bool _loadSignRegistrationsProcess = true;
 
         [ObservableProperty] private bool _favIsEmpty = true;
         [ObservableProperty] private bool _dirIsEmpty = true;
+        [ObservableProperty] private bool _SignTrainingsIsEmpty = true;
 
         public HomePageViewModel(CalendarApi calendarApi,
                                  RoutePageViewModel route,
@@ -40,7 +42,32 @@ namespace CrazyPoleMobile.MVVM.ViewModels
             {
                 InitDirections();
                 InitFavourites();
+                InitSignedTrainings();
             });
+        }
+
+        private void InitSignedTrainings()
+        {
+            LoadSignRegistrationsProcess = true;
+            // TODO - Добавить загрузку с бэка
+            var sign = new List<TrainingData>() 
+            {
+                new () {}
+            };
+
+            foreach (var training in sign)
+            {
+                training.UnregistrationCommand = new Command(() => 
+                {
+                    //TODO - Добавить отписку от занятия
+                    SignedTrainings.Remove(training);
+                    UpdateEmptyView();
+                });
+                SignedTrainings.Add(training);
+                UpdateEmptyView();
+            }
+
+            LoadSignRegistrationsProcess = false;
         }
 
         private async void InitDirections()
@@ -100,6 +127,7 @@ namespace CrazyPoleMobile.MVVM.ViewModels
         {
             FavIsEmpty = Favourites.Count == 0;
             DirIsEmpty = Directions.Count == 0;
+            SignTrainingsIsEmpty = SignedTrainings.Count == 0;
         }
 
         [ObservableProperty]
@@ -107,5 +135,8 @@ namespace CrazyPoleMobile.MVVM.ViewModels
 
         [ObservableProperty]
         private ObservableCollection<HomeDirectionData> _directions = new();
+
+        [ObservableProperty]
+        private ObservableCollection<TrainingData> _signedTrainings = new();
     }
 }

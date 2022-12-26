@@ -17,16 +17,10 @@
 
     <Grid ColumnDefinitions="*"
           ColumnSpacing="5"
-          RowDefinitions="50, *"
+          RowDefinitions="60, *"
           RowSpacing="0"
           Padding="19, 0" IsClippedToBounds="False">
         
-        <Label Grid.Column="1" 
-               Grid.Row="0" 
-               HorizontalOptions="Center"
-               Style="{StaticResource HeaderText}"
-               Text="Расписание"/>
-
         <RefreshView Grid.Row="1"
                      Grid.Column="0"
                      IsRefreshing="{Binding IsPageRefreshing}"
@@ -161,5 +155,13 @@
                                    Grid.RowSpan="3"/>
             </Grid>
         </RefreshView>
+
+        <Label Grid.Column="1" 
+               Grid.Row="0" 
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+               Style="{StaticResource HeaderText}"
+               Text="Расписание"/>
+
     </Grid>
 </ContentPage>

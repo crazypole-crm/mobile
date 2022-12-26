@@ -7,40 +7,38 @@
              x:Name="this"
              x:Class="CrazyPoleMobile.MVVM.Views.Components.DirectionFrame">
     <Border Style="{StaticResource BorderedFrame}"
-            StrokeThickness="4"
             BindingContext="{x:Reference this}">
-        <Frame Padding="20">
-            <tools:Expander>
-                <tools:Expander.Header>
-                    <Grid ColumnDefinitions="2*,*"
-                          RowDefinitions="*">
-                        <Frame Grid.Column="0"
+        <tools:Expander>
+            <tools:Expander.Header>
+                <Grid ColumnDefinitions="2*,*"
+                          RowDefinitions="*"
+                          Padding="20">
+                    <Frame Grid.Column="0"
                                Padding="0,0,10,0">
-                            <Label Style="{StaticResource MainFrameText}" 
+                        <Label Style="{StaticResource MainFrameText}" 
                                    Text="{Binding HeaderText}"
                                    FontSize="16"
                                    VerticalOptions="Center"
                                    HorizontalOptions="Start"
                                    VerticalTextAlignment="Center"/>
-                        </Frame>
-                        <cc:GradientButton Text="Записаться"
+                    </Frame>
+                    <cc:GradientButton Text="Записаться"
                                            Grid.Column="1"
                                            HeightRequest="40"
-                                           WidthRequest="120"
+                                           WidthRequest="130"
                                            VerticalOptions="Center"
                                            HorizontalOptions="End"
                                            CornerRadius="30"
                                            OnClickCommand="{Binding OpenCommand}"/>
-                    </Grid>
-                </tools:Expander.Header>
-            
-                <tools:Expander.Content>
-                    <Frame Padding="0, 15">
-                        <Label Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." />
-                    </Frame>
-                </tools:Expander.Content>
-            </tools:Expander>
-        </Frame>
-        
+                </Grid>
+            </tools:Expander.Header>
+
+            <tools:Expander.Content>
+                <Frame Padding="20"
+                       BackgroundColor="Transparent">
+                    <Label Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." />
+                </Frame>
+            </tools:Expander.Content>
+        </tools:Expander>
     </Border>
 </ContentView>

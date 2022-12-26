@@ -123,6 +123,9 @@
 	  <MauiXaml Update="MVVM\Views\Components\FavouritesFrame.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="MVVM\Views\Components\RecordFrame.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="MVVM\Views\CustomControls\GradientButton.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

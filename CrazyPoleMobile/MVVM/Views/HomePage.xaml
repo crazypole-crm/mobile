@@ -14,62 +14,94 @@
     
     
     <Grid ColumnDefinitions="*"
-          ColumnSpacing="5"
-          RowDefinitions="60,*"
-          RowSpacing="30">
+          RowDefinitions="60,*">
 
-        <Grid Grid.Row="1"
-              RowDefinitions="50,70,50,*"
-              Padding="10">
-            <HorizontalStackLayout Spacing="10"
+        <ScrollView Grid.Row="1"
+                    Padding="10, 0, 10, 75">
+            <VerticalStackLayout Padding="0"
+                                 Spacing="20">
+                <HorizontalStackLayout Spacing="10"
                                    Margin="10, 0"
                                    Grid.Row="0">
-                <Label Text="Избранное"
+                    <Label Text="Избранное"
                        Style="{StaticResource FontBaseStyle}"
                        FontSize="28"
                        VerticalTextAlignment="Center"
                        Margin="0, 0"/>
-                <Image Source="star.png" 
+                    <Image Source="star.png" 
                        HeightRequest="30"
                        WidthRequest="30"/>
-            </HorizontalStackLayout>
-            <Label Style="{StaticResource BackgroundFontStyle}" 
-                   Text="Избранных пока нет"
-                   VerticalOptions="Center"
-                   HorizontalOptions="Center"
-                   Grid.Row="1" IsVisible="{Binding FavIsEmpty}"/>
-            <CollectionView HeightRequest="70"
-                            ItemsSource="{Binding Favourites}"
-                            ItemsLayout="HorizontalList"
-                            Margin="5, 0"
-                            Grid.Row="1">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="model:FavouriteData">
-                        <components:FavouritesFrame DirectionText="{Binding Direction}">
-                            <components:FavouritesFrame.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding ApplyFilterCommand}"/>
-                            </components:FavouritesFrame.GestureRecognizers>
-                        </components:FavouritesFrame>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-            <Label Text="Направления"
+                </HorizontalStackLayout>
+
+                <Grid>
+                    <Label Style="{StaticResource BackgroundFontStyle}" 
+                       Text="Избранных пока нет"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center"
+                       Grid.Row="1" IsVisible="{Binding FavIsEmpty}"/>
+                    <CollectionView HeightRequest="70"
+                                ItemsSource="{Binding Favourites}"
+                                ItemsLayout="HorizontalList"
+                                Margin="5, 0"
+                                Grid.Row="1">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="model:FavouriteData">
+                                <components:FavouritesFrame DirectionText="{Binding Direction}">
+                                    <components:FavouritesFrame.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding ApplyFilterCommand}"/>
+                                    </components:FavouritesFrame.GestureRecognizers>
+                                </components:FavouritesFrame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                </Grid>
+                
+                <Label Text="Ближайшие записи"
                    Style="{StaticResource FontBaseStyle}"
                    FontSize="28"
                    VerticalTextAlignment="Center"
                    Margin="10, 0"
                    Grid.Row="2"/>
 
-            <ScrollView VerticalScrollBarVisibility="Never"
-                        Grid.Row="3"
-                        Padding="0, 0, 0, 75">
-                <Grid>
-                    <ActivityIndicator IsRunning="{Binding LoadDirectionsProcess}"
-                                       HeightRequest="75"
+                <Grid Grid.Row="3">
+                    <ActivityIndicator IsRunning="{Binding LoadSignRegistrationsProcess}"
+                                       HeightRequest="75" 
                                        Color="{StaticResource Secondary}"
-                                       WidthRequest="75"></ActivityIndicator>
+                                       WidthRequest="75" />
+                    <Label Style="{StaticResource BackgroundFontStyle}" 
+                       Text="Записей пока нет"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center"
+                       Grid.Row="1" IsVisible="{Binding SignTrainingsIsEmpty}"/>
+                    <CollectionView ItemsSource="{Binding SignedTrainings}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="model:TrainingData">
+                                <components:RecordFrame DirectionText="{Binding Direction.Name}"
+                                                        HallText="{Binding Hall.Name}"
+                                                        TrainerText="{Binding Trainer.FullName}"
+                                                        StartDate="{Binding DateStart}"
+                                                        ButtonCommand="{Binding UnregistrationCommand}"/>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </Grid>
+                
+                <Label Text="Направления"
+                           Style="{StaticResource FontBaseStyle}"
+                           FontSize="28"
+                           VerticalTextAlignment="Center"
+                           Margin="10, 0"
+                           Grid.Row="2"/>
+
+                <Grid Padding="0"
+                      Margin="0">
+                    <ActivityIndicator IsRunning="{Binding LoadDirectionsProcess}"
+                                   HeightRequest="75"
+                                   Color="{StaticResource Secondary}"
+                                   WidthRequest="75"></ActivityIndicator>
                     <CollectionView ItemsSource="{Binding Directions}"
-                                    Margin="5, 0">
+                                    Margin="0">
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="model:HomeDirectionData">
                                 <components:DirectionFrame HeaderText="{Binding Direction}"
@@ -79,19 +111,16 @@
 
                     </CollectionView>
                 </Grid>
-            </ScrollView>
 
-        </Grid>
+            </VerticalStackLayout>
+
+        </ScrollView>
 
         <Label HorizontalOptions="Center" 
                VerticalOptions="Center"
                Style="{StaticResource HeaderText}" 
                Text="Направления" />
-        <Grid RowDefinitions="*,40"
-              Grid.Row="1"
-              Padding="0, 0, 0, 75">
-            
-        </Grid>
+        
     </Grid>
 
 
