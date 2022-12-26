@@ -49,7 +49,16 @@
                                     AbsoluteLayout.LayoutBounds="0, 0.5, 0.9, 50"
                                     AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional"
                                     VerticalOptions="Center"
-                                    Title="Выберите направление"/>
+                                    Title="Выберите направление">
+                                <Picker.Triggers>
+                                    <DataTrigger TargetType="Picker" Binding="{Binding IsDirectionSelected}" Value="true">
+                                        <Setter Property="AbsoluteLayout.LayoutBounds" Value="0, 0.5, 0.9, 50" />
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Picker" Binding="{Binding IsDirectionSelected}" Value="false">
+                                        <Setter Property="AbsoluteLayout.LayoutBounds" Value="0, 0.5, 1, 50" />
+                                    </DataTrigger>
+                                </Picker.Triggers>
+                            </Picker>
                             <ImageButton Style="{StaticResource CloseImageButton}"
                                          AbsoluteLayout.LayoutBounds="1, 0.5"
                                          AbsoluteLayout.LayoutFlags="PositionProportional" 
@@ -80,7 +89,16 @@
                                     AbsoluteLayout.LayoutBounds="0, 0.5, 0.9, 50"
                                     AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional"
                                     VerticalOptions="Center"
-                                    Title="Выберите зал"/>
+                                    Title="Выберите зал">
+                                <Picker.Triggers>
+                                    <DataTrigger TargetType="Picker" Binding="{Binding IsHallSelected}" Value="true">
+                                        <Setter Property="AbsoluteLayout.LayoutBounds" Value="0, 0.5, 0.9, 50" />
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Picker" Binding="{Binding IsHallSelected}" Value="false">
+                                        <Setter Property="AbsoluteLayout.LayoutBounds" Value="0, 0.5, 1, 50" />
+                                    </DataTrigger>
+                                </Picker.Triggers>
+                            </Picker>
                             <ImageButton Style="{StaticResource CloseImageButton}"
                                          AbsoluteLayout.LayoutBounds="1, 0.5"
                                          AbsoluteLayout.LayoutFlags="PositionProportional" 
@@ -111,7 +129,16 @@
                                     AbsoluteLayout.LayoutBounds="0, 0.5, 0.9, 50"
                                     AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional"
                                     VerticalOptions="Center"
-                                    Title="Выберите преподователя"/>
+                                    Title="Выберите преподователя">
+                                <Picker.Triggers>
+                                    <DataTrigger TargetType="Picker" Binding="{Binding IsTrainerSelected}" Value="true">
+                                        <Setter Property="AbsoluteLayout.LayoutBounds" Value="0, 0.5, 0.9, 50" />
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Picker" Binding="{Binding IsTrainerSelected}" Value="false">
+                                        <Setter Property="AbsoluteLayout.LayoutBounds" Value="0, 0.5, 1, 50" />
+                                    </DataTrigger>
+                                </Picker.Triggers>
+                            </Picker>
                             <ImageButton Style="{StaticResource CloseImageButton}"
                                          AbsoluteLayout.LayoutBounds="1, 0.5"
                                          AbsoluteLayout.LayoutFlags="PositionProportional" 

@@ -132,6 +132,10 @@
                             </StackLayout>
                         </ContentView>
                     </CollectionView.EmptyView>-->
+                    <CollectionView.GestureRecognizers>
+                        <SwipeGestureRecognizer Direction="Left" Command="{Binding SwipeLeftDayCommand}" />
+                        <SwipeGestureRecognizer Direction="Right" Command="{Binding SwipeRightDayCommand}" />
+                    </CollectionView.GestureRecognizers>
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:TrainingData">
                             <components:TrainingInformationFrame TimeStart="{Binding DateStart}"
