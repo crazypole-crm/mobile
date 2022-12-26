@@ -4,6 +4,7 @@ using CrazyPoleMobile.Extensions;
 using CrazyPoleMobile.MVVM.Models;
 using CrazyPoleMobile.Services;
 using CrazyPoleMobile.Services.Api;
+using System.Net.Mail;
 using System.Text.RegularExpressions;
 using SKeys = CrazyPoleMobile.Helpers.SecureStorageKeysProviderHelper;
 
@@ -15,7 +16,7 @@ namespace CrazyPoleMobile.MVVM.ViewModels
         private readonly AuthenticationApi _auth;
         private readonly ISecureStorageService _store;
         private const string PHONE_NUMBER_REGEX = @"^(\+7|8)[0-9]{10}$";
-        private const string EMAIL_REGEX = @"^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$";
+        private const string EMAIL_REGEX = @"^([A-Za-z0-9][\w\.]+)([A-Za-z0-9])@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$";
 
         [ObservableProperty] private string _firstName = string.Empty;
         [ObservableProperty] private string _middleName = string.Empty;
@@ -48,7 +49,6 @@ namespace CrazyPoleMobile.MVVM.ViewModels
             _router = router;
             _auth = auth;
             _store = store;
-            //InitAsync();
         }
 
         public async void InitAsync()

@@ -12,7 +12,7 @@
             Padding="20, 0"
             BindingContext="{x:Reference FavorFrameComponent}">
         <Label Style="{StaticResource MainFrameText}"
-               FontSize="24"
+               FontSize="16"
                Text="{Binding DirectionText}"
                VerticalOptions="Center"
                HorizontalOptions="Center"/>

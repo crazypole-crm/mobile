@@ -10,7 +10,7 @@
     <Grid RowDefinitions="60,*">
 
         <ScrollView Grid.Row="1" Grid.RowSpan="2">
-            <VerticalStackLayout Spacing="10" Margin="19,15">
+            <VerticalStackLayout Spacing="2" Margin="19,15">
                 <Border HeightRequest="60" Style="{StaticResource BorderedFrame}" >
                     <Grid Padding="0" 
                       ColumnDefinitions="30, *, 40"  

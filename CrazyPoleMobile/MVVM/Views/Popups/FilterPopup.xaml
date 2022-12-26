@@ -8,8 +8,7 @@
           x:Name="this"
           CanBeDismissedByTappingOutsideOfPopup="False"
           Color="Transparent"
-          x:Class="CrazyPoleMobile.MVVM.Views.Popups.FilterPopup"
-          >
+          x:Class="CrazyPoleMobile.MVVM.Views.Popups.FilterPopup">
 
     <Border Style="{StaticResource BorderedFrame}"
             HeightRequest="400"
