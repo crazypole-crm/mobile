@@ -83,6 +83,8 @@ namespace CrazyPoleMobile.MVVM.ViewModels
             ShowTabBar();
             var vm = await _router.LoadPage<HomePage, HomePageViewModel>();
             vm.InitFavourites();
+            vm.InitSignedTrainings();
+           
         }
 
         [RelayCommand]

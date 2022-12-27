@@ -18,6 +18,7 @@ namespace CrazyPoleMobile.Services.Api
         public const string GET_TRAININGS_ROUTE = "/list/trainings";
         public const string GET_USER_DATA_ROUTE = "/get/users_data";
         public const string GET_TRAINERS_ROUTE = "/user/trainers";
+        public const string GET_CURR_REGISTRATIONS = "/training/registration/cur-user";
 
 
         private static readonly CookieDataBase _db = ServiceHelper.GetService<CookieDataBase>();

@@ -9,9 +9,9 @@
                           Padding="20">
             <VerticalStackLayout Grid.Column="0"
                                  Margin="0,0,10,0">
-                <Label Style="{StaticResource MainFrameText}" Text="Направление" />
-                <Label Style="{StaticResource SideFrameText}" Text="Зал" />
-                <Label Style="{StaticResource SideFrameText}" Text="Тренер" />
+                <Label Style="{StaticResource MainFrameText}" Text="{Binding DirectionText}" />
+                <Label Style="{StaticResource SideFrameText}" Text="{Binding HallText}" />
+                <Label Style="{StaticResource SideFrameText}" Text="{Binding TrainerText}" />
                 <Label Style="{StaticResource SideFrameText}" Text="{Binding StartDate}" />
             </VerticalStackLayout>
 

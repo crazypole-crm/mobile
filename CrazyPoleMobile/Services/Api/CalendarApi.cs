@@ -13,6 +13,8 @@ namespace CrazyPoleMobile.Services.Api
         {
             public long StartDate { get; set; }
             public long EndDate { get; set; }
+            [JsonInclude]
+            public string[] TrainingIds { get; set; }
         }
 
         private struct UsersData
@@ -83,7 +85,7 @@ namespace CrazyPoleMobile.Services.Api
             return directionData;
         }
 
-        public async Task<List<ApiTrainingData>> GetTrainingsForPeriod(DateTime start, DateTime end)
+        public async Task<List<ApiTrainingData>> GetTrainingsForPeriod(DateTime start, DateTime end, List<string> ids = null)
         {
             HttpResponseMessage response = null;
             List<ApiTrainingData> trainingData = new();
@@ -95,11 +97,12 @@ namespace CrazyPoleMobile.Services.Api
                     new()
                     {
                         StartDate = ((DateTimeOffset)start).ToUnixTimeMilliseconds(),
-                        EndDate = ((DateTimeOffset)end).ToUnixTimeMilliseconds()
+                        EndDate = ((DateTimeOffset)end).ToUnixTimeMilliseconds(),
+                        TrainingIds = ids?.ToArray()
                     });
 
                 var inputJson = await response.Content.ReadAsStreamAsync();
-                var inputJson1 = await response.Content.ReadAsStringAsync();
+                var str = await response.Content.ReadAsStringAsync();
                 trainingData = await JsonSerializer.DeserializeAsync<List<ApiTrainingData>>(inputJson, _jsonOptions);
         }
             catch
@@ -153,8 +156,9 @@ namespace CrazyPoleMobile.Services.Api
 
         public async Task<List<ApiUserData>> GetTrainers()
         {
-            HttpResponseMessage response = new();
+            HttpResponseMessage response = null;
             List<ApiUserData> TrainersData = new();
+            Retry:
             try
             {
                 response = await HostConfiguration.Client.PostAsync(
@@ -166,10 +170,80 @@ namespace CrazyPoleMobile.Services.Api
             }
             catch
             {
+                if (response == null)
+                {
+                    await Task.Delay(3000);
+                    goto Retry;
+                }
                 response.StatusCode = HttpStatusCode.ServiceUnavailable;
             }
 
             return TrainersData;
+        }
+        public async Task<HttpData<List<ApiRegistrationData>>> GetRegistrationList()
+        {
+            HttpResponseMessage response = null;
+            HttpData<List<ApiRegistrationData>> data = new();
+            Retry:
+            try
+            {
+                response = await HostConfiguration.Client.PostAsync(
+                    $"{HostConfiguration.HOST_NAME}{HostConfiguration.GET_CURR_REGISTRATIONS}", null);
+
+                data.Status = response.StatusCode;
+                var inputJson = await response.Content.ReadAsStreamAsync();
+                data.Data = await JsonSerializer.DeserializeAsync<List<ApiRegistrationData>>(inputJson, _jsonOptions);
+            }
+            catch
+            {
+                if (response == null)
+                {
+                    await Task.Delay(3000);
+                    goto Retry;
+                }
+                response.StatusCode = HttpStatusCode.ServiceUnavailable;
+            }
+            return data;
+        }
+        public async Task<HttpStatusCode> RegisterOnTraining(string trainingId)
+        {
+            HttpResponseMessage response = null;
+            Retry:
+            try
+            {
+                response = await HostConfiguration.Client.PostAsync(
+                    $"{HostConfiguration.HOST_NAME}/training/{trainingId}/registration/register", null);
+            }
+            catch
+            {
+                if (response == null)
+                {
+                    await Task.Delay(3000);
+                    goto Retry;
+                }
+                response.StatusCode = HttpStatusCode.ServiceUnavailable;
+            }
+            return response.StatusCode;
+        }
+        public async Task<HttpStatusCode> RemoveRegister(string registrationId)
+        {
+            HttpResponseMessage response = null;
+            Retry:
+            try
+            {
+                response = await HostConfiguration.Client.PostAsync(
+                    $"{HostConfiguration.HOST_NAME}/training/registration/{registrationId}/remove", null);
+            }
+            catch
+            {
+                if (response == null)
+                {
+                    await Task.Delay(3000);
+                    goto Retry;
+                }
+                response.StatusCode = HttpStatusCode.ServiceUnavailable;
+            }
+            return response.StatusCode;
         }
     }
 }

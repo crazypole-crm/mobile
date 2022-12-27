@@ -5,6 +5,7 @@ using CrazyPoleMobile.Services;
 using System.Collections.ObjectModel;
 using CrazyPoleMobile.Extensions;
 using CrazyPoleMobile.Helpers;
+using CrazyPoleMobile.Services.Api;
 
 namespace CrazyPoleMobile.MVVM.ViewModels
 {
@@ -119,7 +120,6 @@ namespace CrazyPoleMobile.MVVM.ViewModels
             var daysAfter = 7 - dayOfWeek;
 
             await SetDays(selectedDay.Date, daysBefore, daysAfter);
-
             await SelectDay(selectedDay);
         }
 
@@ -214,7 +214,11 @@ namespace CrazyPoleMobile.MVVM.ViewModels
         private void OpenRegistrationPopup(TrainingData trainingData)
         {
             this.OpenRegistrationForLesson(
-                ok: new Command(() => { }),
+                ok: new Command(async () => 
+                {
+                    var calendarApi = ServiceHelper.GetService<CalendarApi>();
+                    await calendarApi.RegisterOnTraining(trainingData.Id);
+                }),
                 cancel: new Command(() => { }),
                 data: trainingData
                 );

@@ -46,23 +46,58 @@ namespace CrazyPoleMobile.MVVM.ViewModels
             });
         }
 
-        private void InitSignedTrainings()
+        public async void InitSignedTrainings()
         {
             LoadSignRegistrationsProcess = true;
-            // TODO - Добавить загрузку с бэка
-            var sign = new List<TrainingData>() 
-            {
-                new () {}
-            };
+            SignedTrainings.Clear();
+            var registrations = await _calendarApi.GetRegistrationList();
 
-            foreach (var training in sign)
+            var regData = registrations.Data.DistinctBy((x) => x.Id);
+
+            if (registrations.Status != System.Net.HttpStatusCode.OK) return;
+
+            var calendarService = ServiceHelper.GetService<CalendarService>();
+
+            DateTime now = DateTime.Now;
+            DateTime twoWeek = now.AddDays(14);
+
+            var trainings = await _calendarApi.GetTrainingsForPeriod(
+                now.Date, twoWeek.Date,
+                registrations.Data.Select(x => x.TrainingId).ToList());
+            var directions = await calendarService.GetDirections();
+            var halls = await calendarService.GetHalls();
+            var trainers = await calendarService.GetTrainers();
+
+
+            foreach (var apiReg in regData)
             {
-                training.UnregistrationCommand = new Command(() => 
+                var apiTraining = trainings.FirstOrDefault((train) => train.TrainingId == apiReg.TrainingId);
+
+                if (apiTraining == null) continue;
+
+                var training = new TrainingData(
+                    apiTraining.BaseTrainingId,
+                    apiTraining.TrainingId,
+                    directions.FirstOrDefault(dir => dir.Id == apiTraining.CourseId),
+                    trainers.FirstOrDefault(trainer => trainer.Id == apiTraining.TrainerId),
+                    halls.FirstOrDefault(hall => hall.Id == apiTraining.HallId),
+                    DateTimeOffset.FromUnixTimeSeconds(apiTraining.StartDate).DateTime.ToLocalTime(),
+                    DateTimeOffset.FromUnixTimeSeconds(apiTraining.EndDate).DateTime.ToLocalTime(),
+                    apiTraining.Description,
+                    apiTraining.AvailableRegistrationsCount,
+                    apiTraining.IsCanceled,
+                    apiTraining.IsMoved,
+                    apiTraining.IsTrainerChanged);
+
+                training.UnregistrationCommand = new Command(async () => 
                 {
-                    //TODO - Добавить отписку от занятия
+                    var regId = registrations.Data.FirstOrDefault(reg => reg.TrainingId == training.Id);
+
+                    await _calendarApi.RemoveRegister(regId.Id);
                     SignedTrainings.Remove(training);
                     UpdateEmptyView();
                 });
+
                 SignedTrainings.Add(training);
                 UpdateEmptyView();
             }

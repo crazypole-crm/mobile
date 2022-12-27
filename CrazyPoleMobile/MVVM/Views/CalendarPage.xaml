@@ -9,8 +9,7 @@
              xmlns:converter="clr-namespace:CrazyPoleMobile.Converters"
              x:Class="CrazyPoleMobile.MVVM.Views.CalendarPage"
              x:DataType="viewmodel:CalendarPageViewModel"
-             x:Name="CalendarPageRoot"
-             >
+             x:Name="CalendarPageRoot">
     <ContentPage.Resources>
         <converter:DateTimeToCalendarDayConverter x:Key="ToCalendarDay" />
     </ContentPage.Resources>
@@ -117,15 +116,7 @@
                                  ItemsSource="{Binding CurrentDayTrainings}"
                                  SelectionMode="None"
                                  Margin="0,10,0,0"
-                                 IsVisible="{Binding IsPageLoading, Converter={converter:InverseBooleanConverter}}"
-                                 >
-                    <!--<CollectionView.EmptyView>
-                        <ContentView Padding="0, 0, 0, 90">
-                            <StackLayout VerticalOptions="Center">
-
-                            </StackLayout>
-                        </ContentView>
-                    </CollectionView.EmptyView>-->
+                                 IsVisible="{Binding IsPageLoading, Converter={converter:InverseBooleanConverter}}">
                     <CollectionView.GestureRecognizers>
                         <SwipeGestureRecognizer Direction="Left" Command="{Binding SwipeLeftDayCommand}" />
                         <SwipeGestureRecognizer Direction="Right" Command="{Binding SwipeRightDayCommand}" />
