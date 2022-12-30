@@ -42,7 +42,6 @@ namespace CrazyPoleMobile.MVVM.ViewModels
             {
                 InitDirections();
                 InitFavourites();
-                InitSignedTrainings();
             });
         }
 
@@ -61,9 +60,8 @@ namespace CrazyPoleMobile.MVVM.ViewModels
             DateTime now = DateTime.Now;
             DateTime twoWeek = now.AddDays(14);
 
-            var trainings = await _calendarApi.GetTrainingsForPeriod(
-                now.Date, twoWeek.Date,
-                registrations.Data.Select(x => x.TrainingId).ToList());
+            var trainings = await calendarService.GetTrainingsForPeriod(
+                now.Date, twoWeek.Date);
             var directions = await calendarService.GetDirections();
             var halls = await calendarService.GetHalls();
             var trainers = await calendarService.GetTrainers();
@@ -71,23 +69,9 @@ namespace CrazyPoleMobile.MVVM.ViewModels
 
             foreach (var apiReg in regData)
             {
-                var apiTraining = trainings.FirstOrDefault((train) => train.TrainingId == apiReg.TrainingId);
+                var training = trainings.FirstOrDefault((train) => train.Id == apiReg.TrainingId);
 
-                if (apiTraining == null) continue;
-
-                var training = new TrainingData(
-                    apiTraining.BaseTrainingId,
-                    apiTraining.TrainingId,
-                    directions.FirstOrDefault(dir => dir.Id == apiTraining.CourseId),
-                    trainers.FirstOrDefault(trainer => trainer.Id == apiTraining.TrainerId),
-                    halls.FirstOrDefault(hall => hall.Id == apiTraining.HallId),
-                    DateTimeOffset.FromUnixTimeSeconds(apiTraining.StartDate).DateTime.ToLocalTime(),
-                    DateTimeOffset.FromUnixTimeSeconds(apiTraining.EndDate).DateTime.ToLocalTime(),
-                    apiTraining.Description,
-                    apiTraining.AvailableRegistrationsCount,
-                    apiTraining.IsCanceled,
-                    apiTraining.IsMoved,
-                    apiTraining.IsTrainerChanged);
+                if (training == null) continue;
 
                 training.UnregistrationCommand = new Command(async () => 
                 {
@@ -95,6 +79,7 @@ namespace CrazyPoleMobile.MVVM.ViewModels
 
                     await _calendarApi.RemoveRegister(regId.Id);
                     SignedTrainings.Remove(training);
+                    ++training.AvailableRegistrationsCount;
                     UpdateEmptyView();
                 });
 

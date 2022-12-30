@@ -14,7 +14,7 @@ public partial class RegistrationForTraining : Popup
     {
         _okCommand.Execute(null);
         Close();
-    });
+    }, () => _okCommand.CanExecute(null));
     public ICommand CancelCommand => new Command(() => 
     {
         _cancelCommand.Execute(null);

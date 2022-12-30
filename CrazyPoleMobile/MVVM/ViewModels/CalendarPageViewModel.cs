@@ -211,17 +211,25 @@ namespace CrazyPoleMobile.MVVM.ViewModels
 
         private void UpdateTrainingListEmpty() => IsTrainingListEmpty = CurrentDayTrainings.Count == 0;
 
-        private void OpenRegistrationPopup(TrainingData trainingData)
+        private async void OpenRegistrationPopup(TrainingData trainingData)
         {
+            var calendarApi = ServiceHelper.GetService<CalendarApi>();
+            var regList = await calendarApi.GetRegistrationList();
+
+            if (regList.Status != System.Net.HttpStatusCode.OK)
+            {
+                this.SendErrorMessage(regList.Status.ToString());
+                return;
+            }
+
             this.OpenRegistrationForLesson(
-                ok: new Command(async () => 
+                ok: new Command(async () =>
                 {
-                    var calendarApi = ServiceHelper.GetService<CalendarApi>();
+                    --trainingData.AvailableRegistrationsCount;
                     await calendarApi.RegisterOnTraining(trainingData.Id);
-                }),
+                },() => regList.Data.Any(x => x.TrainingId != trainingData.Id) || regList.Data.Count == 0),
                 cancel: new Command(() => { }),
-                data: trainingData
-                );
+                data: trainingData);
         }
 
         private async Task SetDays(DateTime day, uint daysBefore, uint daysAfter)

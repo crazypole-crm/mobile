@@ -23,7 +23,7 @@ namespace CrazyPoleMobile.MVVM.Models
             get => DateEnd.TimeOfDay - DateStart.TimeOfDay;
         }
         public string Description { get; }
-        public int AvailableRegistrationsCount { get; }
+        public int AvailableRegistrationsCount { get; set; }
         public bool IsCanceled { get; set; }
         public bool IsMoved { get; set; }
         public bool IsTrainerChanged { get; set; }
